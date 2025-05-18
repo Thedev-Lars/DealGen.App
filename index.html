@@ -293,6 +293,37 @@
                 margin-bottom: 20px;
             }
         }
+        
+        /* FAQ Styling */
+        .faq-container {
+            margin-top: 30px;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--light);
+        }
+        
+        .faq-question {
+            padding: 15px 20px;
+            background: #f0f7ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .faq-button {
+            font-size: 20px;
+        }
+        
+        .faq-answer {
+            padding: 20px;
+            border-top: 1px solid #e8e8e8;
+        }
     </style>
 </head>
 <body>
@@ -469,297 +500,6 @@
                             
                             <div style="margin-bottom: 25px; padding-top: 10px;">
                                 <strong>Additional Campaign Resource Fees:</strong>
-                                <ul class="resource-list" style="margin-top: 10px;">
-                                    <li>Apollo data access and targeted list creation</li>
-                                    <li>Domain acquisition and email warming process</li>
-                                    <li>Clay AI personalization development (per send)</li>
-                                    <li>Email verification and deliverability tools</li>
-                                    <li>Analytics & tracking software</li>
-                                </ul>
-                                <p style="margin-top: 15px; font-style: italic; font-size: 14px;">These costs vary based on your specific campaign requirements and are transparently billed to ensure you have full visibility into your investment.</p>
-                            </div>
-                            
-                            <div style="margin-bottom: 25px; padding-top: 10px;">
-                                <strong>Standard Account Configuration:</strong>
-                                <ul class="config-list" style="margin-top: 10px;">
-                                    <li>3-15 email accounts setup</li>
-                                    <li>550 sends per email account per month</li>
-                                    <li>Balanced sending schedule to maintain reputation</li>
-                                    <li>Automated bounce and reply management</li>
-                                </ul>
-                            </div>
-                            
-                            <div style="text-align: center; margin-top: 25px;">
-                                <a href="#contact" class="cta-button" style="display: inline-block; padding: 10px 25px;">Schedule a Consultation</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="pricing-column">
-                        <div class="pricing-info">
-                            <div>
-                                <h4 style="text-align: center; margin-bottom: 15px; font-size: 20px;">What To Expect</h4>
-                                <p style="text-align: center; margin-bottom: 25px;"><strong>Total 3-Month Engagement</strong></p>
-                                
-                                <div style="margin-bottom: 25px;">
-                                    <div class="pricing-row" style="padding: 12px 0; display: flex; justify-content: space-between; border-bottom: 1px solid #ddd;">
-                                        <span>DealGen Retainer (3 months):</span>
-                                        <strong>$3,000</strong>
-                                    </div>
-                                    <div class="pricing-row" style="padding: 12px 0; display: flex; justify-content: space-between; border-bottom: 1px solid #ddd;">
-                                        <span>Est. Campaign Resource Fees:</span>
-                                        <strong>$900-1,500</strong>
-                                    </div>
-                                    <div class="pricing-row" style="padding: 12px 0; display: flex; justify-content: space-between; border-bottom: 1px solid #ddd;">
-                                        <span>Total 3-Month Investment:</span>
-                                        <strong>$3,900-4,500</strong>
-                                    </div>
-                                    <div class="pricing-row" style="padding: 12px 0; display: flex; justify-content: space-between; border-bottom: 1px solid #ddd;">
-                                        <span>Typical Qualified Meetings:</span>
-                                        <strong>15-25</strong>
-                                    </div>
-                                    <div class="pricing-row" style="padding: 12px 0; display: flex; justify-content: space-between; border-bottom: 1px solid #ddd;">
-                                        <span>Average Cost Per Meeting:</span>
-                                        <strong>$156-300</strong>
-                                    </div>
-                                    <div class="highlighted-row" style="display: flex; justify-content: space-between; padding: 15px 10px; background: #e8f1ff; margin-top: 15px; border-radius: 5px;">
-                                        <span><strong>ROI on Average Deal Size:</strong></span>
-                                        <strong>5-10x</strong>
-                                    </div>
-                                </div>
-                                
-                                <div style="margin-top: 25px;">
-                                    <h5 style="margin-bottom: 10px;">Why This Model Works</h5>
-                                    <p>Our transparent approach separates our service fee from platform costs, ensuring you have full visibility into where your money goes. This model aligns our incentives with your success - we focus on quality results rather than marking up third-party tools.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="renewal-info">
-                                <h5 style="margin-bottom: 10px;">Post Initial Engagement</h5>
-                                <p>After your initial 3-month engagement, we offer renewal at <strong>$1,750/month</strong>, reflecting the established foundation and enhanced optimization we can provide. This advanced tier includes more sophisticated targeting, deeper analytics, and expanded personalization capabilities that deliver significantly higher ROI based on learnings from your initial campaign data.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="process" class="process">
-        <div class="container">
-            <div class="section-title">
-                <h2>Implementation Process</h2>
-                <p>Our structured approach ensures consistent results while maintaining flexibility for each client's unique needs</p>
-            </div>
-            
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <h4 style="margin-bottom: 10px; color: var(--primary);">Week 1: Strategic Foundation</h4>
-                    <ul class="feature-list">
-                        <li>Comprehensive intake questionnaire completion</li>
-                        <li>In-depth kickoff call to identify goals and success metrics</li>
-                        <li>ICP development and validation</li>
-                        <li>Domain purchasing and 3-week warming initiation</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4 style="margin-bottom: 10px; color: var(--primary);">Week 2: Technical Setup</h4>
-                    <ul class="feature-list">
-                        <li>Email sending platform setup</li>
-                        <li>Deliverability optimization</li>
-                        <li>Tracking and analytics implementation</li>
-                        <li>Prospect list development</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4 style="margin-bottom: 10px; color: var(--primary);">Week 3: Campaign Launch</h4>
-                    <ul class="feature-list">
-                        <li>Messaging sequence development</li>
-                        <li>AI-driven personalization implementation</li>
-                        <li>Initial campaign deployment</li>
-                        <li>First-week monitoring and adjustments</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card">
-                    <h4 style="margin-bottom: 10px; color: var(--primary);">Ongoing Optimization</h4>
-                    <ul class="feature-list">
-                        <li>Weekly performance analysis report</li>
-                        <li>A/B testing of messaging and timing</li>
-                        <li>List refinement and expansion</li>
-                        <li>Strategy adaptation based on data insights</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>Client Success Stories</h2>
-                <p>Real results from businesses just like yours</p>
-            </div>
-            
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <h4 style="margin-bottom: 10px; color: var(--primary);">SaaS Platform</h4>
-                    <p style="font-style: italic; margin-bottom: 15px;">"After working with three different cold email agencies, we finally found a team that actually delivers on their promises. Their data-driven approach generated 14 qualified meetings in our first month—more than the previous agencies combined."</p>
-                    <p><strong>Results:</strong> 3.5x higher response rates, 14 qualified meetings in first month</p>
-                </div>
-                
-                <div class="tech-card">
-                    <h4 style="margin-bottom: 10px; color: var(--primary);">Financial Services</h4>
-                    <p style="font-style: italic; margin-bottom: 15px;">"Their attention to detail makes all the difference. They didn't just increase our response rates—they improved our entire outbound process. Their approach has become our blueprint for all customer acquisition efforts."</p>
-                    <p><strong>Results:</strong> Significant improvement in outbound process quality and response rates</p>
-                </div>
-                
-                <div class="tech-card">
-                    <h4 style="margin-bottom: 10px; color: var(--primary);">B2B Service Provider</h4>
-                    <p style="font-style: italic; margin-bottom: 15px;">"What impressed me most was how they protected our domain reputation while scaling outreach. We're now reaching 3x more prospects with 5x better engagement rates, without any deliverability issues."</p>
-                    <p><strong>Results:</strong> 18 qualified meetings, 8 proposals, 6 new clients</p>
-                </div>
-                
-                <div class="tech-card">
-                    <h4 style="margin-bottom: 10px; color: var(--primary);">Technology Executive</h4>
-                    <p style="font-style: italic; margin-bottom: 15px;">"I tried to set up email domains myself and after 2 months of frustration, I hired professionals. The team handled everything for me, and it was totally worth the investment."</p>
-                    <p><strong>Results:</strong> Eliminated technical setup frustration, saved valuable time and resources</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- FAQ Section -->
-    <section id="faq">
-        <div class="container">
-            <div class="section-title">
-                <h2>Common Questions from Business Owners</h2>
-                <p>Get answers to frequently asked questions about our cold email services</p>
-            </div>
-            
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How is this different from other cold email services?</span>
-                        <div class="faq-button">+</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Unlike most agencies that focus on volume, we prioritize quality and deliverability. Our approach combines technical expertise with personalized messaging tailored specifically to your ideal prospects. We handle all the technical setup and ongoing management so you can focus on closing deals, not managing email infrastructure.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How soon can I expect to see results?</span>
-                        <div class="faq-button">+</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>While results vary by industry and target audience, most clients begin seeing qualified meetings within the first 2-3 weeks after campaign launch. Our initial 3-month commitment allows us to optimize your campaigns for maximum effectiveness, with performance typically improving month-over-month as we refine our approach based on data.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Will this hurt my company's email reputation?</span>
-                        <div class="faq-button">+</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Absolutely not—in fact, we prioritize maintaining and improving your domain reputation. We use dedicated sending domains separate from your primary business email, implement proper warming protocols, adhere to all email compliance standards, and carefully monitor deliverability metrics to ensure optimal inbox placement.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How involved do I need to be in the process?</span>
-                        <div class="faq-button">+</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Our service is designed for busy business owners who want results without day-to-day management. After the initial strategy session and approval of messaging, we handle all the implementation and ongoing optimization. You'll receive weekly performance reports and will only need to engage for scheduled check-ins or to make strategic adjustments as your business needs evolve.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What makes for a successful campaign?</span>
-                        <div class="faq-button">+</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>The most successful campaigns have a well-defined ideal customer profile, a compelling value proposition, and a clear next step for interested prospects. We work with you to develop all these components, but clients who have a strong understanding of their target market and unique selling points typically see the fastest results.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What if I don't have a list of prospects?</span>
-                        <div class="faq-button">+</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We handle all prospect list development for you. Based on your ideal customer profile, we'll research and identify qualified prospects, verify their contact information, and build targeted lists for your campaigns. This data-driven approach ensures we're reaching the right decision-makers at companies that match your criteria.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="cta" style="background: linear-gradient(to right, var(--primary), #2b6cc4); color: var(--white); text-align: center;">
-        <div class="container">
-            <h2 style="font-size: 32px; margin-bottom: 20px;">Ready to Transform Your Business Growth?</h2>
-            <p style="font-size: 18px; max-width: 600px; margin: 0 auto 30px;">Book a strategy call to discuss how our precision cold email approach can help you generate more qualified sales conversations without the technical headaches.</p>
-            <div style="display: flex; justify-content: center; gap: 20px;">
-                <a href="#contact" class="cta-button" style="background: var(--white); color: var(--primary);">Schedule a Consultation</a>
-                <a href="#pricing" class="cta-button">View Pricing Details</a>
-            </div>
-        </div>
-    </section>
-    
-    <script>
-        // Enhanced FAQ Toggle with visual indicators
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                const isOpen = question.classList.contains('active');
-                
-                // Close all answers
-                document.querySelectorAll('.faq-answer').forEach(item => {
-                    item.style.display = 'none';
-                });
-                
-                document.querySelectorAll('.faq-question').forEach(q => {
-                    q.classList.remove('active');
-                });
-                
-                document.querySelectorAll('.faq-button').forEach(btn => {
-                    btn.textContent = '+';
-                });
-                
-                // Toggle current answer
-                if (!isOpen) {
-                    answer.style.display = 'block';
-                    question.classList.add('active');
-                    question.querySelector('.faq-button').textContent = '−';
-                }
-            });
-        });
-        
-        // Hide all answers initially
-        document.querySelectorAll('.faq-answer').forEach(answer => {
-            answer.style.display = 'none';
-        });
-    </script>
-</body>
-</html>
-                                    <li>AI-powered message personalization</li>
-                                    <li>Technical setup & optimization</li>
-                                    <li>Ongoing campaign management</li>
-                                    <li>Weekly performance reporting</li>
-                                    <li>Expert team of specialists</li>
-                                </ul>
-                            </div>
-                            
-                            <div style="margin-bottom: 25px; padding-top: 10px;">
-                                <strong>Additional Campaign Resource Fees:</strong>
                                 <ul style="padding-left: 20px; margin-top: 10px;">
                                     <li>Apollo data access and targeted list creation</li>
                                     <li>Domain acquisition and email warming process</li>
@@ -767,7 +507,7 @@
                                     <li>Email verification and deliverability tools</li>
                                     <li>Analytics & tracking software</li>
                                 </ul>
-                                <p style="margin-top: 10px; font-style: italic; font-size: 14px;">These costs vary based on your specific campaign requirements and are transparently billed to ensure you have full visibility into your investment.</p>
+                                <p style="margin-top: 15px; font-style: italic; font-size: 14px;">These costs vary based on your specific campaign requirements and are transparently billed to ensure you have full visibility into your investment.</p>
                             </div>
                             
                             <div style="margin-bottom: 25px; padding-top: 10px;">
@@ -827,43 +567,6 @@
                             
                             <div style="margin-top: 20px; background: #f0f7ff; padding: 20px; border-radius: 8px;">
                                 <h5 style="margin-bottom: 10px; color: var(--primary);">Post Initial Engagement</h5>
-                                <p>After your initial 3-month engagement, we offer renewal at <strong>$1,750/month</strong>, reflecting the established foundation and enhanced optimization we can provide. This advanced tier includes more sophisticated targeting, deeper analytics, and expanded personalization capabilities that deliver significantly higher ROI based on learnings from your initial campaign data.</p>Month Engagement</strong></p>
-                                
-                                <div style="margin-bottom: 25px;">
-                                    <div class="pricing-row" style="padding: 12px 0; display: flex; justify-content: space-between; border-bottom: 1px solid #ddd;">
-                                        <span>DealGen Retainer (3 months):</span>
-                                        <strong>$3,000</strong>
-                                    </div>
-                                    <div class="pricing-row" style="padding: 12px 0; display: flex; justify-content: space-between; border-bottom: 1px solid #ddd;">
-                                        <span>Est. Campaign Resource Fees:</span>
-                                        <strong>$900-1,500</strong>
-                                    </div>
-                                    <div class="pricing-row" style="padding: 12px 0; display: flex; justify-content: space-between; border-bottom: 1px solid #ddd;">
-                                        <span>Total 3-Month Investment:</span>
-                                        <strong>$3,900-4,500</strong>
-                                    </div>
-                                    <div class="pricing-row" style="padding: 12px 0; display: flex; justify-content: space-between; border-bottom: 1px solid #ddd;">
-                                        <span>Typical Qualified Meetings:</span>
-                                        <strong>15-25</strong>
-                                    </div>
-                                    <div class="pricing-row" style="padding: 12px 0; display: flex; justify-content: space-between; border-bottom: 1px solid #ddd;">
-                                        <span>Average Cost Per Meeting:</span>
-                                        <strong>$156-300</strong>
-                                    </div>
-                                    <div class="highlighted-row" style="display: flex; justify-content: space-between; padding: 15px 10px; background: #e8f1ff; margin-top: 15px; border-radius: 5px;">
-                                        <span><strong>ROI on Average Deal Size:</strong></span>
-                                        <strong>5-10x</strong>
-                                    </div>
-                                </div>
-                                
-                                <div style="margin-top: 25px;">
-                                    <h5 style="margin-bottom: 10px; color: var(--primary);">Why This Model Works</h5>
-                                    <p>Our transparent approach separates our service fee from platform costs, ensuring you have full visibility into where your money goes. This model aligns our incentives with your success - we focus on quality results rather than marking up third-party tools.</p>
-                                </div>
-                            </div>
-                            
-                            <div style="margin-top: 20px; background: #f0f7ff; padding: 20px; border-radius: 8px;">
-                                <h5 style="margin-bottom: 10px; color: var(--primary);">Post Initial Engagement</h5>
                                 <p>After your initial 3-month engagement, we offer renewal at <strong>$1,750/month</strong>, reflecting the established foundation and enhanced optimization we can provide. This advanced tier includes more sophisticated targeting, deeper analytics, and expanded personalization capabilities that deliver significantly higher ROI based on learnings from your initial campaign data.</p>
                             </div>
                         </div>
@@ -971,7 +674,7 @@
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>How is this different from other cold email services?</span>
-                        <span>+</span>
+                        <div class="faq-button">+</div>
                     </div>
                     <div class="faq-answer">
                         <p>Unlike most agencies that focus on volume, we prioritize quality and deliverability. Our approach combines technical expertise with personalized messaging tailored specifically to your ideal prospects. We handle all the technical setup and ongoing management so you can focus on closing deals, not managing email infrastructure.</p>
@@ -981,7 +684,7 @@
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>How soon can I expect to see results?</span>
-                        <span>+</span>
+                        <div class="faq-button">+</div>
                     </div>
                     <div class="faq-answer">
                         <p>While results vary by industry and target audience, most clients begin seeing qualified meetings within the first 2-3 weeks after campaign launch. Our initial 3-month commitment allows us to optimize your campaigns for maximum effectiveness, with performance typically improving month-over-month as we refine our approach based on data.</p>
@@ -991,7 +694,7 @@
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>Will this hurt my company's email reputation?</span>
-                        <span>+</span>
+                        <div class="faq-button">+</div>
                     </div>
                     <div class="faq-answer">
                         <p>Absolutely not—in fact, we prioritize maintaining and improving your domain reputation. We use dedicated sending domains separate from your primary business email, implement proper warming protocols, adhere to all email compliance standards, and carefully monitor deliverability metrics to ensure optimal inbox placement.</p>
@@ -1001,75 +704,7 @@
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>How involved do I need to be in the process?</span>
-                        <span>+</span>
+                        <div class="faq-button">+</div>
                     </div>
                     <div class="faq-answer">
-                        <p>Our service is designed for busy business owners who want results without day-to-day management. After the initial strategy session and approval of messaging, we handle all the implementation and ongoing optimization. You'll receive weekly performance reports and will only need to engage for scheduled check-ins or to make strategic adjustments as your business needs evolve.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What makes for a successful campaign?</span>
-                        <span>+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>The most successful campaigns have a well-defined ideal customer profile, a compelling value proposition, and a clear next step for interested prospects. We work with you to develop all these components, but clients who have a strong understanding of their target market and unique selling points typically see the fastest results.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What if I don't have a list of prospects?</span>
-                        <span>+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We handle all prospect list development for you. Based on your ideal customer profile, we'll research and identify qualified prospects, verify their contact information, and build targeted lists for your campaigns. This data-driven approach ensures we're reaching the right decision-makers at companies that match your criteria.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="cta" style="background: linear-gradient(to right, var(--primary), #2b6cc4); color: var(--white); text-align: center;">
-        <div class="container">
-            <h2 style="font-size: 32px; margin-bottom: 20px;">Ready to Transform Your Business Growth?</h2>
-            <p style="font-size: 18px; max-width: 600px; margin: 0 auto 30px;">Book a strategy call to discuss how our precision cold email approach can help you generate more qualified sales conversations without the technical headaches.</p>
-            <div style="display: flex; justify-content: center; gap: 20px;">
-                <a href="#contact" class="cta-button" style="background: var(--white); color: var(--primary);">Schedule a Consultation</a>
-                <a href="#pricing" class="cta-button">View Pricing Details</a>
-            </div>
-        </div>
-    </section>
-    
-    <script>
-        // Simple FAQ Toggle
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                const isOpen = answer.style.display === 'block';
-                
-                // Close all answers
-                document.querySelectorAll('.faq-answer').forEach(item => {
-                    item.style.display = 'none';
-                });
-                
-                document.querySelectorAll('.faq-question span:last-child').forEach(span => {
-                    span.textContent = '+';
-                });
-                
-                // Toggle current answer
-                if (!isOpen) {
-                    answer.style.display = 'block';
-                    question.querySelector('span:last-child').textContent = '−';
-                }
-            });
-        });
-        
-        // Hide all answers initially
-        document.querySelectorAll('.faq-answer').forEach(answer => {
-            answer.style.display = 'none';
-        });
-    </script>
-</body>
-</html>
+                        <p>Our service is designed for busy business owners who want results without day-to-day management. After the initial strategy session and approval of messaging, we handle all the implementation and ongoing optimization. You
