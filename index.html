@@ -715,72 +715,39 @@
             </div>
         </div>
     </section>
+    // Replace the existing script at the bottom of your HTML with this code
+document.addEventListener('DOMContentLoaded', function() {
+    // Hide all answers initially
+    document.querySelectorAll('.faq-answer').forEach(answer => {
+        answer.style.display = 'none';
+    });
     
-    <!-- FAQ Section -->
-    <section id="faq">
-        <div class="container">
-            <div class="section-title">
-                <h2>Common Questions from Business Owners</h2>
-                <p>Get answers to frequently asked questions about our cold email services</p>
-            </div>
+    // Add click event listeners to questions
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', function() {
+            const answer = this.nextElementSibling;
+            const faqButton = this.querySelector('.faq-button');
+            const isOpen = answer.style.display === 'block';
             
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How is this different from other cold email services?</span>
-                        <div class="faq-button">+</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Unlike most agencies that focus on volume, we prioritize quality and deliverability. Our approach combines technical expertise with personalized messaging tailored specifically to your ideal prospects. We handle all the technical setup and ongoing management so you can focus on closing deals, not managing email infrastructure.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How soon can I expect to see results?</span>
-                        <div class="faq-button">+</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>While results vary by industry and target audience, most clients begin seeing qualified meetings within the first 2-3 weeks after campaign launch. Our initial 3-month commitment allows us to optimize your campaigns for maximum effectiveness, with performance typically improving month-over-month as we refine our approach based on data.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>Will this hurt my company's email reputation?</span>
-                        <div class="faq-button">+</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Absolutely not—in fact, we prioritize maintaining and improving your domain reputation. We use dedicated sending domains separate from your primary business email, implement proper warming protocols, adhere to all email compliance standards, and carefully monitor deliverability metrics to ensure optimal inbox placement.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>How involved do I need to be in the process?</span>
-                        <div class="faq-button">+</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Our service is designed for busy business owners who want results without day-to-day management. After the initial strategy session and approval of messaging, we handle all the implementation and ongoing optimization. You'll receive weekly performance reports and will only need to engage for scheduled check-ins or to make strategic adjustments as your business needs evolve.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What makes for a successful campaign?</span>
-                        <div class="faq-button">+</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>The most successful campaigns have a well-defined ideal customer profile, a compelling value proposition, and a clear next step for interested prospects. We work with you to develop all these components, but clients who have a strong understanding of their target market and unique selling points typically see the fastest results.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <span>What if I don't have a list of prospects?</span>
-                        <div class="faq-button">+</div>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We handle all prospect list development for you. Based on your ideal customer profile, we'll research and identify qualified prospects, verify their contact information, and build targeted lists for your campaigns. This data-driven approach ensures we're reaching the right decision-makers at companies that match your criteria.</p>
-                    </div>
-                </div>
+            // Close all answers
+            document.querySelectorAll('.faq-answer').forEach(item => {
+                item.style.display = 'none';
+            });
+            
+            document.querySelectorAll('.faq-question').forEach(q => {
+                q.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.faq-button').forEach(btn => {
+                btn.textContent = '+';
+            });
+            
+            // Toggle current answer
+            if (!isOpen) {
+                answer.style.display = 'block';
+                this.classList.add('active');
+                faqButton.textContent = '−';
+            }
+        });
+    });
+});
