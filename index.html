@@ -363,6 +363,67 @@
             border-top: 1px solid rgba(255,255,255,0.2);
         }
         
+        /* CTA Banner Styles */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--primary) 0%, #003d91 100%);
+            padding: 50px 0;
+            margin-top: 40px;
+            border-radius: 10px;
+            color: var(--white);
+        }
+        
+        .banner-content {
+            text-align: center;
+        }
+        
+        .banner-content h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .banner-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .banner-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .banner-buttons .cta-button {
+            background: var(--accent);
+            font-size: 18px;
+            padding: 12px 30px;
+        }
+        
+        .banner-buttons .cta-button:hover {
+            background: #e55a2a;
+        }
+        
+        .email-contact {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            gap: 5px;
+        }
+        
+        .email-contact a {
+            color: var(--white);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        
+        .email-contact a:hover {
+            color: var(--accent);
+        }
+        
         /* Responsiveness */
         @media (max-width: 768px) {
             .hero h1 {
@@ -376,6 +437,16 @@
             .hero-text, .hero-image, .comparison-column, .tech-card, .footer-column {
                 width: 100%;
                 margin-bottom: 20px;
+            }
+            
+            .banner-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .email-contact {
+                flex-direction: column;
+                gap: 5px;
             }
         }
     </style>
@@ -679,3 +750,50 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- CTA Banner Section -->
+    <section class="cta-banner">
+        <div class="container">
+            <div class="banner-content">
+                <h2>Ready to Transform Your Outreach Strategy?</h2>
+                <p>Book a free strategy call today or reach out via email to get started.</p>
+                <div class="banner-buttons">
+                    <a href="https://calendly.com/yourlink" class="cta-button">Schedule Your Call</a>
+                    <div class="email-contact">
+                        <span>Or contact us: </span>
+                        <a href="mailto:your@email.com">your@email.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with Copyright -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>DealGen.app</h4>
+                    <p>Precision cold email campaigns that generate qualified conversations and protect your sender reputation.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <a href="#about">Why Us</a>
+                    <a href="#process">Our Process</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#testimonials">Results</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <p>Email: <a href="mailto:your@email.com">your@email.com</a></p>
+                    <p><a href="https://calendly.com/yourlink">Book a Strategy Call</a></p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 DealGen. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
