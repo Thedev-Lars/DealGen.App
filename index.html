@@ -449,108 +449,40 @@
                 gap: 5px;
             }
         }
-   /* Mobile fixes - Add these at the end of your existing CSS */
-body {
-    width: 100%;
-    overflow-x: hidden;
-}
-
-.highlighted-row span {
-    white-space: nowrap;
-    padding-right: 10px;
-}
-
-.highlighted-row strong {
-    white-space: nowrap;
-}
-
-@media (max-width: 850px) {
-    .pricing-row, .highlighted-row {
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .pricing-row span, .highlighted-row span {
-        padding-right: 10px;
-        max-width: 60%;
-    }
-}
-
+ /* Fixed header for mobile - stronger rules */
 @media (max-width: 768px) {
-    .pricing-box {
-        padding: 20px;
-    }
-    
-    .pricing-card, .pricing-info {
-        padding: 20px;
-    }
-    
-    .highlighted-row {
-        padding: 15px 10px;
-    }
-    
-    .highlighted-row span, 
-    .highlighted-row strong {
-        white-space: normal;
-        text-align: left;
-    }
-    
-    footer {
-        padding: 30px 0;
-    }
-    
-    .cta-banner {
-        padding: 25px 0;
-    }
-}
-
-@media (max-width: 480px) {
-    .highlighted-row span strong {
-        display: inline;
-    }
-    
-    .highlighted-row strong {
-        margin-left: auto;
-    }
-    
-    .cta-banner {
-        padding: 20px 0;
-    }
-    
-    .cta-banner p {
-        margin-bottom: 15px;
-    }
-    
-    footer {
-        padding: 25px 0;
-    }
-}
-        /* Fix for header width on mobile */
-@media (max-width: 768px) {
-    body {
-        padding: 0;
+    html, body {
+        width: 100% !important;
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
     
     header {
-        width: 100%;
-        max-width: 100vw;
-        margin-left: 0;
-        margin-right: 0;
-        padding: 0;
-        box-sizing: border-box;
+        width: 100% !important;
+        max-width: 100% !important;
+        position: relative !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 0 20px 0 !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
     }
     
     .container {
-        width: 90%;
-        margin: 0 auto;
-        padding: 0 10px;
+        width: 90% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 10px !important;
+        box-sizing: border-box !important;
     }
     
-    nav {
-        padding: 15px 0;
-        width: 100%;
+    section {
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box !important;
     }
 }
     </style>
