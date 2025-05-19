@@ -25,7 +25,7 @@
             color: var(--dark);
             background: var(--light);
             line-height: 1.6;
-            max-width: 90%;
+            max-width: 100%;
             margin: 0 auto;
         }
         
@@ -449,6 +449,84 @@
                 gap: 5px;
             }
         }
+   /* Mobile fixes - Add these at the end of your existing CSS */
+body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.highlighted-row span {
+    white-space: nowrap;
+    padding-right: 10px;
+}
+
+.highlighted-row strong {
+    white-space: nowrap;
+}
+
+@media (max-width: 850px) {
+    .pricing-row, .highlighted-row {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .pricing-row span, .highlighted-row span {
+        padding-right: 10px;
+        max-width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .pricing-box {
+        padding: 20px;
+    }
+    
+    .pricing-card, .pricing-info {
+        padding: 20px;
+    }
+    
+    .highlighted-row {
+        padding: 15px 10px;
+    }
+    
+    .highlighted-row span, 
+    .highlighted-row strong {
+        white-space: normal;
+        text-align: left;
+    }
+    
+    footer {
+        padding: 30px 0;
+    }
+    
+    .cta-banner {
+        padding: 25px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .highlighted-row span strong {
+        display: inline;
+    }
+    
+    .highlighted-row strong {
+        margin-left: auto;
+    }
+    
+    .cta-banner {
+        padding: 20px 0;
+    }
+    
+    .cta-banner p {
+        margin-bottom: 15px;
+    }
+    
+    footer {
+        padding: 25px 0;
+    }
+}
     </style>
 </head>
 <body>
