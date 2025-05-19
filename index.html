@@ -485,22 +485,55 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">Deal<span>Gen</span>.app</div>
-             <div class="nav-links">
-    <a href="#about">Why Us</a>
-    <a href="#how-it-works">How It Works</a>
-    <a href="#domain-health">Domain Protection</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#faq">FAQ</a>
-    <a href="#testimonials">Results</a>
-</div>
-                <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button">Get Started</a>
-            </nav>
-        </div>
-    </header>
+  <!-- Update your header section with this code -->
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <img src="DG-logo.png" alt="DealGen.app Logo" style="height: 50px; width: auto;" />
+            </div>
+            <div class="nav-links">
+                <a href="#about">Why Us</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#domain-health">Domain Protection</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
+                <a href="#testimonials">Results</a>
+            </div>
+            <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button">Get Started</a>
+        </nav>
+    </div>
+</header>
+
+<!-- CSS Updates for the logo - add these to your existing CSS -->
+<style>
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+    
+    .logo img {
+        max-height: 50px;
+        width: auto;
+        transition: transform 0.3s ease;
+    }
+    
+    .logo img:hover {
+        transform: scale(1.05);
+    }
+    
+    @media (max-width: 768px) {
+        .logo img {
+            max-height: 40px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .logo img {
+            max-height: 35px;
+        }
+    }
+</style>
 
    <section class="hero">
     <div class="container">
