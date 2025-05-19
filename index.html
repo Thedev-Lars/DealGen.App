@@ -527,6 +527,32 @@ body {
         padding: 25px 0;
     }
 }
+        /* Fix for header width on mobile */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+    
+    header {
+        width: 100%;
+        max-width: 100vw;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    .container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 0 10px;
+    }
+    
+    nav {
+        padding: 15px 0;
+        width: 100%;
+    }
+}
     </style>
 </head>
 <body>
