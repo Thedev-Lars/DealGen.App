@@ -714,40 +714,40 @@
                 </div>
             </div>
         </div>
-    </section>
-    // Replace the existing script at the bottom of your HTML with this code
-document.addEventListener('DOMContentLoaded', function() {
-    // Hide all answers initially
-    document.querySelectorAll('.faq-answer').forEach(answer => {
-        answer.style.display = 'none';
-    });
-    
-    // Add click event listeners to questions
-    document.querySelectorAll('.faq-question').forEach(question => {
-        question.addEventListener('click', function() {
-            const answer = this.nextElementSibling;
-            const faqButton = this.querySelector('.faq-button');
-            const isOpen = answer.style.display === 'block';
-            
-            // Close all answers
-            document.querySelectorAll('.faq-answer').forEach(item => {
-                item.style.display = 'none';
-            });
-            
-            document.querySelectorAll('.faq-question').forEach(q => {
-                q.classList.remove('active');
-            });
-            
-            document.querySelectorAll('.faq-button').forEach(btn => {
-                btn.textContent = '+';
-            });
-            
-            // Toggle current answer
-            if (!isOpen) {
-                answer.style.display = 'block';
-                this.classList.add('active');
-                faqButton.textContent = '−';
-            }
-        });
-    });
-});
+ <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      // Hide all answers initially
+      document.querySelectorAll('.faq-answer').forEach(answer => {
+          answer.style.display = 'none';
+      });
+      
+      // Add click event listeners to questions
+      document.querySelectorAll('.faq-question').forEach(question => {
+          question.addEventListener('click', function() {
+              const answer = this.nextElementSibling;
+              const faqButton = this.querySelector('.faq-button');
+              const isOpen = answer.style.display === 'block';
+              
+              // Close all answers
+              document.querySelectorAll('.faq-answer').forEach(item => {
+                  item.style.display = 'none';
+              });
+              
+              document.querySelectorAll('.faq-question').forEach(q => {
+                  q.classList.remove('active');
+              });
+              
+              document.querySelectorAll('.faq-button').forEach(btn => {
+                  btn.textContent = '+';
+              });
+              
+              // Toggle current answer
+              if (!isOpen) {
+                  answer.style.display = 'block';
+                  this.classList.add('active');
+                  faqButton.textContent = '−';
+              }
+          });
+      });
+  });
+</script>
