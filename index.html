@@ -449,40 +449,36 @@
                 gap: 5px;
             }
         }
- /* Fixed header for mobile - stronger rules */
+/* Specific fix for banner content formatting on mobile */
 @media (max-width: 768px) {
-    html, body {
-        width: 100% !important;
-        overflow-x: hidden !important;
-        max-width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
+    /* Make sure header items stay properly positioned */
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        flex-wrap: nowrap;
     }
     
-    header {
-        width: 100% !important;
-        max-width: 100% !important;
-        position: relative !important;
-        left: 0 !important;
-        right: 0 !important;
-        margin: 0 0 20px 0 !important;
-        box-sizing: border-box !important;
-        overflow: hidden !important;
+    /* Make logo smaller on mobile */
+    .logo {
+        font-size: 20px;
+        flex-shrink: 1;
+        margin-right: 10px;
     }
     
-    .container {
-        width: 90% !important;
-        max-width: 100% !important;
-        margin: 0 auto !important;
-        padding: 0 10px !important;
-        box-sizing: border-box !important;
+    /* Make the button more compact */
+    nav .cta-button {
+        padding: 8px 12px;
+        font-size: 14px;
+        white-space: nowrap;
     }
     
-    section {
-        width: 100% !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        box-sizing: border-box !important;
+    /* Hide the navigation links on very small screens */
+    @media (max-width: 480px) {
+        .nav-links {
+            display: none;
+        }
     }
 }
     </style>
