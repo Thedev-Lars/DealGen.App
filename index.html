@@ -449,6 +449,81 @@
                 flex-direction: column;
                 gap: 5px;
             }
+            /* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.dropdown-toggle:hover {
+    color: var(--primary);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    z-index: 1;
+    border-radius: 5px;
+    top: 100%;
+    left: 0;
+    padding: 8px 0;
+    margin-top: 5px;
+}
+
+.dropdown-menu a {
+    padding: 12px 20px;
+    display: block;
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--dark);
+    transition: background 0.3s;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f0f7ff;
+    color: var(--primary);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Add a small triangle indicator to the dropdown */
+.dropdown:hover .dropdown-toggle svg {
+    transform: rotate(180deg);
+}
+
+.dropdown-toggle svg {
+    transition: transform 0.3s ease;
+}
+
+/* Adjust responsive behavior */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        padding-left: 20px;
+        min-width: auto;
+    }
+    
+    .dropdown-menu a {
+        padding: 8px 10px;
+    }
+}
         }
 /* Specific fix for banner content formatting on mobile */
 @media (max-width: 768px) {
@@ -493,21 +568,36 @@
                 <img src="DG-logo1.png" alt="DealGen.app" style="height: 40px; width: auto;" />
             </div>
             <div class="nav-links">
-                <a href="#about">Why Us</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#inbox-access">Inbox Access</a>
-                <a href="#domain-health">Domain Protection</a>
-                <a href="#tech-stack">Tech Stack</a>
-                <a href="#process">Implementation</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#faq">FAQ</a>
-                <a href="#testimonials">Results</a>
-            </div>
+    <a href="#about">Why Us</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#inbox-access">Inbox Access</a>
+    
+    <!-- New dropdown menu -->
+    <div class="dropdown">
+        <a href="#" class="dropdown-toggle">
+            Features
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </a>
+        <div class="dropdown-menu">
+            <a href="#domain-health">Domain Protection</a>
+            <a href="#tech-stack">Tech Stack</a>
+            <a href="#process">Implementation</a>
+        </div>
+    </div>
+    
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#testimonials">Results</a>
+</div>
             <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button">Get Started</a>
         </nav>
     </div>
 </header>
 
+
+    
 <!-- CSS Updates for the logo - add these to your existing CSS -->
 <style>
     .logo {
@@ -1312,9 +1402,24 @@
                 if (toggle) {
                     toggle.textContent = toggle.textContent === '+' ? '−' : '+';
                 }
-            });
-        });
+           // Dropdown functionality for mobile
+const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+dropdownToggles.forEach(toggle => {
+    toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        const dropdown = this.parentElement;
+        dropdown.classList.toggle('open');
+        
+        // Toggle visibility of dropdown menu
+        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+        if (dropdownMenu.style.display === 'block') {
+            dropdownMenu.style.display = 'none';
+        } else {
+            dropdownMenu.style.display = 'block';
+        }
     });
+});
 </script>
 
   <!-- TIMELINE PROCESS SECTION -->
