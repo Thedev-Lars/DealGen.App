@@ -1182,6 +1182,7 @@
             color: var(--white);
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
         
         .cta-banner::before {
@@ -1194,6 +1195,7 @@
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></svg>');
             background-size: 100px 100px;
             animation: bgFloat 20s linear infinite;
+            z-index: -1;
         }
         
         @keyframes bgFloat {
@@ -1499,6 +1501,65 @@
 
         /* Mobile responsive animations */
         @media (max-width: 768px) {
+            /* Fix CTA banner z-index and positioning */
+            .cta-banner {
+                position: relative;
+                z-index: 10;
+                overflow: visible;
+            }
+            
+            .cta-banner .cta-button {
+                position: relative;
+                z-index: 20;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            .banner-content {
+                position: relative;
+                z-index: 15;
+            }
+            
+            /* Fix clickable cards on mobile */
+            .clickable-card {
+                position: relative;
+                z-index: 10;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            /* Fix timeline steps on mobile */
+            .timeline-step {
+                position: relative;
+                z-index: 10;
+                margin-left: 15px;
+                overflow: visible;
+                padding: 20px 15px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            .interactive-timeline {
+                position: relative;
+                z-index: 5;
+                overflow: visible;
+            }
+            
+            .interactive-timeline::before {
+                z-index: 1;
+            }
+            
+            .timeline-number {
+                z-index: 15;
+            }
+            
+            /* Ensure all interactive elements are accessible */
+            button, a, .clickable-card, .timeline-step, .faq-question {
+                cursor: pointer;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
             .hero h1 {
                 font-size: 28px;
             }
@@ -1577,12 +1638,6 @@
                 overflow: visible;
             }
             
-            .timeline-step {
-                margin-left: 15px;
-                overflow: visible;
-                padding: 20px 15px;
-            }
-            
             .clickable-card {
                 margin-bottom: 15px;
                 overflow: visible;
@@ -1597,6 +1652,8 @@
             section {
                 overflow: visible;
                 padding: 30px 0;
+                position: relative;
+                z-index: 1;
             }
             
             .container {
@@ -2124,7 +2181,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
         </div>
         
         <div style="display: flex; flex-wrap: wrap; gap: 30px; margin-top: 40px;">
-            <div class="clickable-card" onclick="toggleCard(this)">
+            <div class="clickable-card" onclick="toggleCard(this, event)" ontouchstart="toggleCard(this, event)">
                 <div class="card-header">
                     <h3 style="color: var(--primary);">$1,000 Monthly Retainer</h3>
                     <span class="expand-icon">↓</span>
@@ -2162,7 +2219,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
                 </div>
             </div>
             
-            <div class="clickable-card" onclick="toggleCard(this)">
+            <div class="clickable-card" onclick="toggleCard(this, event)" ontouchstart="toggleCard(this, event)">
                 <div class="card-header">
                     <h3 style="color: var(--accent);">Expected Results</h3>
                     <span class="expand-icon">↓</span>
@@ -2230,7 +2287,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
         </div>
         
         <div class="interactive-timeline">
-            <div class="timeline-step" onclick="toggleTimeline(this)">
+            <div class="timeline-step" onclick="toggleTimeline(this, event)" ontouchstart="toggleTimeline(this, event)">
                 <div class="timeline-number">1</div>
                 <h3 style="color: var(--primary); margin-bottom: 10px;">Week 1: Strategy & Setup</h3>
                 <p>Initial consultation and campaign foundation</p>
@@ -2258,7 +2315,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
                 </div>
             </div>
             
-            <div class="timeline-step" onclick="toggleTimeline(this)">
+            <div class="timeline-step" onclick="toggleTimeline(this)" ontouchstart="toggleTimeline(this)">
                 <div class="timeline-number">2</div>
                 <h3 style="color: var(--primary); margin-bottom: 10px;">Weeks 2-3: Data & Content</h3>
                 <p>List building and message personalization</p>
@@ -2286,7 +2343,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
                 </div>
             </div>
             
-            <div class="timeline-step" onclick="toggleTimeline(this)">
+            <div class="timeline-step" onclick="toggleTimeline(this)" ontouchstart="toggleTimeline(this)">
                 <div class="timeline-number">3</div>
                 <h3 style="color: var(--primary); margin-bottom: 10px;">Week 4: Campaign Launch</h3>
                 <p>Go live and start generating responses</p>
@@ -2314,7 +2371,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
                 </div>
             </div>
             
-            <div class="timeline-step" onclick="toggleTimeline(this)">
+            <div class="timeline-step" onclick="toggleTimeline(this)" ontouchstart="toggleTimeline(this)">
                 <div class="timeline-number">4</div>
                 <h3 style="color: var(--primary); margin-bottom: 10px;">Months 2-3: Optimize & Scale</h3>
                 <p>Continuous improvement and scaling</p>
@@ -2354,7 +2411,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
         
         <div style="max-width: 800px; margin: 0 auto; margin-top: 40px;">
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
+                <div class="faq-question" onclick="toggleFAQ(this, event)">
                     How quickly will I start seeing responses?
                     <span class="faq-toggle">↓</span>
                 </div>
@@ -2364,7 +2421,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
             </div>
             
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
+                <div class="faq-question" onclick="toggleFAQ(this, event)">
                     Do I really get full inbox access?
                     <span class="faq-toggle">↓</span>
                 </div>
@@ -2374,7 +2431,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
             </div>
             
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
+                <div class="faq-question" onclick="toggleFAQ(this, event)">
                     Why separate campaign costs from your retainer?
                     <span class="faq-toggle">↓</span>
                 </div>
@@ -2384,7 +2441,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
             </div>
             
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
+                <div class="faq-question" onclick="toggleFAQ(this, event)">
                     What makes your personalization different?
                     <span class="faq-toggle">↓</span>
                 </div>
@@ -2394,7 +2451,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
             </div>
             
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">
+                <div class="faq-question" onclick="toggleFAQ(this, event)">
                     Can you guarantee specific results?
                     <span class="faq-toggle">↓</span>
                 </div>
@@ -2415,7 +2472,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
             </div>
             <div class="footer-column">
                 <h4>Quick Links</h4>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
                     <a href="#about">Why Us</a>
                     <a href="#data-sourcing">Data Process</a>
                     <a href="#pricing">Pricing</a>
@@ -2585,8 +2642,14 @@ function updateComparisonContent() {
     }
 }
 
-// Timeline functionality
-function toggleTimeline(element) {
+// Timeline functionality with touch support
+function toggleTimeline(element, event) {
+    // Prevent default and bubbling if event exists
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    
     const details = element.querySelector('.timeline-details');
     const isExpanded = details.classList.contains('expanded');
     
@@ -2611,8 +2674,14 @@ function toggleTimeline(element) {
     }
 }
 
-// Card toggle functionality
-function toggleCard(element) {
+// Card toggle functionality with touch support
+function toggleCard(element, event) {
+    // Prevent default and bubbling if event exists
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    
     const content = element.querySelector('.card-content');
     const icon = element.querySelector('.expand-icon');
     const isExpanded = content.classList.contains('expanded');
@@ -2635,7 +2704,13 @@ function toggleCard(element) {
 }
 
 // FAQ functionality
-function toggleFAQ(element) {
+function toggleFAQ(element, event) {
+    // Prevent default and bubbling if event exists
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    
     const answer = element.nextElementSibling;
     const toggle = element.querySelector('.faq-toggle');
     const isActive = element.classList.contains('active');
@@ -2757,16 +2832,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, 1000);
     
-    // Add parallax effect to sections
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const parallaxElements = document.querySelectorAll('section');
-        
-        parallaxElements.forEach((element, index) => {
-            const speed = 0.5 + (index * 0.1);
-            element.style.transform = `translateY(${scrolled * speed * 0.01}px)`;
+    // Add parallax effect to sections (only on desktop)
+    if (window.innerWidth > 768) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('section');
+            
+            parallaxElements.forEach((element, index) => {
+                const speed = 0.5 + (index * 0.1);
+                element.style.transform = `translateY(${scrolled * speed * 0.01}px)`;
+            });
         });
-    });
+    }
 });
 
 // Add animation classes to elements
@@ -2815,15 +2892,17 @@ function initScrollAnimations() {
     });
 }
 
-// Mouse move effect for hero section
-document.addEventListener('mousemove', (e) => {
-    const heroImage = document.querySelector('.hero-image img');
-    if (heroImage) {
-        const x = (e.clientX / window.innerWidth - 0.5) * 20;
-        const y = (e.clientY / window.innerHeight - 0.5) * 20;
-        heroImage.style.transform = `translateY(${y}px) translateX(${x}px) scale(1.05)`;
-    }
-});
+// Mouse move effect for hero section (desktop only)
+if (window.innerWidth > 768) {
+    document.addEventListener('mousemove', (e) => {
+        const heroImage = document.querySelector('.hero-image img');
+        if (heroImage) {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            heroImage.style.transform = `translateY(${y}px) translateX(${x}px) scale(1.05)`;
+        }
+    });
+}
 </script>
 
 </body>
