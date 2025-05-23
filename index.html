@@ -311,9 +311,9 @@
             position: relative;
             display: inline-block;
             width: 200px;
-            height: 50px;
+            height: 60px;
             background: var(--light);
-            border-radius: 25px;
+            border-radius: 30px;
             cursor: pointer;
             border: 2px solid var(--primary);
         }
@@ -323,9 +323,9 @@
             top: 4px;
             left: 4px;
             width: 92px;
-            height: 38px;
+            height: 48px;
             background: var(--primary);
-            border-radius: 19px;
+            border-radius: 24px;
             transition: transform 0.3s ease;
             display: flex;
             align-items: center;
@@ -554,10 +554,174 @@
             transform: rotate(180deg);
         }
 
+/* Global list reset and custom bullet styling */
+ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+/* Custom bullet points for content lists */
+ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+/* Standard bullet style */
+ul li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+/* Checkmark bullets for feature lists */
+ul li:has(✓) {
+    padding-left: 0;
+}
+
+ul li:has(✓)::before {
+    display: none;
+}
+
+/* Special styling for already formatted lists */
+.nav-links,
+.footer-column div,
+.tab-nav,
+.toggle-labels {
+    display: flex;
+}
+
+.nav-links li::before,
+.footer-column div li::before,
+.tab-nav li::before,
+.toggle-labels li::before {
+    display: none;
+}
+
+/* Maintain grid layouts where specified */
+ul[style*="grid"] li::before {
+    display: none;
+}
+
+ul[style*="grid"] li {
+    padding-left: 0;
+}
+
+/* Interactive stat and special formatted sections */
+.interactive-stat::before,
+.stat-number::before,
+.stat-label::before,
+.banner-buttons::before,
+.email-contact::before {
+    display: none;
+}
+
+/* FAQ and timeline content lists */
+.timeline-details ul li,
+.faq-answer ul li,
+.card-content ul li {
+    padding-left: 30px;
+}
+
+.timeline-details ul li::before,
+.faq-answer ul li::before,
+.card-content ul li::before {
+    content: "→";
+    color: var(--accent);
+    font-weight: normal;
+    font-size: 16px;
+    left: 5px;
+}
+
+/* Pricing card feature lists with checkmarks */
+.clickable-card ul li:has(✓) {
+    padding-left: 30px;
+}
+
+.clickable-card ul li:has(✓)::before {
+    content: "✓";
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 16px;
+    left: 5px;
+    display: block;
+}
+
+/* D7 tab unique coverage list */
+#d7 ul li:has(✓) {
+    padding-left: 30px;
+}
+
+#d7 ul li:has(✓)::before {
+    content: "✓";
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 16px;
+    left: 5px;
+    display: block;
+}
+
+/* Footer links - maintain flex layout */
+.footer-column a {
+    padding-left: 0;
+}
+
+.footer-column a::before {
+    display: none;
+}
+
+/* Comparison content bullets */
+.comparison-item ul li::before {
+    content: "▸";
+    color: var(--primary);
+    font-size: 14px;
+}
+
+.comparison-item.traditional ul li::before {
+    color: var(--accent);
+}
+
+/* Manual review process list */
+.review-process div {
+    margin-bottom: 10px;
+}
+
+/* Ensure nested lists have proper spacing */
+ul ul {
+    margin-top: 8px;
+    margin-left: 20px;
+}
+
+ul ul li::before {
+    content: "◦";
+    font-size: 14px;
+}
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 28px;
+				
+				ul li {
+    padding-left: 20px;
+    margin-bottom: 6px;
+}
+
+ul li::before {
+    font-size: 16px;
+}
+
+.timeline-details ul li,
+.faq-answer ul li,
+.card-content ul li {
+    padding-left: 25px;
+}
             }
             
             .hero-content {
