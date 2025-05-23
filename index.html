@@ -33,12 +33,17 @@
             font-family: 'Inter', sans-serif;
         }
         
+        html {
+            overflow-x: hidden;
+        }
+        
         body {
             color: var(--dark);
             background: var(--light);
             line-height: 1.6;
             max-width: 100%;
             margin: 0 auto;
+            overflow-x: hidden;
         }
         
         .container {
@@ -298,7 +303,7 @@
         }
         
         .card-content.expanded {
-            max-height: 1000px;
+            max-height: 1500px;
         }
         
         .expand-icon {
@@ -314,6 +319,7 @@
         .comparison-toggle {
             text-align: center;
             margin-bottom: 30px;
+            padding: 20px 0;
         }
         
         .toggle-switch {
@@ -325,6 +331,7 @@
             border-radius: 30px;
             cursor: pointer;
             border: 2px solid var(--primary);
+            margin: 0 auto;
         }
         
         .toggle-slider {
@@ -455,12 +462,12 @@
         .timeline-details {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.5s ease;
             margin-top: 15px;
         }
         
         .timeline-details.expanded {
-            max-height: 300px;
+            max-height: 800px;
         }
 
         /* Progress bars with animation */
@@ -580,12 +587,15 @@
             
             .tab-nav {
                 flex-wrap: wrap;
-                gap: 10px;
+                gap: 5px;
+                justify-content: center;
             }
             
             .tab-button {
-                padding: 12px 18px;
-                font-size: 14px;
+                padding: 10px 12px;
+                font-size: 13px;
+                flex: 1 1 auto;
+                min-width: 45%;
             }
             
             .section-title h2 {
@@ -623,10 +633,100 @@
             }
             
             .timeline-number {
-                left: -12px;
+                left: -8px;
                 width: 24px;
                 height: 24px;
                 font-size: 14px;
+            }
+            
+            /* Mobile-specific fixes for expandable content */
+            .timeline-details.expanded {
+                max-height: none;
+                overflow: visible;
+            }
+            
+            .card-content.expanded {
+                max-height: none;
+                overflow: visible;
+            }
+            
+            .timeline-step {
+                margin-left: 8px;
+                overflow: visible;
+                padding: 20px 15px;
+            }
+            
+            .clickable-card {
+                margin-bottom: 15px;
+                overflow: visible;
+            }
+            
+            .comparison-toggle {
+                padding: 10px 0;
+                margin-bottom: 20px;
+            }
+            
+            /* Fix section overflow on mobile */
+            section {
+                overflow: visible;
+                padding: 30px 0;
+            }
+            
+            .container {
+                overflow: visible;
+                padding: 0 15px;
+            }
+            
+            /* Ensure expanded content is fully visible */
+            .timeline-details ul,
+            .card-content ul,
+            .card-content div {
+                max-width: 100%;
+                word-wrap: break-word;
+            }
+            
+            /* Fix pricing cards layout on mobile */
+            #pricing .container > div {
+                flex-direction: column;
+            }
+            
+            #pricing .clickable-card {
+                width: 100%;
+            }
+            
+            /* Fix timeline container on mobile */
+            .interactive-timeline {
+                margin: 20px 0;
+                padding: 0 5px;
+            }
+            
+            /* Fix Clay tab content overflow on mobile */
+            #clay > div {
+                flex-direction: column;
+            }
+            
+            #clay .clay-tab-content {
+                font-size: 11px;
+                overflow-x: auto;
+            }
+            
+            /* Mobile font size adjustments */
+            p, div {
+                font-size: 16px;
+                line-height: 1.6;
+            }
+            
+            h3 {
+                font-size: 20px;
+            }
+            
+            h4 {
+                font-size: 18px;
+            }
+            
+            /* Fix grid layouts on mobile */
+            .card-content ul[style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
             }
         }
 
@@ -933,13 +1033,13 @@
         
         <div class="tab-container">
             <div class="tab-nav">
-                <button class="tab-button active" onclick="openTab(event, 'apollo')">1. Apollo.io</button>
+                <button class="tab-button" onclick="openTab(event, 'apollo')">1. Apollo.io</button>
                 <button class="tab-button" onclick="openTab(event, 'd7')">2. D7 Lead Finder</button>
-                <button class="tab-button" onclick="openTab(event, 'clay')">3. Clay Enrichment</button>
+                <button class="tab-button active" onclick="openTab(event, 'clay')">3. Clay Enrichment</button>
                 <button class="tab-button" onclick="openTab(event, 'manual')">4. Manual Review</button>
             </div>
             
-            <div id="apollo" class="tab-content active">
+            <div id="apollo" class="tab-content">
                 <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
                     <div style="flex: 1; min-width: 300px;">
                         <h3 style="color: var(--primary); margin-bottom: 15px;">Enterprise B2B Contact Sourcing</h3>
@@ -990,19 +1090,19 @@
                     <div style="flex: 1; min-width: 300px;">
                         <div style="background: #fff8f5; padding: 20px; border-radius: 10px;">
                             <h4 style="color: var(--accent); margin-bottom: 15px;">Unique Coverage</h4>
-                            <ul style="list-style: none; padding: 0;">
-                                <li style="margin-bottom: 10px;">✓ Local retailers & boutiques</li>
-                                <li style="margin-bottom: 10px;">✓ Tourism & entertainment</li>
-                                <li style="margin-bottom: 10px;">✓ Specialty service providers</li>
-                                <li style="margin-bottom: 10px;">✓ Franchise locations</li>
-                                <li>✓ Mom & pop businesses</li>
-                            </ul>
+                            <div style="padding-left: 0;">
+                                <div style="margin-bottom: 10px;">✓ Local retailers & boutiques</div>
+                                <div style="margin-bottom: 10px;">✓ Tourism & entertainment</div>
+                                <div style="margin-bottom: 10px;">✓ Specialty service providers</div>
+                                <div style="margin-bottom: 10px;">✓ Franchise locations</div>
+                                <div>✓ Mom & pop businesses</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div id="clay" class="tab-content">
+            <div id="clay" class="tab-content active">
                 <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: flex-start;">
                     <div style="flex: 1; min-width: 300px;">
                         <h3 style="color: var(--primary); margin-bottom: 15px;">Real-Time Data Enrichment + AI Content</h3>
@@ -1040,12 +1140,12 @@
                         <!-- Nested tab system for email examples -->
                         <div style="background: #fff8f5; padding: 20px; border-radius: 10px; border: 2px solid var(--accent);">
                             <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #f0f0f0;">
-                                <button class="clay-tab-btn active" onclick="openClayTab(event, 'enrichment')" style="background: none; border: none; padding: 10px 15px; cursor: pointer; font-weight: 600; color: var(--accent); border-bottom: 2px solid var(--accent);">Clay Enrichment</button>
-                                <button class="clay-tab-btn" onclick="openClayTab(event, 'ai-content')" style="background: none; border: none; padding: 10px 15px; cursor: pointer; font-weight: 600; color: #666; border-bottom: 2px solid transparent;">AI Content</button>
+                                <button class="clay-tab-btn" onclick="openClayTab(event, 'enrichment')" style="background: none; border: none; padding: 10px 15px; cursor: pointer; font-weight: 600; color: #666; border-bottom: 2px solid transparent;">Clay Enrichment</button>
+                                <button class="clay-tab-btn active" onclick="openClayTab(event, 'ai-content')" style="background: none; border: none; padding: 10px 15px; cursor: pointer; font-weight: 600; color: var(--accent); border-bottom: 2px solid var(--accent);">AI Content</button>
                             </div>
                             
                             <!-- Clay Enrichment Tab -->
-                            <div id="enrichment" class="clay-tab-content active">
+                            <div id="enrichment" class="clay-tab-content" style="display: none;">
                                 <h4 style="color: var(--accent); margin-bottom: 15px;">Technical Data Enrichment</h4>
                                 <div style="background: white; padding: 18px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.4; border-left: 4px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                                     <div style="color: #666; margin-bottom: 15px;">// Clay Enrichment Pipeline - Target: David Rodriguez</div>
@@ -1101,7 +1201,7 @@
                             </div>
                             
                             <!-- AI Content Tab -->
-                            <div id="ai-content" class="clay-tab-content" style="display: none;">
+                            <div id="ai-content" class="clay-tab-content active" style="display: block;">
                                 <h4 style="color: var(--accent); margin-bottom: 15px;">AI-Generated Email Output</h4>
                                 <div style="background: white; padding: 18px; border-radius: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.5; border-left: 4px solid var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                                     <div style="margin-bottom: 15px; padding-bottom: 12px; border-bottom: 1px solid #e8e8e8;">
