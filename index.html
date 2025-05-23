@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+// Add mobile debugging
+if (window.innerWidth <= 768) {
+    document.addEventListener('touchstart', function(e) {
+        console.log('Touch detected on:', e.target);
+    }, { passive: true });
+}<!DOCTYPE html>
 <html lang="en">
 
     <script type="application/ld+json">
@@ -1499,67 +1504,176 @@
             transform: rotate(180deg);
         }
 
+        /* Z-index hierarchy for mobile */
+        @media (max-width: 768px) {
+            body { position: relative; z-index: 1; }
+            header { z-index: 1000 !important; }
+            .hero { z-index: 10 !important; }
+            #about { z-index: 20 !important; }
+            #data-sourcing { z-index: 30 !important; }
+            .cta-banner { z-index: 40 !important; }
+            #pricing { z-index: 50 !important; }
+            #process { z-index: 60 !important; }
+            #faq { z-index: 70 !important; }
+            footer { z-index: 80 !important; }
+            
+            /* Ensure all interactive elements are above their containers */
+            .cta-button { z-index: 100 !important; }
+            .clickable-card { z-index: 100 !important; }
+            .timeline-step { z-index: 100 !important; }
+            .faq-question { z-index: 100 !important; }
+        }
+        
         /* Mobile responsive animations */
         @media (max-width: 768px) {
-            /* Fix CTA banner z-index and positioning */
-            .cta-banner {
-                position: relative;
-                z-index: 10;
-                overflow: visible;
+            /* Disable particles on mobile to improve performance */
+            .particles {
+                display: none !important;
             }
             
-            .cta-banner .cta-button {
+            /* Disable animations that interfere with touch */
+            * {
+                -webkit-tap-highlight-color: transparent !important;
+            }
+            
+            /* Fix CTA banner and buttons */
+            .cta-banner {
                 position: relative;
-                z-index: 20;
-                touch-action: manipulation;
-                -webkit-tap-highlight-color: transparent;
+                z-index: 50 !important;
+                overflow: visible !important;
+                padding: 40px 0 !important; /* Reduced padding on mobile */
+            }
+            
+            .cta-banner::before {
+                display: none; /* Remove animated background on mobile */
             }
             
             .banner-content {
                 position: relative;
-                z-index: 15;
+                z-index: 60 !important;
+                padding: 0 20px !important;
             }
             
-            /* Fix clickable cards on mobile */
+            .banner-content h2 {
+                font-size: 24px !important;
+                margin-bottom: 15px !important;
+            }
+            
+            .banner-content p {
+                font-size: 16px !important;
+                margin-bottom: 20px !important;
+            }
+            
+            .cta-banner .cta-button,
+            .banner-buttons a {
+                position: relative !important;
+                z-index: 70 !important;
+                display: inline-block !important;
+                padding: 15px 25px !important;
+                margin: 10px !important;
+                touch-action: manipulation !important;
+                cursor: pointer !important;
+                pointer-events: auto !important;
+                -webkit-tap-highlight-color: transparent !important;
+                background-color: var(--white) !important;
+                color: var(--primary) !important;
+                border: 2px solid var(--primary) !important;
+                animation: none !important;
+                min-height: 50px !important;
+                min-width: 200px !important;
+                text-align: center !important;
+                line-height: 1.5 !important;
+                font-size: 16px !important;
+            }
+            
+            .cta-banner .cta-button:active {
+                transform: scale(0.95) !important;
+                background-color: var(--primary) !important;
+                color: var(--white) !important;
+            }
+            
+            /* Fix pricing cards */
+            #pricing {
+                position: relative;
+                z-index: 30;
+            }
+            
             .clickable-card {
-                position: relative;
-                z-index: 10;
-                touch-action: manipulation;
-                -webkit-tap-highlight-color: transparent;
+                position: relative !important;
+                z-index: 35 !important;
+                margin-bottom: 20px !important;
+                cursor: pointer !important;
+                touch-action: manipulation !important;
+                pointer-events: auto !important;
+                -webkit-tap-highlight-color: transparent !important;
             }
             
-            /* Fix timeline steps on mobile */
-            .timeline-step {
+            .clickable-card::before {
+                display: none; /* Remove hover animations on mobile */
+            }
+            
+            .clickable-card:active {
+                background-color: #f0f0f0 !important;
+            }
+            
+            /* Fix timeline */
+            #process {
                 position: relative;
-                z-index: 10;
-                margin-left: 15px;
-                overflow: visible;
-                padding: 20px 15px;
-                touch-action: manipulation;
-                -webkit-tap-highlight-color: transparent;
+                z-index: 20;
             }
             
             .interactive-timeline {
-                position: relative;
-                z-index: 5;
-                overflow: visible;
+                position: relative !important;
+                z-index: 25 !important;
+                overflow: visible !important;
             }
             
-            .interactive-timeline::before {
-                z-index: 1;
+            .timeline-step {
+                position: relative !important;
+                z-index: 30 !important;
+                margin-left: 20px !important;
+                margin-bottom: 25px !important;
+                cursor: pointer !important;
+                touch-action: manipulation !important;
+                pointer-events: auto !important;
+                -webkit-tap-highlight-color: transparent !important;
+            }
+            
+            .timeline-step:active {
+                background-color: #f0f0f0 !important;
             }
             
             .timeline-number {
-                z-index: 15;
+                position: absolute !important;
+                left: -12px !important;
+                z-index: 40 !important;
             }
             
-            /* Ensure all interactive elements are accessible */
-            button, a, .clickable-card, .timeline-step, .faq-question {
-                cursor: pointer;
-                touch-action: manipulation;
-                -webkit-tap-highlight-color: transparent;
+            /* Fix all sections */
+            section {
+                position: relative !important;
+                z-index: 10 !important;
+                overflow: visible !important;
+                transform: none !important; /* Disable parallax */
             }
             
+            section::before {
+                display: none; /* Remove animated backgrounds */
+            }
+            
+            /* Fix FAQ items */
+            .faq-question {
+                cursor: pointer !important;
+                touch-action: manipulation !important;
+                pointer-events: auto !important;
+                padding: 25px !important;
+            }
+            
+            .faq-question:active {
+                background-color: #d0d0d0 !important;
+            }
+            
+            /* General mobile fixes */
             .hero h1 {
                 font-size: 28px;
             }
@@ -1571,6 +1685,11 @@
             .hero-text, .hero-image {
                 width: 100%;
                 margin-bottom: 20px;
+            }
+            
+            .hero-image img {
+                animation: none !important; /* Disable float animation */
+                transform: none !important;
             }
             
             .tab-nav {
@@ -1620,27 +1739,15 @@
                 right: 15px;
             }
             
-            .timeline-number {
-                left: -8px;
-                width: 24px;
-                height: 24px;
-                font-size: 14px;
-            }
-            
             /* Mobile-specific fixes for expandable content */
             .timeline-details.expanded {
-                max-height: none;
-                overflow: visible;
+                max-height: none !important;
+                overflow: visible !important;
             }
             
             .card-content.expanded {
-                max-height: none;
-                overflow: visible;
-            }
-            
-            .clickable-card {
-                margin-bottom: 15px;
-                overflow: visible;
+                max-height: none !important;
+                overflow: visible !important;
             }
             
             .comparison-toggle {
@@ -1648,16 +1755,8 @@
                 margin-bottom: 20px;
             }
             
-            /* Fix section overflow on mobile */
-            section {
-                overflow: visible;
-                padding: 30px 0;
-                position: relative;
-                z-index: 1;
-            }
-            
             .container {
-                overflow: visible;
+                overflow: visible !important;
                 padding: 0 15px;
             }
             
@@ -1676,16 +1775,6 @@
             
             #pricing .clickable-card {
                 width: 100%;
-            }
-            
-            /* Fix timeline container on mobile */
-            .interactive-timeline {
-                margin: 20px 0;
-                padding: 0 5px;
-            }
-            
-            .interactive-timeline::before {
-                left: 4px;
             }
             
             /* Fix Clay tab content overflow on mobile */
@@ -1717,6 +1806,119 @@
                 grid-template-columns: 1fr !important;
             }
             
+            /* Disable complex animations on mobile */
+            .interactive-stat::before,
+            .hero::before,
+            .floating,
+            .pulse-glow {
+                animation: none !important;
+            }
+            
+            /* Fix email contact link */
+            .email-contact a {
+                background: none !important;
+                color: var(--white) !important;
+                border: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                min-height: auto !important;
+                min-width: auto !important;
+                text-decoration: underline !important;
+                display: inline !important;
+            }
+            
+            /* CTA Banner mobile fix */
+            .cta-banner {
+                transform: none !important;
+            }
+            
+            .cta-banner * {
+                transform: none !important;
+                animation: none !important;
+            }
+            
+            /* Fix all CTA buttons on mobile */
+            a.cta-button {
+                display: inline-block !important;
+                text-decoration: none !important;
+                cursor: pointer !important;
+                pointer-events: auto !important;
+                position: relative !important;
+                z-index: 999 !important;
+                -webkit-tap-highlight-color: transparent !important;
+                touch-action: manipulation !important;
+            }
+            
+            /* Fix buttons in banner */
+            .banner-buttons {
+                flex-direction: column;
+                width: 100%;
+                padding: 0 20px;
+            }
+            
+            .email-contact {
+                margin-top: 10px;
+            }
+            
+            /* Ensure proper click targets on mobile */
+            .timeline-step,
+            .clickable-card,
+            .faq-question {
+                min-height: 60px !important;
+                padding: 20px !important;
+                display: block !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+            
+            /* Disable hover effects on mobile */
+            .timeline-step:hover,
+            .clickable-card:hover,
+            .faq-question:hover {
+                transform: none !important;
+            }
+            
+            /* Fix expandable content heights */
+            .timeline-details,
+            .card-content {
+                transition: max-height 0.5s ease, padding 0.5s ease !important;
+            }
+            
+            .timeline-details.expanded,
+            .card-content.expanded {
+                max-height: 2000px !important; /* Ensure enough height */
+                overflow: visible !important;
+                padding-bottom: 20px !important;
+            }
+            
+            /* Better visual feedback for expandable elements */
+            .clickable-card,
+            .timeline-step,
+            .faq-question {
+                transition: background-color 0.1s ease !important;
+            }
+            
+            .clickable-card:active,
+            .timeline-step:active,
+            .faq-question:active {
+                background-color: rgba(0,0,0,0.05) !important;
+                transform: scale(0.98) !important;
+            }
+            
+            /* Fix FAQ answers on mobile */
+            .faq-answer.active {
+                max-height: 500px !important;
+                padding: 20px !important;
+            }
+            
+            /* Ensure icons are visible and positioned correctly */
+            .expand-icon,
+            .faq-toggle {
+                position: relative !important;
+                z-index: 5 !important;
+                pointer-events: none !important; /* Let parent handle clicks */
+            }
+            
             /* Reduce animation intensity on mobile */
             @media (prefers-reduced-motion: reduce) {
                 * {
@@ -1727,6 +1929,39 @@
             }
         }
 
+        /* Global mobile click fix */
+        @media (pointer: coarse) {
+            .timeline-step,
+            .clickable-card,
+            .faq-question,
+            .tab-button,
+            .toggle-switch,
+            .cta-button,
+            a {
+                cursor: pointer !important;
+                -webkit-tap-highlight-color: transparent !important;
+                touch-action: manipulation !important;
+            }
+        }
+        
+        /* Mobile device class for better control */
+        .mobile-device .cta-button {
+            -webkit-appearance: none !important;
+            appearance: none !important;
+        }
+        
+        .mobile-device .clickable-card,
+        .mobile-device .timeline-step,
+        .mobile-device .faq-question {
+            -webkit-tap-highlight-color: rgba(0,0,0,0.1) !important;
+        }
+        
+        /* Ensure links work on mobile */
+        .mobile-device a {
+            cursor: pointer !important;
+            text-decoration: none !important;
+        }
+        
         /* Page load animations */
         .fade-in-up {
             opacity: 0;
@@ -1851,7 +2086,7 @@
                 <a href="#data-sourcing">Data Process</a>
                 <a href="#pricing">Pricing</a>
             </div>
-            <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button pulse-glow">Get Started</a>
+            <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button pulse-glow" target="_blank" rel="noopener">Get Started</a>
         </nav>
     </div>
 </header>
@@ -1865,7 +2100,7 @@
 More conversations, more pipeline, less effort.</strong> See the clear advantages of our AI-enhanced approach.</p>
                 <p>DealGen delivers complete done-for-you cold email: We handle the complexity, you handle the conversations.</p>
                 <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 25px;">
-                    <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button">Book Strategy Call</a>
+                    <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button" target="_blank" rel="noopener">Book Strategy Call</a>
                     <a href="#data-sourcing" class="cta-button secondary">See Our Process</a>
                 </div>
             </div>
@@ -2163,7 +2398,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
             <h2>Stop Throwing Money at Broken Cold Email</h2>
             <p>Book a strategy call to see how our process works for your business, or secure your retainer to begin immediately.</p>
             <div class="banner-buttons">
-                <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button">Book Free Strategy Call</a>
+                <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button" target="_blank" rel="noopener">Book Free Strategy Call</a>
                 <div class="email-contact">
                     <span>Questions? </span>
                     <a href="mailto:Lars@DealGen.App">Lars@DealGen.App</a>
@@ -2181,7 +2416,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
         </div>
         
         <div style="display: flex; flex-wrap: wrap; gap: 30px; margin-top: 40px;">
-            <div class="clickable-card" onclick="toggleCard(this, event)" ontouchstart="toggleCard(this, event)">
+            <div class="clickable-card" onclick="toggleCard(this, event)">
                 <div class="card-header">
                     <h3 style="color: var(--primary);">$1,000 Monthly Retainer</h3>
                     <span class="expand-icon">↓</span>
@@ -2219,7 +2454,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
                 </div>
             </div>
             
-            <div class="clickable-card" onclick="toggleCard(this, event)" ontouchstart="toggleCard(this, event)">
+            <div class="clickable-card" onclick="toggleCard(this, event)">
                 <div class="card-header">
                     <h3 style="color: var(--accent);">Expected Results</h3>
                     <span class="expand-icon">↓</span>
@@ -2268,8 +2503,8 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
                         </div>
                         
                         <div style="margin-top: 25px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                            <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button">Book Strategy Call</a>
-                            <a href="https://buy.stripe.com/4gM4gs7DsgmD4vCdWqbbG01" class="cta-button secondary">Secure Retainer</a>
+                            <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button" target="_blank" rel="noopener">Book Strategy Call</a>
+                            <a href="https://buy.stripe.com/4gM4gs7DsgmD4vCdWqbbG01" class="cta-button secondary" target="_blank" rel="noopener">Secure Retainer</a>
                         </div>
                     </div>
                 </div>
@@ -2485,7 +2720,7 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
                         <span style="margin-right: 0px;"></span>
                         Lars@DealGen.App
                     </a>
-                    <a href="https://calendly.com/lars-dealgen/new-meeting" style="display: flex; align-items: center;">
+                    <a href="https://calendly.com/lars-dealgen/new-meeting" style="display: flex; align-items: center;" target="_blank" rel="noopener">
                         <span style="margin-right: 0px;"></span>
                         Book Strategy Call
                     </a>
@@ -2499,8 +2734,10 @@ More conversations, more pipeline, less effort.</strong> See the clear advantage
 </footer>
 
 <script>
-// Create floating particles
+// Create floating particles (skip on mobile)
 function createParticles() {
+    if (window.innerWidth <= 768) return; // Skip particles on mobile
+    
     const particlesContainer = document.getElementById('particles');
     const particleCount = 30;
     
@@ -2642,15 +2879,22 @@ function updateComparisonContent() {
     }
 }
 
-// Timeline functionality with touch support
+// Timeline functionality with better mobile support
 function toggleTimeline(element, event) {
-    // Prevent default and bubbling if event exists
+    // Handle both click and touch events
     if (event) {
         event.preventDefault();
         event.stopPropagation();
     }
     
+    // Mobile debug
+    if (window.innerWidth <= 768) {
+        console.log('Timeline clicked:', element);
+    }
+    
     const details = element.querySelector('.timeline-details');
+    if (!details) return;
+    
     const isExpanded = details.classList.contains('expanded');
     
     // Close all other timeline items
@@ -2671,19 +2915,34 @@ function toggleTimeline(element, event) {
         listItems.forEach((item, index) => {
             item.style.animationDelay = `${index * 0.1}s`;
         });
+        
+        // Scroll into view on mobile
+        if (window.innerWidth <= 768) {
+            setTimeout(() => {
+                element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
     }
 }
 
-// Card toggle functionality with touch support
+// Card toggle functionality with better mobile support
 function toggleCard(element, event) {
-    // Prevent default and bubbling if event exists
+    // Handle both click and touch events
     if (event) {
         event.preventDefault();
         event.stopPropagation();
     }
     
+    // Mobile debug
+    if (window.innerWidth <= 768) {
+        console.log('Card clicked:', element);
+    }
+    
     const content = element.querySelector('.card-content');
     const icon = element.querySelector('.expand-icon');
+    
+    if (!content || !icon) return;
+    
     const isExpanded = content.classList.contains('expanded');
     
     if (isExpanded) {
@@ -2700,12 +2959,19 @@ function toggleCard(element, event) {
         listItems.forEach((item, index) => {
             item.style.animationDelay = `${index * 0.05}s`;
         });
+        
+        // Scroll into view on mobile
+        if (window.innerWidth <= 768) {
+            setTimeout(() => {
+                element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
     }
 }
 
-// FAQ functionality
+// FAQ functionality with better mobile support
 function toggleFAQ(element, event) {
-    // Prevent default and bubbling if event exists
+    // Handle both click and touch events
     if (event) {
         event.preventDefault();
         event.stopPropagation();
@@ -2713,12 +2979,17 @@ function toggleFAQ(element, event) {
     
     const answer = element.nextElementSibling;
     const toggle = element.querySelector('.faq-toggle');
+    
+    if (!answer || !toggle) return;
+    
     const isActive = element.classList.contains('active');
     
     // Close all other FAQs
     document.querySelectorAll('.faq-question').forEach(q => {
         q.classList.remove('active');
-        q.nextElementSibling.classList.remove('active');
+        if (q.nextElementSibling) {
+            q.nextElementSibling.classList.remove('active');
+        }
     });
     
     // Toggle current FAQ
@@ -2811,16 +3082,69 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize scroll animations
     initScrollAnimations();
     
+    // Mobile-specific initialization
+    if (window.innerWidth <= 768 || 'ontouchstart' in window) {
+        // Add mobile class to body
+        document.body.classList.add('mobile-device');
+        
+        // Ensure all clickable elements work on mobile
+        const clickableElements = document.querySelectorAll('.timeline-step, .clickable-card, .faq-question, .tab-button, .toggle-switch');
+        clickableElements.forEach(element => {
+            // Remove any existing listeners
+            element.style.cursor = 'pointer';
+            element.style.touchAction = 'manipulation';
+            element.style.webkitTapHighlightColor = 'transparent';
+        });
+        
+        // Add specific handlers for problem areas
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Ensure links work
+                if (this.href) {
+                    window.location.href = this.href;
+                }
+            });
+        });
+        // Ensure all event handlers are properly attached
+        setTimeout(() => {
+            // Re-attach handlers to ensure they work
+            document.querySelectorAll('.timeline-step').forEach(step => {
+                step.onclick = function(event) { toggleTimeline(this, event); };
+            });
+            
+            document.querySelectorAll('.clickable-card').forEach(card => {
+                card.onclick = function(event) { toggleCard(this, event); };
+            });
+            
+            document.querySelectorAll('.faq-question').forEach(faq => {
+                faq.onclick = function(event) { toggleFAQ(this, event); };
+            });
+            
+            console.log('Mobile handlers attached');
+        }, 1000);
+    }
+    
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const targetId = this.getAttribute('href');
+            const target = document.querySelector(targetId);
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                // Use different scroll behavior for mobile
+                if (window.innerWidth <= 768) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Add small offset for mobile
+                    window.scrollBy(0, -20);
+                } else {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             }
         });
     });
