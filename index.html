@@ -173,6 +173,15 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
         
+        /* Fix bullet point indentation */
+        ul {
+            padding-left: 25px;
+        }
+        
+        ul li {
+            margin-bottom: 8px;
+        }
+        
         .section-title {
             text-align: center;
             margin-bottom: 40px;
@@ -285,11 +294,11 @@
         .card-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.5s ease;
         }
         
         .card-content.expanded {
-            max-height: 500px;
+            max-height: 1000px;
         }
         
         .expand-icon {
@@ -554,174 +563,10 @@
             transform: rotate(180deg);
         }
 
-/* Global list reset and custom bullet styling */
-ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-}
-
-/* Custom bullet points for content lists */
-ul li {
-    position: relative;
-    padding-left: 25px;
-    margin-bottom: 8px;
-    line-height: 1.6;
-}
-
-/* Standard bullet style */
-ul li::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: var(--primary);
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 1.2;
-}
-
-/* Checkmark bullets for feature lists */
-ul li:has(✓) {
-    padding-left: 0;
-}
-
-ul li:has(✓)::before {
-    display: none;
-}
-
-/* Special styling for already formatted lists */
-.nav-links,
-.footer-column div,
-.tab-nav,
-.toggle-labels {
-    display: flex;
-}
-
-.nav-links li::before,
-.footer-column div li::before,
-.tab-nav li::before,
-.toggle-labels li::before {
-    display: none;
-}
-
-/* Maintain grid layouts where specified */
-ul[style*="grid"] li::before {
-    display: none;
-}
-
-ul[style*="grid"] li {
-    padding-left: 0;
-}
-
-/* Interactive stat and special formatted sections */
-.interactive-stat::before,
-.stat-number::before,
-.stat-label::before,
-.banner-buttons::before,
-.email-contact::before {
-    display: none;
-}
-
-/* FAQ and timeline content lists */
-.timeline-details ul li,
-.faq-answer ul li,
-.card-content ul li {
-    padding-left: 30px;
-}
-
-.timeline-details ul li::before,
-.faq-answer ul li::before,
-.card-content ul li::before {
-    content: "→";
-    color: var(--accent);
-    font-weight: normal;
-    font-size: 16px;
-    left: 5px;
-}
-
-/* Pricing card feature lists with checkmarks */
-.clickable-card ul li:has(✓) {
-    padding-left: 30px;
-}
-
-.clickable-card ul li:has(✓)::before {
-    content: "✓";
-    color: var(--primary);
-    font-weight: bold;
-    font-size: 16px;
-    left: 5px;
-    display: block;
-}
-
-/* D7 tab unique coverage list */
-#d7 ul li:has(✓) {
-    padding-left: 30px;
-}
-
-#d7 ul li:has(✓)::before {
-    content: "✓";
-    color: var(--accent);
-    font-weight: bold;
-    font-size: 16px;
-    left: 5px;
-    display: block;
-}
-
-/* Footer links - maintain flex layout */
-.footer-column a {
-    padding-left: 0;
-}
-
-.footer-column a::before {
-    display: none;
-}
-
-/* Comparison content bullets */
-.comparison-item ul li::before {
-    content: "▸";
-    color: var(--primary);
-    font-size: 14px;
-}
-
-.comparison-item.traditional ul li::before {
-    color: var(--accent);
-}
-
-/* Manual review process list */
-.review-process div {
-    margin-bottom: 10px;
-}
-
-/* Ensure nested lists have proper spacing */
-ul ul {
-    margin-top: 8px;
-    margin-left: 20px;
-}
-
-ul ul li::before {
-    content: "◦";
-    font-size: 14px;
-}
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 28px;
-				
-				ul li {
-    padding-left: 20px;
-    margin-bottom: 6px;
-}
-
-ul li::before {
-    font-size: 16px;
-}
-
-.timeline-details ul li,
-.faq-answer ul li,
-.card-content ul li {
-    padding-left: 25px;
-}
             }
             
             .hero-content {
@@ -1557,32 +1402,12 @@ ul li::before {
                                 <strong style="color: var(--accent);">65-80%</strong>
                             </div>
                         </div>
+                        
+                        <div style="margin-top: 25px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                            <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button">Book Strategy Call</a>
+                            <a href="https://buy.stripe.com/4gM4gs7DsgmD4vCdWqbbG01" class="cta-button secondary">Secure Retainer</a>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 40px; background: linear-gradient(to right, #f0f7ff, #e8f1ff); padding: 30px; border-radius: 12px; border: 2px solid var(--primary);">
-            <h3 style="color: var(--primary); margin-bottom: 15px;">Ready to Stop Wasting Money?</h3>
-            <p style="margin-bottom: 25px;">Book a strategy call or secure your retainer to begin immediately</p>
-            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button">Book Strategy Call</a>
-                <a href="https://buy.stripe.com/4gM4gs7DsgmD4vCdWqbbG01" class="cta-button secondary">Secure Retainer</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="cta-banner">
-    <div class="container">
-        <div class="banner-content">
-            <h2>Stop Throwing Money at Broken Cold Email</h2>
-            <p>Book a strategy call to see how our process works for your business, or secure your retainer to begin immediately.</p>
-            <div class="banner-buttons">
-                <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button">Book Free Strategy Call</a>
-                <div class="email-contact">
-                    <span>Questions? </span>
-                    <a href="mailto:Lars@DealGen.App">Lars@DealGen.App</a>
                 </div>
             </div>
         </div>
@@ -1644,6 +1469,22 @@ ul li::before {
                 </div>
                 <div class="faq-answer">
                     <p>We guarantee professional execution: superior data quality, proven deliverability, and personalized outreach. Specific numbers depend on your industry, offer, and sales process.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-banner">
+    <div class="container">
+        <div class="banner-content">
+            <h2>Stop Throwing Money at Broken Cold Email</h2>
+            <p>Book a strategy call to see how our process works for your business, or secure your retainer to begin immediately.</p>
+            <div class="banner-buttons">
+                <a href="https://calendly.com/lars-dealgen/new-meeting" class="cta-button">Book Free Strategy Call</a>
+                <div class="email-contact">
+                    <span>Questions? </span>
+                    <a href="mailto:Lars@DealGen.App">Lars@DealGen.App</a>
                 </div>
             </div>
         </div>
