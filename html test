@@ -3,79 +3,345 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trade Syncer‑style Dashboard</title>
+  <title>CopierLite — Command Deck (2030 UI)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; background: #0b0b0f; color: #f0f0f0; }
-    .layout { display: flex; min-height: 100vh; }
-    .sidebar { width: 240px; background: #151521; display: flex; flex-direction: column; }
-    .sidebar h1 { font-size: 18px; font-weight: bold; padding: 16px; margin: 0; }
-    .navbtn { padding: 12px 16px; border: none; background: transparent; text-align: left; color: #c0c0c0; cursor: pointer; }
-    .navbtn.active { background: #262633; color: #fff; }
-    .main { flex: 1; padding: 24px; }
-    section[data-page] { display: none; }
-    h2 { margin-top: 0; }
+    :root{
+      --bg:#0b0b0f; --panel:#101016; --glass:rgba(255,255,255,.04); --stroke:#23232b; --muted:#a7a7b4;
+      --primary:#a855f7; --primary-2:#7c3aed; --good:#9a7ffb; --bad:rgba(168,85,247,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;background:radial-gradient(1200px 600px at 20% -10%,rgba(124,58,237,.25),transparent),radial-gradient(800px 400px at 120% 20%,rgba(168,85,247,.15),transparent),var(--bg);color:#e7e7ee}
+    .layout{display:flex;min-height:100vh}
+    .sidebar{position:sticky;top:0;height:100vh;width:260px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));border-right:1px solid var(--stroke);backdrop-filter:saturate(140%) blur(8px);padding:20px 14px;display:flex;flex-direction:column;gap:10px}
+    .brand{display:flex;align-items:center;gap:10px;padding:8px 10px;margin-bottom:14px}
+    .brand .dot{width:26px;height:26px;border-radius:10px;background:linear-gradient(135deg,var(--primary),#6d28d9)}
+    .brand h1{margin:0;font-weight:800;letter-spacing:-.02em}
+    .navbtn{border:1px solid transparent;background:transparent;color:#c9c9d6;padding:10px 12px;border-radius:12px;text-align:left;cursor:pointer;font-weight:600;transition:all .15s}
+    .navbtn:hover{background:var(--glass);border-color:var(--stroke)}
+    .navbtn.active{background:linear-gradient(180deg,rgba(168,85,247,.18),rgba(168,85,247,.08));color:#fff;border-color:#3a2a5f}
+    .sidebar .stack{margin-top:auto;display:grid;gap:10px}
+    .action{padding:12px;border-radius:12px;border:1px solid var(--stroke);background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));font-weight:700;color:#fff;cursor:pointer}
+    .action.primary{background:linear-gradient(180deg,rgba(168,85,247,.35),rgba(168,85,247,.15));border-color:#523586}
+    .action.danger{background:linear-gradient(180deg,rgba(255,77,109,.35),rgba(255,77,109,.15));border-color:#713043}
+    .chips{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .chip{padding:5px 10px;border-radius:999px;background:var(--glass);border:1px solid var(--stroke);font-size:12px;color:#d6d6e1}
+    .main{flex:1;padding:28px 36px}
+    .header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .search{padding:10px 14px;border:1px solid var(--stroke);border-radius:12px;background:rgba(255,255,255,.02);color:#fff}
+    .grid{display:grid;gap:18px}
+    .g-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .g-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .g-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+    @media(max-width:1200px){.g-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:900px){.sidebar{position:fixed;z-index:50;transform:translateX(-100%)}.main{padding:20px}}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid var(--stroke);border-radius:18px;padding:18px}
+    .card h3{margin:0 0 6px 0;font-size:13px;color:#bfbfd0;text-transform:uppercase;letter-spacing:.08em}
+    .kpi{font-size:30px;font-weight:800;letter-spacing:-.02em}
+    .muted{color:var(--muted)}
+    .toolbar{display:flex;gap:10px;align-items:center}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:12px 10px;border-bottom:1px solid var(--stroke);font-size:14px}
+    th{color:#bdbdd1;text-align:left}
+    .btn{padding:8px 12px;border:1px solid var(--stroke);border-radius:10px;background:rgba(255,255,255,.02);color:#fff;cursor:pointer}
+    .btn:hover{background:var(--glass)}
+    .btn.bad{border-color:#5a2a49;background:rgba(255,77,109,.1)}
+    .toast{position:fixed;right:24px;top:24px;z-index:100;background:#151521;border:1px solid var(--stroke);border-radius:12px;padding:10px 12px;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+    .pill{padding:4px 8px;border-radius:999px;border:1px solid var(--stroke);background:rgba(255,255,255,.02);font-size:12px}
+    .ok{color:#b9a6ff}
+    .warn{color:#ff8fb1}
+    .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:#6ee7b7}
+    .status-dot.warn{background:#fbbf24}
+    .zero-line{position:relative}
   </style>
 </head>
 <body>
+<div id="toaster"></div>
 <div class="layout">
   <aside class="sidebar">
-    <h1>CopierLite</h1>
+    <div class="brand"><div class="dot"></div><h1>Copier<span style="color:var(--primary)">Lite</span></h1></div>
     <button class="navbtn active" data-route="overview">Overview</button>
     <button class="navbtn" data-route="copy">Copy Trading</button>
     <button class="navbtn" data-route="analytics">Analytics</button>
     <button class="navbtn" data-route="activity">Activity</button>
     <button class="navbtn" data-route="settings">Settings</button>
+
+    <div class="stack">
+      <button id="sbDisable" class="action primary">Disable Copy Trading</button>
+      <button id="sbFlatten" class="action">Close All Positions</button>
+      <button id="sbCancel" class="action danger">Cancel All Orders</button>
+      <div class="muted" style="font-size:12px">Rate limit <span id="rlMin">80</span>/min • <span id="rlHr">5000</span>/hr</div>
+    </div>
   </aside>
+
   <main class="main">
+    <header class="header">
+      <div>
+        <div style="font-size:22px;font-weight:800;letter-spacing:-.02em">Trading Command Center</div>
+        <div class="muted" style="font-size:13px">Real‑time performance and risk across linked Tradovate accounts.</div>
+      </div>
+      <div class="toolbar"><input class="search" placeholder="Search…"/><div class="pill ok" id="socketPill"><span class="status-dot"></span> Socket: Connected</div></div>
+    </header>
+
+    <!-- PAGES -->
     <section data-page="overview">
-      <h2>Overview</h2>
-      <p>Realized PnL (Today): <span id="kpiRealized">$0.00</span></p>
-      <p>Open PnL: <span id="kpiOpen">$0.00</span></p>
+      <div class="grid g-4">
+        <div class="card">
+          <h3>Realized PnL (Today)</h3>
+          <div id="kpiRealized" class="kpi">$0.00</div>
+          <div class="muted" style="font-size:12px">Closed trades only</div>
+        </div>
+        <div class="card">
+          <h3>Open PnL (Intra‑day)</h3>
+          <div id="kpiOpen" class="kpi">$0.00</div>
+          <canvas id="sparkOpen" height="86"></canvas>
+          <div class="muted" style="font-size:12px">Mark‑to‑market of open positions</div>
+        </div>
+        <div class="card">
+          <h3>Open Exposure</h3>
+          <div id="kpiExposure" class="kpi" style="font-size:26px"></div>
+          <div id="expoList" class="chips" style="margin-top:8px"></div>
+          <div style="margin-top:10px;height:8px;border-radius:8px;background:#181820;display:flex;overflow:hidden;border:1px solid var(--stroke)" id="expoStack"></div>
+        </div>
+        <div class="card">
+          <h3>Copy Status</h3>
+          <div id="kpiCopy" class="kpi" style="font-size:26px;color:var(--primary)">ENABLED</div>
+          <div class="muted" style="font-size:12px"><span id="kpiGroups">3</span> active groups</div>
+        </div>
+      </div>
+
+      <div class="grid g-2" style="margin-top:18px">
+        <div class="card">
+          <div class="toolbar" style="justify-content:space-between">
+            <div style="font-weight:700">Risk Controls</div>
+            <div class="muted" style="font-size:12px">Copy trading: <span id="copyState" class="ok">ENABLED</span></div>
+          </div>
+          <div class="chips" style="margin-top:12px">
+            <button id="ovDisable" class="btn" style="border-color:#4c3382;background:linear-gradient(180deg,rgba(168,85,247,.35),rgba(168,85,247,.15))">Disable Copy Trading</button>
+            <button id="ovFlatten" class="btn">Close All Positions</button>
+            <button id="ovCancel" class="btn bad">Cancel All Orders</button>
+          </div>
+          <div class="grid g-3" style="margin-top:12px">
+            <label> <div class="muted" style="font-size:12px">Daily Max Loss</div><input id="riskDml" class="search" placeholder="$500"/></label>
+            <label> <div class="muted" style="font-size:12px">Daily Max Trades</div><input id="riskDmt" class="search" placeholder="50"/></label>
+            <label> <div class="muted" style="font-size:12px">Position Limit (contracts)</div><input id="riskPl" class="search" placeholder="10"/></label>
+          </div>
+        </div>
+        <div class="card">
+          <div class="toolbar" style="justify-content:space-between"><div style="font-weight:700">Latest Activity</div><button id="actExport" class="btn">Export CSV</button></div>
+          <div id="actList" style="margin-top:8px"></div>
+        </div>
+      </div>
     </section>
-    <section data-page="copy">
-      <h2>Copy Trading</h2>
-      <p>Leader and follower accounts go here…</p>
+
+    <section data-page="copy" style="display:none">
+      <div class="toolbar" style="margin:10px 0 12px 0">
+        <div class="chips">
+          <span class="chip">+ Contract</span><span class="chip">MESM5 ✕</span><span class="chip">MNQM5 ✕</span><span class="chip">MNQU5 ✕</span>
+        </div>
+        <div class="chips">
+          <button id="cpDisableAll" class="btn">Disable followers</button>
+          <button id="cpCancelAll" class="btn">Cancel orders</button>
+          <button id="cpFlattenAll" class="btn bad">Flatten all</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="toolbar" style="justify-content:space-between;margin-bottom:6px"><div style="font-weight:700">Accounts</div><div class="chips"><button id="cpChangeLeader" class="btn">Change leader</button><button id="cpRefresh" class="btn">Refresh</button></div></div>
+        <div style="overflow:auto">
+          <table>
+            <thead>
+              <tr><th>Follow</th><th>ID</th><th>Connection</th><th>Account</th><th>Side</th><th>Qty</th><th>Balance</th><th>Avg Price</th><th>Day PnL</th><th>Open PnL</th><th>Sync Health</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="cpTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <div class="toolbar" style="justify-content:space-between"><div style="font-weight:700">Orders</div><div class="chips"><button id="ordExport" class="btn">Export</button><button id="ordFilter" class="btn">Filter</button></div></div>
+        <div style="overflow:auto">
+          <table>
+            <thead><tr><th>ID</th><th>Connection</th><th>Account</th><th>Time</th><th>Contract</th><th>Type</th><th>Side</th><th>Qty</th><th>Price</th><th>Status</th></tr></thead>
+            <tbody id="ordBody"></tbody>
+          </table>
+        </div>
+      </div>
     </section>
-    <section data-page="analytics">
-      <h2>Analytics</h2>
-      <p>Charts and metrics go here…</p>
+
+    <section data-page="analytics" style="display:none">
+      <div class="grid g-4">
+        <div class="card"><h3>P&L (Today)</h3><div id="anKpiPL" class="kpi">$0.00</div><div class="muted" id="anKpiPLNote" style="font-size:12px"></div></div>
+        <div class="card"><h3>Profit Factor</h3><div id="anKpiPF" class="kpi">0.00</div><canvas id="pfDonut" height="90"></canvas></div>
+        <div class="card"><h3>Win Rate</h3><div id="anKpiWR" class="kpi">0%</div><canvas id="wrDonut" height="90"></canvas></div>
+        <div class="card"><h3>Day Win %</h3><div id="anKpiDW" class="kpi">0%</div><div class="muted" id="anKpiDWLabel" style="font-size:12px"></div></div>
+      </div>
+      <div class="grid g-3" style="margin-top:12px">
+        <div class="card"><h3>Daily PnL (last 7)</h3><div id="anDailyTotal" class="kpi" style="font-size:22px"></div><canvas id="dailyBars" height="160"></canvas></div>
+        <div class="card"><h3>Weekly PnL (last 4)</h3><div id="anWeeklyTotal" class="kpi" style="font-size:22px"></div><canvas id="weeklyBars" height="160"></canvas></div>
+        <div class="card"><h3>Monthly PnL (YTD)</h3><div id="anMonthlyTotal" class="kpi" style="font-size:22px"></div><canvas id="monthlyBars" height="160"></canvas></div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-weight:700">Monthly Calendar</div><div class="muted" id="calLabel" style="font-size:12px"></div></div>
+        <div id="calGrid" style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;margin-top:10px"></div>
+      </div>
     </section>
-    <section data-page="activity">
-      <h2>Activity</h2>
-      <p>Log of system activity…</p>
+
+    <section data-page="activity" style="display:none">
+      <div class="toolbar" style="gap:8px;margin-bottom:8px">
+        <button class="btn" data-filter="all">All</button>
+        <button class="btn" data-filter="orders">Orders</button>
+        <button class="btn" data-filter="copies">Copies</button>
+        <button class="btn" data-filter="risk">Risk</button>
+        <button class="btn" data-filter="system">System</button>
+      </div>
+      <div class="card" style="overflow:auto">
+        <table>
+          <thead><tr><th>Time</th><th>Type</th><th>Message</th></tr></thead>
+          <tbody id="actTable"></tbody>
+        </table>
+      </div>
     </section>
-    <section data-page="settings">
-      <h2>Settings</h2>
-      <p>Preferences and credentials…</p>
+
+    <section data-page="settings" style="display:none">
+      <div class="card">
+        <div class="grid g-2">
+          <label><div class="muted" style="font-size:12px">Email</div><input class="search" value="you@example.com"/></label>
+          <label><div class="muted" style="font-size:12px">Plan</div><select class="search"><option>Starter ($19/mo)</option><option>Pro ($49/mo)</option><option>Scale ($99/mo)</option></select></label>
+        </div>
+        <div class="chips" style="margin-top:10px;justify-content:flex-end"><button class="btn">Cancel</button><button class="btn" style="border-color:#4c3382;background:linear-gradient(180deg,rgba(168,85,247,.35),rgba(168,85,247,.15))">Save</button></div>
+      </div>
     </section>
+
+    <footer class="muted" style="text-align:center;margin-top:18px;font-size:12px">© 2025 CopierLite. All rights reserved.</footer>
   </main>
 </div>
+
 <script>
-  const $ = (q) => document.querySelector(q);
-  const $$ = (q) => Array.from(document.querySelectorAll(q));
+// ----------------- UTILITIES -----------------
+const $ = (q)=>document.querySelector(q); const $$=(q)=>Array.from(document.querySelectorAll(q));
+const fmt = (n)=> `${n<0?'-':''}$${Math.abs(n).toFixed(2)}`;
+const toast=(msg)=>{ const el=document.createElement('div'); el.className='toast'; el.textContent=msg; document.body.appendChild(el); setTimeout(()=>el.remove(),1800); };
+let rlMin=80, rlHr=5000; const spend=(n=1)=>{ rlMin=Math.max(0,rlMin-n); rlHr=Math.max(0,rlHr-n); $('#rlMin').textContent=rlMin; $('#rlHr').textContent=rlHr; };
 
-  // Router
-  const pages = $$('[data-page]');
-  const nav = $$('.navbtn');
+// Router
+const pages=$$('[data-page]'); const nav=$$('.navbtn'); function goto(route){ pages.forEach(p=> p.style.display = (p.getAttribute('data-page')===route?'block':'none')); nav.forEach(n=> n.classList.toggle('active', n.dataset.route===route)); history.replaceState({},'',`#${route}`); }
+const initial=location.hash?.slice(1)||'overview'; goto(initial); nav.forEach(n=> n.addEventListener('click',()=>goto(n.dataset.route)));
+window.addEventListener('error', ()=> goto('overview'));
 
-  function goto(route){
-    pages.forEach(p => p.style.display = (p.getAttribute('data-page') === route ? 'block' : 'none'));
-    nav.forEach(n => n.classList.toggle('active', n.dataset.route === route));
-    if (location.hash.slice(1) !== route) {
-      history.replaceState({}, '', `#${route}`);
-    }
+// ----------------- DETERMINISTIC MOCK ENGINE -----------------
+// positions: symbol, qty, avgPrice, multiplier
+const positions=[{sym:'ESZ5', qty:2, avg:4800, mult:50, side:1},{sym:'NQZ5', qty:1, avg:19200, mult:20, side:1},{sym:'CLX5', qty:2, avg:78, mult:1000, side:-1}];
+const realizedToday=-220.45; // closed trades
+
+// generate hourly openPnL series that ENDS at targetOpen
+function openSeriesFromPositions(hours=24){
+  // create synthetic price paths per symbol then compute combined PnL each hour
+  const makePath=(p0, vol)=> Array.from({length:hours},(_,i)=> p0 + Math.sin(i/3)*vol + (i? (Math.random()-.5)*vol*.6:0));
+  const es=makePath(4810, 6); const nq=makePath(19190, 30); const cl=makePath(79, 0.6);
+  const ser=[]; for(let i=0;i<hours;i++){
+    const esP = (es[i]-positions[0].avg)*positions[0].mult*positions[0].qty*positions[0].side;
+    const nqP = (nq[i]-positions[1].avg)*positions[1].mult*positions[1].qty*positions[1].side;
+    const clP = (cl[i]-positions[2].avg)*positions[2].mult*positions[2].qty*positions[2].side;
+    ser.push(esP+nqP+clP);
   }
+  return ser;
+}
+const openSer = openSeriesFromPositions(24);
+const openKpi = openSer[openSer.length-1]; // last point = KPI
 
-  // initial load
-  let initial = location.hash?.slice(1);
-  if (!initial || !pages.some(p => p.getAttribute('data-page') === initial)){
-    initial = 'overview';
-    location.hash = '#overview';
-  }
-  goto(initial);
+// exposure (gross by symbol)
+const exposure = positions.map(p=>({ sym:p.sym.slice(0,2), contract:p.sym, qty:Math.abs(p.qty), side:p.side>0?'Long':'Short', notional: Math.abs(p.avg*p.mult*p.qty) }));
+const gross = exposure.reduce((a,b)=>a+Math.abs(b.notional),0);
 
-  // attach click handlers
-  nav.forEach(n => n.addEventListener('click', () => goto(n.dataset.route)));
+// ----------------- OVERVIEW RENDER -----------------
+$('#kpiRealized').textContent = fmt(realizedToday);
+$('#kpiOpen').textContent = fmt(openKpi);
+$('#kpiExposure').textContent = `$${gross.toLocaleString()}`;
+$('#expoList').innerHTML = exposure.map(e=>`<span class="chip">${e.contract}</span><span class="muted" style="font-size:12px">${e.side} • ${e.qty} ctr • $${(e.notional/1000).toFixed(0)}k</span>`).join(' ');
+const stack=$('#expoStack'); exposure.forEach(e=>{ const d=document.createElement('div'); d.style.width=(Math.abs(e.notional)/gross*100)+'%'; d.style.background='linear-gradient(90deg, rgba(168,85,247,.9), rgba(124,58,237,.8))'; stack.appendChild(d); });
+
+// Sparkline that ends at KPI
+const ctxS=$('#sparkOpen').getContext('2d'); new Chart(ctxS,{ type:'line', data:{ labels:openSer.map((_,i)=>i+1), datasets:[{ data:openSer, borderColor: getComputedStyle(document.documentElement).getPropertyValue('--primary')||'#a855f7', borderWidth:2, tension:.35, fill:{target:'origin',above:'rgba(168,85,247,.12)',below:'rgba(168,85,247,.08)'} }] }, options:{ plugins:{legend:{display:false}, tooltip:{callbacks:{label:(c)=>fmt(c.parsed.y)}}}, scales:{x:{display:false}, y:{display:false, beginAtZero:false}} });
+
+// Copy state & actions
+let copyEnabled=true; function setCopy(v){ copyEnabled=v; $('#kpiCopy').textContent = v?'ENABLED':'DISABLED'; $('#kpiCopy').style.color = v?'var(--primary)':'#bbb'; $('#copyState').textContent = v?'ENABLED':'DISABLED'; $('#copyState').className = v?'ok':'warn'; $('#sbDisable').textContent = v?'Disable Copy Trading':'Enable Copy Trading'; $('#ovDisable').textContent = $('#sbDisable').textContent; toast(`Copy trading ${v?'enabled':'disabled'}`);} setCopy(true);
+$('#sbDisable').onclick = ()=> setCopy(!copyEnabled); $('#ovDisable').onclick = ()=> $('#sbDisable').click();
+$('#sbFlatten').onclick = ()=>{ spend(3); toast('Flatten ALL positions (demo)'); addAct('risk','Flatten ALL positions'); };
+$('#ovFlatten').onclick = ()=> $('#sbFlatten').click();
+$('#sbCancel').onclick = ()=>{ spend(3); toast('Cancel ALL orders (demo)'); addAct('risk','Cancel ALL orders'); };
+$('#ovCancel').onclick = ()=> $('#sbCancel').click();
+
+// Activity log
+const activity=[{time:new Date().toTimeString().slice(0,8), type:'system', msg:'Service online'}];
+function addAct(type,msg){ activity.unshift({time:new Date().toTimeString().slice(0,8), type, msg}); renderAct(); }
+function renderAct(){ $('#actList').innerHTML = activity.slice(0,8).map(a=>`<div style="display:flex;justify-content:space-between;padding:6px 2px;border-bottom:1px solid var(--stroke)"><div><span class="pill" style="margin-right:8px">${a.type}</span>${a.msg}</div><span class="muted">${a.time}</span></div>`).join(''); $('#actTable').innerHTML = activity.map(a=>`<tr><td>${a.time}</td><td><span class="pill">${a.type}</span></td><td>${a.msg}</td></tr>`).join(''); }
+renderAct();
+$('#actExport').onclick = ()=>{ const rows=[["Time","Type","Message"], ...activity.map(a=>[a.time,a.type,a.msg])]; const csv=rows.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')).join('\n'); const blob=new Blob([csv],{type:'text/csv'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='activity.csv'; a.click(); URL.revokeObjectURL(url); };
+
+// ----------------- COPY TRADING -----------------
+const leader = { id:'...7235', conn:'MFFU..MdbM', acct:'MFFUEVEX203682037', side:1, qty:1, bal:147954.35, avg:22681.5, day:-0.87, open:6.50 };
+let followers = [ { id:'...7108', conn:'MFFU..MdbM', acct:'MFFUEVEX203682034', ratio:1, enabled:true }, { id:'...7230', conn:'MFFU..MdbM', acct:'MFFUEVEX203682035', ratio:1, enabled:true }, { id:'...7231', conn:'MFFU..MdbM', acct:'MFFUEVEX203682036', ratio:1, enabled:true } ];
+
+function derivedRow(f){ // derive follower values from leader
+  const side = leader.side; const qty = leader.qty * f.ratio; return { id:f.id, conn:f.conn, acct:f.acct, follow:f.enabled, side, qty, bal:146000+Math.random()*2000, avg:leader.avg, day:leader.day + (Math.random()-.5)*3, open:leader.open + (Math.random()-.5)*2, sync:'ok' };
+}
+function renderCopy(){ const rows=[{lead:true, follow:true, id:leader.id, conn:leader.conn, acct:leader.acct, side:leader.side, qty:leader.qty, bal:leader.bal, avg:leader.avg, day:leader.day, open:leader.open, sync:'ok'}].concat(followers.map(derivedRow)); const body=$('#cpTable'); body.innerHTML = rows.map((r,i)=>`<tr>
+  <td>${r.lead?'👑':''} <input type="checkbox" ${r.follow?'checked':''} ${r.lead?'disabled':''} data-i="${i}" class="ckFollow"/></td>
+  <td>${r.id}</td>
+  <td>${r.conn}</td>
+  <td>${r.acct}</td>
+  <td>${r.side>0?'<span class="ok">Long</span>':'<span class="warn">Short</span>'}</td>
+  <td>${r.qty}</td>
+  <td>$${r.bal.toLocaleString()}</td>
+  <td>${r.avg.toLocaleString()}</td>
+  <td>${fmt(r.day)}</td>
+  <td>${fmt(r.open)}</td>
+  <td>${r.sync==='ok'?'<span class="pill">✔ Healthy</span>':'<span class="pill warn">Drift</span>'}</td>
+  <td><button class="btn" data-act="flatten" data-i="${i}">Flatten</button> <button class="btn" data-act="reconcile" data-i="${i}">Reconcile</button></td>
+</tr>`).join('');
+  $$('.ckFollow').forEach(el=> el.onchange = (e)=>{ const idx=+e.target.dataset.i; if(idx===0) return; followers[idx-1].enabled=e.target.checked; addAct('copies', `${followers[idx-1].acct} follower ${e.target.checked?'enabled':'disabled'}`); renderCopy(); });
+  $$('button[data-act="flatten"]').forEach(b=> b.onclick = (e)=>{ const i=+e.target.dataset.i; const acct = i===0? leader.acct : followers[i-1].acct; toast(`Flatten ${acct} (demo)`); addAct('risk',`Flatten ${acct}`); });
+  $$('button[data-act="reconcile"]').forEach(b=> b.onclick = (e)=>{ const i=+e.target.dataset.i; const acct = i===0? leader.acct : followers[i-1].acct; toast(`Reconcile ${acct} (demo)`); addAct('system',`Reconcile ${acct}`); });
+}
+renderCopy();
+
+$('#cpDisableAll').onclick = ()=>{ followers = followers.map(f=>({...f,enabled:false})); renderCopy(); addAct('system','Disabled all followers'); };
+$('#cpCancelAll').onclick = ()=>{ addAct('risk','Cancel ALL orders'); toast('Cancel ALL orders (demo)'); };
+$('#cpFlattenAll').onclick = ()=>{ addAct('risk','Flatten ALL positions'); toast('Flatten ALL positions (demo)'); };
+$('#cpChangeLeader').onclick = ()=>{ const tmp = followers[0]; followers[0] = { id:leader.id, conn:leader.conn, acct:leader.acct, ratio:1, enabled:true }; leader.id = tmp.id; leader.conn = tmp.conn; leader.acct = tmp.acct; addAct('system','Leader changed'); renderCopy(); };
+$('#cpRefresh').onclick = ()=>{ renderCopy(); addAct('system','Cockpit refreshed'); };
+
+// Orders demo
+const orders=[{id:'9A14B59A', conn:'MFFUApi2QxrGPV', acct:'MFFUEVEX203682039', time:'18:38:11', contract:'MNQUS', type:'Market', side:'Buy', qty:4, price:22803.50, status:'Filled'}];
+function renderOrders(){ $('#ordBody').innerHTML = orders.map(o=>`<tr><td>${o.id}</td><td>${o.conn}</td><td>${o.acct}</td><td>${o.time}</td><td>${o.contract}</td><td>${o.type}</td><td>${o.side}</td><td>${o.qty}</td><td>${o.price}</td><td>${o.status}</td></tr>`).join(''); }
+renderOrders();
+$('#ordExport').onclick = ()=>{ const rows=[[...Object.keys(orders[0])], ...orders.map(o=>Object.values(o))]; const csv=rows.map(r=>r.join(',')).join('\n'); const blob=new Blob([csv],{type:'text/csv'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='orders.csv'; a.click(); URL.revokeObjectURL(url); };
+
+// ----------------- ANALYTICS -----------------
+const pnlSeries=[420.75,-180.25,360.10,190.40,-410.65,280.00,175.30,520.15,230.05,-320.90,510.40,-195.10,340.00,160.00,405.25,-180.60,290.35,-360.00,240.10,155.00,-220.45];
+const last7 = pnlSeries.slice(-7); const w1 = pnlSeries.slice(-7).reduce((a,b)=>a+b,0); const w2 = pnlSeries.slice(-14,-7).reduce((a,b)=>a+b,0); const w3 = pnlSeries.slice(-21,-14).reduce((a,b)=>a+b,0); const weeks=[w3,w2,w1,0];
+$('#anKpiPL').textContent = fmt(last7[last7.length-1]); $('#anKpiPLNote').textContent = `Weekly total: ${fmt(w1)} • 3‑wk: ${fmt(w1+w2+w3)}`;
+const wins=pnlSeries.filter(v=>v>0), losses=pnlSeries.filter(v=>v<=0); const pf=(wins.reduce((a,b)=>a+b,0))/Math.abs(losses.reduce((a,b)=>a+b,0)); const wr=(wins.length/pnlSeries.length)*100; const dayWin=(last7.filter(v=>v>0).length/last7.length)*100;
+$('#anKpiPF').textContent = pf.toFixed(2); $('#anKpiWR').textContent = `${wr.toFixed(1)}%`; $('#anKpiDW').textContent = `${dayWin.toFixed(1)}%`; $('#anKpiDWLabel').textContent = `${last7.filter(v=>v>0).length} win • ${last7.filter(v=>v<=0).length} loss`;
+
+function donutChart(el, pct){ new Chart(el.getContext('2d'),{type:'doughnut', data:{labels:['Filled',''], datasets:[{data:[pct,100-pct], backgroundColor:['#7c3aed','rgba(124,58,237,.15)'], borderWidth:0}]}, options:{plugins:{legend:{display:false}}, cutout:'72%'}}); }
+donutChart($('#pfDonut'), Math.min(100,pf*20)); donutChart($('#wrDonut'), wr);
+
+function upDownBar(el, values, labels){ new Chart(el.getContext('2d'),{ type:'bar', data:{ labels, datasets:[{ data:values, backgroundColor: values.map(v=> v<0? 'rgba(168,85,247,.35)':'#7c3aed') }] }, options:{ plugins:{legend:{display:false}, tooltip:{callbacks:{label:(c)=>fmt(c.raw)}}}, scales:{ x:{ ticks:{ color:'#bdbdd1' } }, y:{ grid:{ color:'#2a2a34' }, ticks:{ callback:(v)=>'$'+v } } } }); }
+upDownBar($('#dailyBars'), last7, ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']);
+upDownBar($('#weeklyBars'), weeks, ['Wk‑3','Wk‑2','Wk‑1','Wk']);
+const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; const mData = months.map((_,i)=> i<3?0: Math.round((Math.sin(i*.6)+1)*600 - 400)); upDownBar($('#monthlyBars'), mData, months); $('#anDailyTotal').textContent = fmt(last7.reduce((a,b)=>a+b,0)); $('#anWeeklyTotal').textContent = fmt(weeks.reduce((a,b)=>a+b,0)); $('#anMonthlyTotal').textContent = fmt(mData.reduce((a,b)=>a+b,0));
+
+// Calendar
+function renderCalendar(){ const grid=$('#calGrid'); const now=new Date(); const y=now.getFullYear(), m=now.getMonth(); $('#calLabel').textContent = now.toLocaleDateString(undefined,{month:'long',year:'numeric'}); const first=new Date(y,m,1).getDay(); const last=new Date(y,m+1,0).getDate(); const cells=[]; for(let i=0;i<first;i++) cells.push({}); for(let d=1; d<=last; d++) cells.push({day:d}); const map = new Map(); for(let i=0;i<21;i++){ const when=new Date(now); when.setDate(now.getDate()-i); if(when.getMonth()!==m) continue; map.set(when.getDate(), pnlSeries[pnlSeries.length-1 - i]); }
+  grid.innerHTML = cells.map(c=>{ if(!c.day) return '<div></div>'; const pnl = map.get(c.day); const tone = pnl==null? 'background:rgba(255,255,255,.02);' : (pnl<0? 'background:rgba(168,85,247,.15);border:1px solid #4c2b69;' : 'background:rgba(124,58,237,.6);'); return `<div style="height:82px;border-radius:14px;padding:8px;${tone}"><div class="muted" style="font-size:11px">${c.day}</div><div style="margin-top:6px;font-weight:700">${pnl==null? '' : fmt(pnl)}</div></div>`; }).join('');
+}
+renderCalendar();
 </script>
 </body>
 </html>
