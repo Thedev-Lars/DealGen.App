@@ -166,247 +166,157 @@ box-shadow: var(–shadow); transition: all .3s ease; position: relative; overfl
 .card.primary { background: linear-gradient(135deg, rgba(139,92,246,.1) 0%, rgba(109,40,217,.05) 100%); border-color: rgba(139,92,246,.2); }
 .card h3 { margin: 0 0 12px; font-size: 12px; color: var(–muted); letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
 
-/* Copy Trading Specific Styles */
-.copy-hero {
-background: linear-gradient(135deg, rgba(139,92,246,.15) 0%, rgba(16,185,129,.1) 100%);
-border: 1px solid rgba(139,92,246,.3);
-border-radius: 20px;
-padding: 24px;
-margin-bottom: 24px;
-position: relative;
-overflow: hidden;
-}
-.copy-hero::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 0; right: 0; bottom: 0;
-background: radial-gradient(circle at 30% 20%, rgba(139,92,246,.2), transparent 60%),
-radial-gradient(circle at 70% 80%, rgba(16,185,129,.15), transparent 60%);
-pointer-events: none;
-}
-.copy-hero-content {
-position: relative;
-z-index: 1;
-display: grid;
-grid-template-columns: 1fr auto;
-gap: 24px;
-align-items: center;
-}
-.copy-status-badge {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-padding: 12px 16px;
-border-radius: 12px;
-font-weight: 700;
-font-size: 14px;
-text-transform: uppercase;
-letter-spacing: 0.05em;
-}
-.copy-status-badge.active {
-background: var(–success-bg);
+/* Follower Accounts Card */
+.follower-accounts-card {
+background: linear-gradient(135deg, rgba(16,185,129,.08) 0%, var(–panel) 100%);
 border: 1px solid rgba(16,185,129,.3);
-color: var(–success);
-}
-.copy-status-badge.inactive {
-background: var(–danger-bg);
-border: 1px solid rgba(239,68,68,.3);
-color: var(–danger);
-}
-.copy-status-badge::before {
-content: ‘’;
-width: 8px;
-height: 8px;
-border-radius: 50%;
-background: currentColor;
-animation: pulse 2s infinite;
-}
-
-.master-follower-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 20px;
-margin-bottom: 24px;
-}
-@media (max-width: 768px) {
-.master-follower-grid {
-grid-template-columns: 1fr;
-}
-}
-
-.account-card {
-background: var(–panel);
-border: 1px solid var(–stroke);
 border-radius: 16px;
 padding: 20px;
-position: relative;
-transition: all 0.3s ease;
+margin-bottom: 20px;
 }
-.account-card:hover {
-transform: translateY(-2px);
-box-shadow: var(–shadow);
-border-color: var(–stroke-light);
-}
-.account-card.master {
-border-color: rgba(139,92,246,.4);
-background: linear-gradient(135deg, rgba(139,92,246,.08) 0%, var(–panel) 100%);
-}
-.account-card.follower {
-border-color: rgba(16,185,129,.4);
-background: linear-gradient(135deg, rgba(16,185,129,.06) 0%, var(–panel) 100%);
-}
-
-.account-header {
+.follower-header {
 display: flex;
 align-items: center;
 justify-content: space-between;
 margin-bottom: 16px;
 }
-.account-type {
-display: inline-flex;
+.follower-title {
+display: flex;
 align-items: center;
-gap: 6px;
-padding: 6px 10px;
-border-radius: 8px;
-font-size: 11px;
+gap: 8px;
 font-weight: 700;
-text-transform: uppercase;
-letter-spacing: 0.05em;
+font-size: 16px;
 }
-.account-type.master {
-background: rgba(139,92,246,.15);
-color: var(–prime);
-border: 1px solid rgba(139,92,246,.3);
-}
-.account-type.follower {
-background: rgba(16,185,129,.15);
-color: var(–success);
-border: 1px solid rgba(16,185,129,.3);
-}
-
-.account-id {
-font-family: ui-monospace, ‘SF Mono’, Monaco, monospace;
-font-size: 11px;
-color: var(–muted);
-font-weight: 600;
-}
-
-.account-metrics {
+.follower-metrics {
 display: grid;
 grid-template-columns: 1fr 1fr;
 gap: 12px;
 margin-bottom: 16px;
 }
-.metric {
+.follower-metric {
 background: var(–glass);
 border: 1px solid var(–stroke);
 border-radius: 10px;
-padding: 10px 12px;
+padding: 12px;
 text-align: center;
 }
-.metric-label {
-font-size: 10px;
+.follower-metric-label {
+font-size: 11px;
 text-transform: uppercase;
-letter-spacing: 0.05em;
 color: var(–muted);
 font-weight: 700;
 margin-bottom: 4px;
 }
-.metric-value {
-font-size: 14px;
+.follower-metric-value {
+font-size: 18px;
 font-weight: 800;
 color: var(–ink);
 }
-.metric-value.positive { color: var(–success); }
-.metric-value.negative { color: var(–danger); }
-
-.account-actions {
+.follower-actions {
 display: flex;
 gap: 8px;
 flex-wrap: wrap;
+margin-bottom: 12px;
 }
-
 .connection-status {
 display: flex;
 align-items: center;
 gap: 6px;
-font-size: 11px;
+font-size: 12px;
 font-weight: 600;
-margin-top: 12px;
-padding: 6px 10px;
-border-radius: 8px;
-background: var(–glass);
-border: 1px solid var(–stroke);
-}
-.connection-status.connected {
 color: var(–success);
 background: var(–success-bg);
-border-color: rgba(16,185,129,.2);
-}
-.connection-status.disconnected {
-color: var(–danger);
-background: var(–danger-bg);
-border-color: rgba(239,68,68,.2);
+border: 1px solid rgba(16,185,129,.2);
+padding: 6px 10px;
+border-radius: 8px;
 }
 .connection-status::before {
 content: ‘’;
 width: 6px;
 height: 6px;
 border-radius: 50%;
-background: currentColor;
+background: var(–success);
 }
 
-/* Performance Overview */
-.performance-overview {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-gap: 16px;
-margin-bottom: 24px;
-}
-.perf-card {
-background: var(–panel);
+/* Master-Follower Flow */
+.master-follower-flow {
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 20px 0;
+padding: 16px;
+background: var(–glass);
 border: 1px solid var(–stroke);
 border-radius: 12px;
-padding: 16px;
-text-align: center;
 }
-.perf-value {
+.flow-master {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 8px;
+}
+.flow-arrow {
 font-size: 24px;
-font-weight: 900;
-margin-bottom: 4px;
+color: var(–prime);
+margin: 0 20px;
+animation: flowPulse 2s ease-in-out infinite;
 }
-.perf-label {
-font-size: 11px;
-text-transform: uppercase;
-letter-spacing: 0.05em;
-color: var(–muted);
+@keyframes flowPulse {
+0%, 100% { opacity: 0.6; transform: scale(1); }
+50% { opacity: 1; transform: scale(1.1); }
+}
+.flow-followers {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 8px;
+}
+.flow-followers-grid {
+display: flex;
+gap: 6px;
+}
+.flow-account {
+padding: 4px 8px;
+border-radius: 6px;
+font-size: 10px;
 font-weight: 700;
+font-family: ui-monospace, monospace;
 }
-.perf-change {
-font-size: 12px;
-font-weight: 600;
-margin-top: 4px;
+.flow-account.master {
+background: var(–warning-bg);
+color: var(–warning);
+border: 1px solid rgba(245,158,11,.3);
+}
+.flow-account.follower {
+background: var(–success-bg);
+color: var(–success);
+border: 1px solid rgba(16,185,129,.3);
 }
 
 /* Risk Management Panel */
-.risk-panel {
+.risk-management-panel {
 background: var(–panel);
 border: 1px solid var(–stroke);
 border-radius: 16px;
 padding: 20px;
-margin-bottom: 24px;
+margin-bottom: 20px;
 }
 .risk-header {
 display: flex;
 align-items: center;
-justify-content: between;
+justify-content: space-between;
 margin-bottom: 16px;
 }
-.risk-grid {
+.risk-title {
+font-weight: 700;
+font-size: 16px;
+color: var(–ink);
+}
+.risk-controls {
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 gap: 16px;
-margin-bottom: 16px;
+margin-bottom: 20px;
 }
 .risk-control {
 display: flex;
@@ -417,6 +327,8 @@ gap: 6px;
 font-size: 12px;
 font-weight: 700;
 color: var(–ink-secondary);
+text-transform: uppercase;
+letter-spacing: 0.05em;
 }
 .risk-input {
 padding: 10px 12px;
@@ -427,22 +339,65 @@ color: var(–ink);
 font-size: 14px;
 font-weight: 600;
 }
+.risk-features {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 16px;
+}
+.risk-feature-group {
+background: var(–glass);
+border: 1px solid var(–stroke);
+border-radius: 12px;
+padding: 16px;
+}
+.risk-feature-title {
+font-weight: 700;
+font-size: 14px;
+margin-bottom: 12px;
+color: var(–ink);
+}
+.risk-checkbox {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-bottom: 8px;
+cursor: pointer;
+}
+.risk-checkbox input[type=“checkbox”] {
+width: 16px;
+height: 16px;
+border-radius: 4px;
+}
 
-/* Position Sync Table */
-.sync-table {
+/* Live Position Sync Table */
+.live-sync-table {
 background: var(–panel);
 border: 1px solid var(–stroke);
 border-radius: 16px;
 overflow: hidden;
+margin-bottom: 20px;
 }
 .sync-table-header {
 background: var(–glass);
 padding: 16px 20px;
 border-bottom: 1px solid var(–stroke);
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+.sync-table-title {
 font-weight: 700;
 font-size: 16px;
+color: var(–ink);
 }
-.sync-table table {
+.sync-table-actions {
+display: flex;
+gap: 8px;
+}
+.sync-table-content {
+overflow-x: auto;
+}
+.sync-table {
 width: 100%;
 border-collapse: collapse;
 }
@@ -451,6 +406,7 @@ border-collapse: collapse;
 padding: 12px 16px;
 text-align: left;
 border-bottom: 1px solid var(–stroke);
+font-size: 13px;
 }
 .sync-table th {
 background: var(–glass);
@@ -465,6 +421,27 @@ background: var(–glass);
 }
 .sync-table tr:last-child td {
 border-bottom: none;
+}
+/* Master account styling */
+.sync-table tr.master {
+background: rgba(245,158,11,.05);
+border-left: 3px solid var(–warning);
+}
+/* Follower account styling */
+.sync-table tr.follower {
+background: rgba(16,185,129,.03);
+border-left: 3px solid var(–success);
+}
+.sync-table tr.follower td:first-child {
+padding-left: 28px;
+position: relative;
+}
+.sync-table tr.follower td:first-child::before {
+content: ‘└’;
+position: absolute;
+left: 16px;
+color: var(–muted);
+font-weight: 700;
 }
 
 /* KPIs */
@@ -496,8 +473,6 @@ transition: all .2s ease; display: inline-flex; align-items: center; gap: 8px; t
 .btn.primary:hover { background: linear-gradient(135deg, var(–prime-light) 0%, var(–prime) 100%); box-shadow: 0 6px 20px rgba(139, 92, 246, .4); }
 .btn.danger { background: linear-gradient(135deg, var(–danger) 0%, #dc2626 100%); border-color: #dc2626; color: #fff; box-shadow: 0 4px 14px rgba(239,68,68,.3); }
 .btn.danger:hover { background: linear-gradient(135deg, #f87171 0%, var(–danger) 100%); box-shadow: 0 6px 20px rgba(239,68,68,.4); }
-.btn.success { background: linear-gradient(135deg, var(–success) 0%, #059669 100%); border-color: #059669; color: #fff; box-shadow: 0 4px 14px rgba(16,185,129,.3); }
-.btn.success:hover { background: linear-gradient(135deg, #34d399 0%, var(–success) 100%); box-shadow: 0 6px 20px rgba(16,185,129,.4); }
 .btn.sm{ padding:8px 10px; font-size:12px; }
 
 /* Badges */
@@ -514,11 +489,14 @@ th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(–s
 th { background: var(–glass); color: var(–muted); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; position: sticky; top: 0; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 tr:hover { background: var(–glass); }
 tr:last-child td { border-bottom: none; }
+/* Follower indentation */
+tr.follower td:first-child{ padding-left: 28px; }
+tr.group-header td{ background: var(–glass-strong); font-weight: 800; }
 
 /* Forms */
 .form-input { padding: 12px 14px; border-radius: 8px; border: 1px solid var(–stroke); background: var(–glass); color: var(–ink); font-size: 14px; transition: all .2s; }
 .form-input:focus { outline: none; border-color: var(–prime); background: var(–glass-strong); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1); }
-.form-label { color: var(–ink-secondary); font-size: 12px; margin-bottom: 6px; display: block; font-weight: 700; }
+.form-label { color: var(–ink-secondary); font-size: 12px; margin-bottom: 6px; display: block; }
 
 /* Muted text */
 .muted { color: var(–muted); }
@@ -527,97 +505,83 @@ tr:last-child td { border-bottom: none; }
 section[data-page] { display: none; visibility: hidden; width: 100%; }
 section[data-page].show { display: block; visibility: visible; }
 
-/* Connection visualization */
-.connection-flow {
-display: flex;
-align-items: center;
-justify-content: center;
-margin: 20px 0;
-position: relative;
-}
-.flow-arrow {
-font-size: 24px;
-color: var(–prime);
-margin: 0 16px;
-animation: flowPulse 2s ease-in-out infinite;
-}
-@keyframes flowPulse {
-0%, 100% { opacity: 0.6; transform: scale(1); }
-50% { opacity: 1; transform: scale(1.1); }
-}
+/* Simple calendar grid */
+.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.cal .day { padding: 8px; border: 1px solid var(–stroke); border-radius: 8px; background: var(–panel); }
+.cal .day.win { border-color: rgba(16,185,129,.4); }
+.cal .day.loss { border-color: rgba(239,68,68,.4); }
 
-/* Quick Actions */
+/* Quick actions */
 .quick-actions{ position: fixed; bottom: 16px; right: 16px; z-index: 80; }
 .quick-action{ width: 48px; height: 48px; border-radius: 12px; border: 1px solid var(–stroke); background: var(–glass); color: var(–ink); }
 
-/* SVG & Charts */
 .svg { width: 100%; height: 100%; display: block; }
 .chart-container{ width: 100%; height: 120px; }
+.exposure-chips{ display:flex; gap:8px; flex-wrap:wrap; }
+.exposure-stack{ display:flex; height:10px; border-radius:999px; overflow:hidden; border:1px solid var(–stroke); margin-top:8px; }
+.exposure-chip{ display:flex; align-items:center; gap:8px; padding:6px 8px; border:1px solid var(–stroke); border-radius:999px; }
 
-/* Mobile responsiveness improvements */
-@media (max-width: 768px) {
-.copy-hero-content {
-grid-template-columns: 1fr;
-text-align: center;
-}
-.account-metrics {
-grid-template-columns: 1fr;
-}
-.performance-overview {
-grid-template-columns: 1fr;
-}
-.risk-grid {
-grid-template-columns: 1fr;
-}
-}
+/* Mobile-friendly Copy Trader */
+#cpSummary { position: sticky; top: 70px; z-index: 45; background: rgba(18,19,28,.9); border-bottom: 1px solid var(–stroke); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 10px 16px; }
+:root[data-theme=“light”] #cpSummary{ background: rgba(255,255,255,.9); }
+#cpSummary .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+.kpi-chip { display:inline-flex; align-items:baseline; gap:6px; padding:8px 10px; border:1px solid var(–stroke); background: var(–panel); border-radius: 10px; font-weight:800; }
+.kpi-chip small { color: var(–muted); font-weight:700; }
+.tabs { display:flex; gap:8px; padding:10px 16px 0; }
+.tab { flex:0 0 auto; padding:8px 12px; border-radius:10px; border:1px solid var(–stroke); background: var(–glass); font-weight:800; cursor:pointer; user-select:none; }
+.tab.active { background: var(–glass-strong); border-color: var(–stroke-light); }
+#cpMobileWrap { display:none; padding:12px 16px 16px; }
+#cpMobileList { display:grid; gap:12px; }
+.cp-card { border:1px solid var(–stroke); background: var(–panel); border-radius:14px; padding:12px 14px; box-shadow: var(–shadow); }
+.cp-top { display:grid; grid-template-columns: 1fr auto; gap:8px; align-items:center; }
+.cp-tags { display:flex; gap:6px; flex-wrap:wrap; }
+.cp-acct { font-family: ui-monospace, Menlo, Monaco, monospace; font-size:12px; text-align:right; opacity:.9; }
+.cp-stats { margin-top:8px; display:grid; grid-template-columns: 1fr 1fr; gap:8px; }
+.cp-kv { background: var(–glass); border:1px solid var(–stroke); border-radius:10px; padding:8px 10px; font-size:12px; }
+.cp-kv b { display:block; font-size:11px; color:var(–muted); margin-bottom:4px; font-weight:700; }
+.cp-actions { margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+.cp-details { display:none; margin-top:8px; }
+.cp-card.open .cp-details { display:block; }
+.cp-toggle { cursor:pointer; margin-top:6px; color:var(–muted); font-size:12px; }
+#cpOrdersMobile { display:none; padding:12px 16px 16px; }
+.ord-card { border:1px solid var(–stroke); background:var(–panel); border-radius:12px; padding:10px 12px; }
+.ord-line { display:flex; justify-content:space-between; gap:8px; font-size:12px; }
+.ord-line + .ord-line { margin-top:6px; }
+/* Desktop keeps table */
+@media (min-width: 768px) { #cpSummary, #cpMobileWrap, #cpOrdersMobile { display:none; } #cpTableWrap { display:block; } }
+/* Phone uses cards */
+@media (max-width: 767.98px) { #cpTableWrap { display:none; } #cpMobileWrap { display:block; } }
 
-/* Modal styles */
+/* Modal */
 .modal-backdrop{ position: fixed; inset: 0; background: rgba(0,0,0,.6); display:none; z-index: 200; backdrop-filter: blur(4px); }
 .modal{ position: fixed; inset: 0; display:none; z-index: 210; align-items:center; justify-content:center; padding: 20px; }
 .modal.open,.modal-backdrop.open{display:flex;}
-.modal-card{ width: 100%; max-width: 600px; background: var(–panel); border:1px solid var(–stroke); border-radius:16px; box-shadow: var(–shadow-lg); padding:24px; }
-.modal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;}
-.modal-body{display:grid; gap:16px;}
-.modal-footer{display:flex; justify-content:flex-end; gap:8px; margin-top:20px;}
+.modal-card{ width: 100%; max-width: 560px; background: var(–panel); border:1px solid var(–stroke); border-radius:16px; box-shadow: var(–shadow-lg); padding:16px 18px; }
+.modal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;}
+.modal-body{display:grid; gap:12px;}
+.modal-footer{display:flex; justify-content:flex-end; gap:8px; margin-top:12px;}
+.modal-list{max-height:260px; overflow:auto; border:1px solid var(–stroke); border-radius:10px; padding:8px;}
+.modal-row{display:flex; align-items:center; justify-content:space-between; padding:6px 4px; border-bottom:1px dashed var(–stroke);}
+.modal-row:last-child{border-bottom:none;}
 
-/* Account selector styles */
-.account-selector {
-display: grid;
-gap: 12px;
-max-height: 300px;
-overflow-y: auto;
+@media (max-width: 768px) {
+.risk-controls {
+grid-template-columns: 1fr;
 }
-.account-option {
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 12px 16px;
-border: 1px solid var(–stroke);
-border-radius: 10px;
-background: var(–glass);
-cursor: pointer;
-transition: all 0.2s ease;
+.risk-features {
+grid-template-columns: 1fr;
 }
-.account-option:hover {
-background: var(–glass-strong);
-border-color: var(–stroke-light);
+.follower-metrics {
+grid-template-columns: 1fr;
 }
-.account-option.selected {
-border-color: var(–prime);
-background: rgba(139,92,246,.1);
+.master-follower-flow {
+flex-direction: column;
+gap: 16px;
 }
-
-.setting-group {
-background: var(–glass);
-border: 1px solid var(–stroke);
-border-radius: 12px;
-padding: 16px;
+.flow-arrow {
+transform: rotate(90deg);
+margin: 0;
 }
-.setting-title {
-font-weight: 700;
-font-size: 14px;
-margin-bottom: 12px;
-color: var(–ink);
 }
 </style>
 
@@ -638,8 +602,8 @@ color: var(–ink);
 <div class="layout">
   <aside>
     <div class="nav-section">Dashboard</div>
-    <a class="navbtn" data-route="overview" href="#overview"><span>Overview</span></a>
-    <a class="navbtn active" data-route="copy" href="#copy"><span>Copy Trading</span></a>
+    <a class="navbtn active" data-route="overview" href="#overview"><span>Overview</span></a>
+    <a class="navbtn" data-route="copy" href="#copy"><span>Copy Trading</span></a>
     <a class="navbtn" data-route="analytics" href="#analytics"><span>Analytics</span></a>
 
 ```
@@ -648,9 +612,9 @@ color: var(–ink);
 <a class="navbtn" data-route="settings" href="#settings"><span>Settings</span></a>
 
 <div style="margin-top: auto; display: grid; gap: 10px;">
-  <button class="btn danger" id="emergencyStop">🚨 Emergency Stop</button>
-  <button class="btn" id="closeAllPositions">Close Positions</button>
-  <button class="btn" id="cancelAllOrders">Cancel Orders</button>
+  <button class="btn danger" id="mEmergency">🚨 Emergency Stop</button>
+  <button class="btn" id="mClose">Close Positions</button>
+  <button class="btn" id="mCancel">Cancel Orders</button>
 </div>
 ```
 
@@ -658,9 +622,9 @@ color: var(–ink);
 
   <main class="main">
     <!-- Overview -->
-    <section id="overview" data-page="overview">
+    <section id="overview" data-page="overview" class="show">
       <div class="card primary" style="margin-bottom: 20px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
           <div>
             <h3 style="margin: 0; color: white;">Performance Score</h3>
             <div class="muted" style="font-size: 12px;">AI-powered risk assessment</div>
@@ -668,8 +632,8 @@ color: var(–ink);
           <div style="display: flex; align-items: center; gap: 12px;">
             <div id="performanceScore" class="kpi" style="font-size: 48px; margin: 0; color: white;">A+</div>
             <div style="text-align: right;">
-              <div class="badge success">Low Risk</div>
-              <div class="muted" style="font-size: 11px; margin-top: 4px;">Score: 92/100</div>
+              <div id="riskLevel" class="badge success">Low Risk</div>
+              <div class="muted" style="font-size: 11px; margin-top: 4px;">Score: <span id="riskScore">92/100</span></div>
             </div>
           </div>
         </div>
@@ -679,171 +643,259 @@ color: var(–ink);
   <div class="grid g-4">
     <div class="card">
       <h3>Day P&L (Realized)</h3>
-      <div class="kpi positive">$2,847.50</div>
-      <div class="kpi-change positive">+12.4% from yesterday</div>
+      <div id="kpiRealized" class="kpi positive">$0.00</div>
+      <div class="kpi-change positive" id="dailyChange">+0.0% from yesterday</div>
+      <div class="chart-container"><svg id="spark" class="svg" viewBox="0 0 100 24" preserveAspectRatio="none"></svg></div>
     </div>
     <div class="card">
       <h3>Open P&L (Unrealized)</h3>
-      <div class="kpi positive">$1,234.75</div>
+      <div id="kpiOpen" class="kpi">$0.00</div>
+      <div class="exposure-container">
+        <div id="expoChips" class="exposure-chips"></div>
+        <div id="expoStack" class="exposure-stack"></div>
+      </div>
     </div>
     <div class="card">
       <h3>Active Exposure</h3>
-      <div class="kpi" style="font-size: 24px;">$273,200</div>
+      <div id="kpiExposure" class="kpi" style="font-size: 24px;">$0</div>
     </div>
     <div class="card">
       <h3>Copy Status</h3>
-      <div class="kpi" style="font-size: 24px; color: var(--success);">ACTIVE</div>
-      <div class="muted" style="font-size: 12px;">3 accounts synced • 12ms latency</div>
+      <div id="kpiCopy" class="kpi" style="font-size: 24px; color: var(--success);">ACTIVE</div>
+      <div class="muted" style="font-size: 12px;"><span id="kpiGroups">3</span> accounts synced • <span id="syncLatency">12ms</span> latency</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-weight: 700; font-size: 16px;">Risk Management</div>
+      <div class="toolbar-right"><span id="copyState" class="badge success">COPY TRADING ON</span></div>
+    </div>
+    <div class="grid g-3" style="margin-top: 8px;">
+      <div class="form-group"><label class="form-label">Daily Max Loss</label><input id="rcLoss" class="form-input" value="$1,500" /></div>
+      <div class="form-group"><label class="form-label">Max Daily Trades</label><input id="rcTrades" class="form-input" value="40" /></div>
+      <div class="form-group"><label class="form-label">Position Limit</label><input id="rcPos" class="form-input" value="12" /></div>
+    </div>
+    <div class="toolbar-right" style="margin-top: 12px; display:flex; gap:10px;">
+      <button id="riskSave" class="btn primary">Save Risk Settings</button>
+      <button id="riskReset" class="btn">Reset</button>
+    </div>
+
+    <div class="toolbar-right" style="margin-top: 16px; display:flex; gap:10px;">
+      <button id="ovDisable" class="btn">Disable Copy Trading</button>
+      <button id="ovClose" class="btn">Close All Positions</button>
+      <button id="ovCancel" class="btn danger">Cancel All Orders</button>
     </div>
   </div>
 </section>
 
 <!-- Copy Trading -->
-<section id="copy" data-page="copy" class="show">
-  <!-- Hero Section -->
-  <div class="copy-hero">
-    <div class="copy-hero-content">
-      <div>
-        <h1 style="margin: 0 0 8px; font-size: 28px; font-weight: 900; letter-spacing: -0.02em;">Copy Trading Dashboard</h1>
-        <p style="margin: 0; color: var(--ink-secondary); font-size: 16px;">Monitor and manage your master-follower relationships in real-time</p>
+<section id="copy" data-page="copy">
+  <!-- Follower Accounts Overview -->
+  <div class="follower-accounts-card">
+    <div class="follower-header">
+      <div class="follower-title">
+        <span class="badge success">📊 FOLLOWER ACCOUNTS</span>
+        <span class="muted" id="followerCount">3 Active</span>
       </div>
-      <div style="text-align: right;">
-        <div id="copyStatusBadge" class="copy-status-badge active">
-          Copy Trading Active
-        </div>
-        <div style="margin-top: 8px; font-size: 12px; color: var(--muted);">
-          Last sync: <span id="lastSync">2 seconds ago</span>
-        </div>
+    </div>
+    
+    <div class="follower-metrics">
+      <div class="follower-metric">
+        <div class="follower-metric-label">Combined Balance</div>
+        <div class="follower-metric-value" id="combinedBalance">$562,579</div>
       </div>
+      <div class="follower-metric">
+        <div class="follower-metric-label">Total Day P&L</div>
+        <div class="follower-metric-value positive" id="totalDayPL">+$5,591</div>
+      </div>
+      <div class="follower-metric">
+        <div class="follower-metric-label">Avg Success Rate</div>
+        <div class="follower-metric-value" id="avgSuccessRate">98.7%</div>
+      </div>
+      <div class="follower-metric">
+        <div class="follower-metric-label">Copy Ratio</div>
+        <div class="follower-metric-value" id="copyRatio">1:1</div>
+      </div>
+    </div>
+
+    <div class="follower-actions">
+      <button class="btn primary" id="addFollower">Add Follower</button>
+      <button class="btn" id="configureRatios">Configure Ratios</button>
+      <button class="btn" id="manageFollowers">Manage All</button>
+    </div>
+
+    <div class="connection-status">
+      All followers synced
     </div>
   </div>
 
-  <!-- Performance Overview -->
-  <div class="performance-overview">
-    <div class="perf-card">
-      <div class="perf-value positive">$8,437.92</div>
-      <div class="perf-label">Total P&L Today</div>
-      <div class="perf-change positive">+15.7% vs yesterday</div>
-    </div>
-    <div class="perf-card">
-      <div class="perf-value">4</div>
-      <div class="perf-label">Active Accounts</div>
-      <div class="perf-change">1 Master + 3 Followers</div>
-    </div>
-    <div class="perf-card">
-      <div class="perf-value">$847,329</div>
-      <div class="perf-label">Total Balance</div>
-      <div class="perf-change positive">+2.1% this week</div>
-    </div>
-    <div class="perf-card">
-      <div class="perf-value">98.7%</div>
-      <div class="perf-label">Sync Success Rate</div>
-      <div class="perf-change positive">12ms avg latency</div>
-    </div>
-  </div>
-
-  <!-- Master & Follower Accounts -->
-  <div class="master-follower-grid">
-    <!-- Master Account -->
-    <div class="account-card master">
-      <div class="account-header">
-        <div class="account-type master">👑 Master Account</div>
-        <div class="account-id">TV-MASTER-20368</div>
-      </div>
-      
-      <div class="account-metrics">
-        <div class="metric">
-          <div class="metric-label">Balance</div>
-          <div class="metric-value">$284,750</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">Day P&L</div>
-          <div class="metric-value positive">+$2,847</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">Open P&L</div>
-          <div class="metric-value positive">+$1,234</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">Positions</div>
-          <div class="metric-value">3 Active</div>
-        </div>
-      </div>
-
-      <div class="account-actions">
-        <button class="btn sm primary" id="addPosition">Add Position</button>
-        <button class="btn sm">View Orders</button>
-        <button class="btn sm danger">Pause Trading</button>
-      </div>
-
-      <div class="connection-status connected">
-        Connected • Real-time sync
-      </div>
-    </div>
-
-    <!-- Follower Accounts Summary -->
-    <div class="account-card follower">
-      <div class="account-header">
-        <div class="account-type follower">📊 Follower Accounts</div>
-        <div class="account-id">3 Active</div>
-      </div>
-      
-      <div class="account-metrics">
-        <div class="metric">
-          <div class="metric-label">Combined Balance</div>
-          <div class="metric-value">$562,579</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">Total Day P&L</div>
-          <div class="metric-value positive">+$5,591</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">Avg Success Rate</div>
-          <div class="metric-value">98.7%</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">Copy Ratio</div>
-          <div class="metric-value">1:1</div>
-        </div>
-      </div>
-
-      <div class="account-actions">
-        <button class="btn sm primary" id="addFollower">Add Follower</button>
-        <button class="btn sm" id="configureRatios">Configure Ratios</button>
-        <button class="btn sm" id="manageFollowers">Manage All</button>
-      </div>
-
-      <div class="connection-status connected">
-        All followers synced
-      </div>
-    </div>
-  </div>
-
-  <!-- Connection Flow Visualization -->
-  <div class="connection-flow">
-    <div style="text-align: center;">
-      <div style="font-weight: 700; margin-bottom: 4px;">Master</div>
-      <div class="badge info">TV-MASTER-20368</div>
+  <!-- Master-Follower Flow Visualization -->
+  <div class="master-follower-flow">
+    <div class="flow-master">
+      <div style="font-weight: 700; font-size: 12px; color: var(--muted); margin-bottom: 4px;">Master</div>
+      <div class="flow-account master">TV-MASTER-20368</div>
     </div>
     <div class="flow-arrow">→</div>
-    <div style="text-align: center;">
-      <div style="font-weight: 700; margin-bottom: 4px;">Followers</div>
-      <div style="display: flex; gap: 6px;">
-        <div class="badge success">TV-FOL-001</div>
-        <div class="badge success">TV-FOL-002</div>
-        <div class="badge success">TV-FOL-003</div>
+    <div class="flow-followers">
+      <div style="font-weight: 700; font-size: 12px; color: var(--muted); margin-bottom: 4px;">Followers</div>
+      <div class="flow-followers-grid">
+        <div class="flow-account follower">TV-FOL-001</div>
+        <div class="flow-account follower">TV-FOL-002</div>
+        <div class="flow-account follower">TV-FOL-003</div>
       </div>
+    </div>
+  </div>
+
+  <!-- Sticky summary and tabs (mobile) -->
+  <div id="cpSummary">
+    <div class="row" id="cpSummaryRow"></div>
+    <div class="tabs">
+      <div class="tab active" data-tab="accounts">Accounts</div>
+      <div class="tab" data-tab="orders">Orders</div>
+    </div>
+  </div>
+
+  <!-- Accounts (mobile cards) -->
+  <div id="cpMobileWrap"><div id="cpMobileList"></div></div>
+  <!-- Orders (mobile cards placeholder) -->
+  <div id="cpOrdersMobile"></div>
+
+  <!-- Live Position Sync Table -->
+  <div class="live-sync-table" id="cpTableWrap">
+    <div class="sync-table-header">
+      <div class="sync-table-title">Live Position Sync</div>
+      <div class="sync-table-actions">
+        <button class="btn sm">Export Data</button>
+        <button class="btn sm primary" id="syncAllNow">Sync All Now</button>
+      </div>
+    </div>
+    
+    <div class="sync-table-content">
+      <table class="sync-table">
+        <thead>
+          <tr>
+            <th>Account</th>
+            <th>Symbol</th>
+            <th>Side</th>
+            <th>Quantity</th>
+            <th>Entry Price</th>
+            <th>Current Price</th>
+            <th>P&L</th>
+            <th>Sync Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="syncTableBody">
+          <!-- Master position -->
+          <tr class="master">
+            <td>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="badge warning">MASTER</span>
+                <code style="font-size: 11px;">TV-MASTER-20368</code>
+              </div>
+            </td>
+            <td><span class="badge info">ES DEC24</span></td>
+            <td><span class="badge success">LONG</span></td>
+            <td><strong>2</strong></td>
+            <td>$5,847.25</td>
+            <td>$5,862.50</td>
+            <td><span style="color: var(--success); font-weight: 700;">+$765.00</span></td>
+            <td><span class="badge success">SYNCED</span></td>
+            <td>
+              <button class="btn sm">Close</button>
+              <button class="btn sm">Edit</button>
+            </td>
+          </tr>
+          
+          <!-- Follower positions -->
+          <tr class="follower">
+            <td>
+              <span class="badge success">FOLLOWER</span>
+              <code style="font-size: 11px;">TV-FOL-001</code>
+            </td>
+            <td><span class="badge info">ES DEC24</span></td>
+            <td><span class="badge success">LONG</span></td>
+            <td><strong>2</strong></td>
+            <td>$5,847.50</td>
+            <td>$5,862.50</td>
+            <td><span style="color: var(--success); font-weight: 700;">+$765.00</span></td>
+            <td><span class="badge success">SYNCED</span></td>
+            <td>
+              <button class="btn sm">Close</button>
+              <button class="btn sm danger">Disable</button>
+            </td>
+          </tr>
+          
+          <tr class="follower">
+            <td>
+              <span class="badge success">FOLLOWER</span>
+              <code style="font-size: 11px;">TV-FOL-002</code>
+            </td>
+            <td><span class="badge info">ES DEC24</span></td>
+            <td><span class="badge success">LONG</span></td>
+            <td><strong>1</strong></td>
+            <td>$5,848.00</td>
+            <td>$5,862.50</td>
+            <td><span style="color: var(--success); font-weight: 700;">+$362.50</span></td>
+            <td><span class="badge success">SYNCED</span></td>
+            <td>
+              <button class="btn sm">Close</button>
+              <button class="btn sm danger">Disable</button>
+            </td>
+          </tr>
+
+          <tr class="follower">
+            <td>
+              <span class="badge success">FOLLOWER</span>
+              <code style="font-size: 11px;">TV-FOL-003</code>
+            </td>
+            <td><span class="badge info">ES DEC24</span></td>
+            <td><span class="badge success">LONG</span></td>
+            <td><strong>3</strong></td>
+            <td>$5,847.75</td>
+            <td>$5,862.50</td>
+            <td><span style="color: var(--success); font-weight: 700;">+$1,106.25</span></td>
+            <td><span class="badge warning">DELAYED</span></td>
+            <td>
+              <button class="btn sm primary">Sync Now</button>
+              <button class="btn sm danger">Disable</button>
+            </td>
+          </tr>
+
+          <!-- NQ Position Group -->
+          <tr class="master">
+            <td>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="badge warning">MASTER</span>
+                <code style="font-size: 11px;">TV-MASTER-20368</code>
+              </div>
+            </td>
+            <td><span class="badge info">NQ DEC24</span></td>
+            <td><span class="badge success">LONG</span></td>
+            <td><strong>1</strong></td>
+            <td>$22,681.50</td>
+            <td>$22,745.25</td>
+            <td><span style="color: var(--success); font-weight: 700;">+$1,275.00</span></td>
+            <td><span class="badge success">SYNCED</span></td>
+            <td>
+              <button class="btn sm">Close</button>
+              <button class="btn sm">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
   <!-- Risk Management Panel -->
-  <div class="risk-panel">
+  <div class="risk-management-panel">
     <div class="risk-header">
-      <h3 style="margin: 0; font-size: 18px; font-weight: 700;">Risk Management</h3>
-      <button class="btn sm primary" id="saveRiskSettings">Save Settings</button>
+      <div class="risk-title">Risk Management</div>
+      <button class="btn primary" id="saveRiskSettings">Save Settings</button>
     </div>
     
-    <div class="risk-grid">
+    <div class="risk-controls">
       <div class="risk-control">
         <label class="risk-label">Max Daily Loss</label>
         <input type="text" class="risk-input" value="$5,000" id="maxDailyLoss">
@@ -862,194 +914,176 @@ color: var(–ink);
       </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px;">
-      <div class="setting-group">
-        <div class="setting-title">Auto-Stop Features</div>
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" checked> Emergency stop on connection loss
-          </label>
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" checked> Pause on daily loss limit
-          </label>
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox"> Email alerts on major losses
-          </label>
-        </div>
+    <div class="risk-features">
+      <div class="risk-feature-group">
+        <div class="risk-feature-title">Auto-Stop Features</div>
+        <label class="risk-checkbox">
+          <input type="checkbox" checked> Emergency stop on connection loss
+        </label>
+        <label class="risk-checkbox">
+          <input type="checkbox" checked> Pause on daily loss limit
+        </label>
+        <label class="risk-checkbox">
+          <input type="checkbox"> Email alerts on major losses
+        </label>
       </div>
       
-      <div class="setting-group">
-        <div class="setting-title">Copy Settings</div>
-        <div style="display: flex; flex-direction: column; gap: 8px;">
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" checked> Copy all trades automatically
-          </label>
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox"> Require manual approval for large trades
-          </label>
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" checked> Mirror stop losses and take profits
-          </label>
-        </div>
+      <div class="risk-feature-group">
+        <div class="risk-feature-title">Copy Settings</div>
+        <label class="risk-checkbox">
+          <input type="checkbox" checked> Copy all trades automatically
+        </label>
+        <label class="risk-checkbox">
+          <input type="checkbox"> Require manual approval for large trades
+        </label>
+        <label class="risk-checkbox">
+          <input type="checkbox" checked> Mirror stop losses and take profits
+        </label>
       </div>
     </div>
   </div>
 
-  <!-- Position Sync Table -->
-  <div class="sync-table">
-    <div class="sync-table-header">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <span>Live Position Sync</span>
-        <div style="display: flex; gap: 8px;">
-          <button class="btn sm">Export Data</button>
-          <button class="btn sm primary">Sync All Now</button>
-        </div>
+  <div class="card">
+    <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-weight: 700; font-size: 16px;">Recent Orders</div>
+      <div class="toolbar-right">
+        <button class="btn sm" id="ordFilter">Filter</button>
+        <button class="btn sm" id="ordExport">Export CSV</button>
       </div>
     </div>
-    
-    <table>
-      <thead>
-        <tr>
-          <th>Account</th>
-          <th>Symbol</th>
-          <th>Side</th>
-          <th>Quantity</th>
-          <th>Entry Price</th>
-          <th>Current Price</th>
-          <th>P&L</th>
-          <th>Sync Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="positionTable">
-        <!-- Master positions -->
-        <tr style="background: rgba(139,92,246,.05);">
-          <td>
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <div class="badge warning">MASTER</div>
-              <code style="font-size: 11px;">TV-MASTER-20368</code>
-            </div>
-          </td>
-          <td><span class="badge info">ES DEC24</span></td>
-          <td><span class="badge success">LONG</span></td>
-          <td><strong>2</strong></td>
-          <td>$5,847.25</td>
-          <td>$5,862.50</td>
-          <td><span style="color: var(--success); font-weight: 700;">+$765.00</span></td>
-          <td><span class="badge success">SYNCED</span></td>
-          <td>
-            <button class="btn sm">Close</button>
-            <button class="btn sm">Edit</button>
-          </td>
-        </tr>
-        
-        <!-- Follower positions -->
-        <tr>
-          <td>
-            <div style="display: flex; align-items: center; gap: 8px; padding-left: 20px;">
-              <div class="badge success">FOLLOWER</div>
-              <code style="font-size: 11px;">TV-FOL-001</code>
-            </div>
-          </td>
-          <td><span class="badge info">ES DEC24</span></td>
-          <td><span class="badge success">LONG</span></td>
-          <td><strong>2</strong></td>
-          <td>$5,847.50</td>
-          <td>$5,862.50</td>
-          <td><span style="color: var(--success); font-weight: 700;">+$765.00</span></td>
-          <td><span class="badge success">SYNCED</span></td>
-          <td>
-            <button class="btn sm">Close</button>
-            <button class="btn sm danger">Disable</button>
-          </td>
-        </tr>
-        
-        <tr>
-          <td>
-            <div style="display: flex; align-items: center; gap: 8px; padding-left: 20px;">
-              <div class="badge success">FOLLOWER</div>
-              <code style="font-size: 11px;">TV-FOL-002</code>
-            </div>
-          </td>
-          <td><span class="badge info">ES DEC24</span></td>
-          <td><span class="badge success">LONG</span></td>
-          <td><strong>1</strong></td>
-          <td>$5,848.00</td>
-          <td>$5,862.50</td>
-          <td><span style="color: var(--success); font-weight: 700;">+$362.50</span></td>
-          <td><span class="badge success">SYNCED</span></td>
-          <td>
-            <button class="btn sm">Close</button>
-            <button class="btn sm danger">Disable</button>
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            <div style="display: flex; align-items: center; gap: 8px; padding-left: 20px;">
-              <div class="badge success">FOLLOWER</div>
-              <code style="font-size: 11px;">TV-FOL-003</code>
-            </div>
-          </td>
-          <td><span class="badge info">ES DEC24</span></td>
-          <td><span class="badge success">LONG</span></td>
-          <td><strong>3</strong></td>
-          <td>$5,847.75</td>
-          <td>$5,862.50</td>
-          <td><span style="color: var(--success); font-weight: 700;">+$1,106.25</span></td>
-          <td><span class="badge warning">DELAYED</span></td>
-          <td>
-            <button class="btn sm primary">Sync Now</button>
-            <button class="btn sm danger">Disable</button>
-          </td>
-        </tr>
-
-        <!-- NQ Position -->
-        <tr style="background: rgba(139,92,246,.05);">
-          <td>
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <div class="badge warning">MASTER</div>
-              <code style="font-size: 11px;">TV-MASTER-20368</code>
-            </div>
-          </td>
-          <td><span class="badge info">NQ DEC24</span></td>
-          <td><span class="badge success">LONG</span></td>
-          <td><strong>1</strong></td>
-          <td>$22,681.50</td>
-          <td>$22,745.25</td>
-          <td><span style="color: var(--success); font-weight: 700;">+$1,275.00</span></td>
-          <td><span class="badge success">SYNCED</span></td>
-          <td>
-            <button class="btn sm">Close</button>
-            <button class="btn sm">Edit</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Account</th>
+            <th>Time</th>
+            <th>Symbol</th>
+            <th>Type</th>
+            <th>Side</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="ordBody"></tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <!-- Analytics -->
 <section id="analytics" data-page="analytics">
-  <div class="card">
-    <h3>Analytics Dashboard</h3>
-    <p>Detailed performance analytics and reporting tools.</p>
+  <div class="grid g-4">
+    <div class="card">
+      <h3>Today's P&L</h3>
+      <div id="aPLToday" class="kpi positive">$0.00</div>
+      <div id="aPLNote" class="muted" style="font-size: 12px;"></div>
+    </div>
+    <div class="card">
+      <h3>Profit Factor</h3>
+      <div id="aPF" class="kpi">2.34</div>
+      <div class="kpi-change positive">+0.15 this week</div>
+    </div>
+    <div class="card">
+      <h3>Win Rate</h3>
+      <div id="aWR" class="kpi">0%</div>
+      <div class="kpi-change positive">+0.0% this month</div>
+    </div>
+    <div class="card">
+      <h3>Daily Win Rate</h3>
+      <div id="aDW" class="kpi">0%</div>
+      <div id="aDWNote" class="muted" style="font-size: 12px;"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <h3>Equity Curve (30 Days)</h3>
+    <div class="chart-container" style="height: 200px;">
+      <svg id="eqCurve" class="svg" viewBox="0 0 100 30" preserveAspectRatio="none"></svg>
+    </div>
+  </div>
+
+  <div class="grid g-3" style="margin-top: 20px;">
+    <div class="card">
+      <h3>Daily P&L (Last 7)</h3>
+      <div id="aDailySum" class="kpi" style="font-size: 20px;">$0.00</div>
+      <div class="chart-container"><svg id="dailyBars" class="svg" viewBox="0 0 100 40"></svg></div>
+    </div>
+    <div class="card">
+      <h3>Weekly P&L (Last 4)</h3>
+      <div id="aWeeklySum" class="kpi" style="font-size: 20px;">$0.00</div>
+      <div class="chart-container"><svg id="weeklyBars" class="svg" viewBox="0 0 100 40"></svg></div>
+    </div>
+    <div class="card">
+      <h3>Monthly P&L (YTD)</h3>
+      <div id="aMonthlySum" class="kpi" style="font-size: 20px;">$0.00</div>
+      <div class="chart-container"><svg id="monthlyBars" class="svg" viewBox="0 0 100 40"></svg></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-weight: 700; font-size: 16px;">Performance Calendar</div>
+      <div id="calLabel" class="muted"></div>
+    </div>
+    <div id="calGrid" class="cal"></div>
   </div>
 </section>
 
 <!-- Activity -->
 <section id="activity" data-page="activity">
   <div class="card">
-    <h3>Activity Feed</h3>
-    <p>Real-time activity and trade logs.</p>
+    <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-weight: 700; font-size: 16px;">Activity Feed</div>
+      <button class="btn sm" id="actExport">Export CSV</button>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead><tr><th>Time</th><th>Type</th><th>Message</th></tr></thead>
+        <tbody id="actBody"></tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <!-- Settings -->
 <section id="settings" data-page="settings">
   <div class="card">
-    <h3>Settings</h3>
-    <p>Platform configuration and account settings.</p>
+    <div style="font-weight: 700; font-size: 16px; margin-bottom: 20px;">Account Settings</div>
+    <div class="grid g-2">
+      <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" value="trader@example.com" /></div>
+      <div class="form-group">
+        <label class="form-label">Subscription Plan</label>
+        <select class="form-input">
+          <option>Professional ($99/mo)</option>
+          <option>Starter ($29/mo)</option>
+          <option>Enterprise ($199/mo)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid g-2" style="margin-top: 20px;">
+      <div>
+        <div class="form-label" style="margin-bottom: 12px;">Tradovate API</div>
+        <div class="form-group"><input class="form-input" placeholder="Client ID" /></div>
+        <div class="form-group"><input class="form-input" placeholder="Client Secret" type="password" /></div>
+        <button id="testApi" class="btn primary">Test Connection</button>
+      </div>
+      <div>
+        <div class="form-label" style="margin-bottom: 12px;">Usage Overview</div>
+        <div style="height: 12px; border-radius: 999px; background: var(--bg-secondary); border: 1px solid var(--stroke); overflow: hidden;">
+          <span id="usage" style="display: block; height: 12px; background: linear-gradient(90deg, var(--prime), var(--prime-light)); width: 65%;"></span>
+        </div>
+        <div class="muted" style="font-size: 12px; margin-top: 8px;">3 of 5 broker connections used</div>
+        <div class="muted" style="font-size: 12px;">1,247 of 2,000 monthly trades</div>
+      </div>
+    </div>
+
+    <div class="toolbar-right" style="margin-top: 24px; display:flex; gap:10px; justify-content: flex-end;">
+      <button class="btn">Cancel</button>
+      <button class="btn primary">Save Changes</button>
+    </div>
   </div>
 </section>
 ```
@@ -1059,65 +1093,30 @@ color: var(–ink);
 
 <!-- Quick Actions -->
 
-<div class="quick-actions">
-  <button class="quick-action" title="Emergency Stop" id="quickEmergency">🚨</button>
-</div>
+<div class="quick-actions"><button class="quick-action" title="Emergency Stop">🚨</button></div>
 
-<!-- Add Follower Modal -->
+<!-- Copy Trading Modal -->
 
-<div class="modal-backdrop" id="followerBackdrop"></div>
-<div class="modal" id="followerModal" aria-hidden="true">
-  <div class="modal-card">
+<div class="modal-backdrop" id="cpBackdrop"></div>
+<div class="modal" id="cpModal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="cpModalTitle">
     <div class="modal-head">
-      <h3 style="margin: 0; font-weight: 700;">Add Follower Account</h3>
-      <button class="btn sm" id="closeFollowerModal">×</button>
+      <div id="cpModalTitle" style="font-weight:800">Edit Copy Trading</div>
+      <button class="btn" id="cpCloseX">Close</button>
     </div>
     <div class="modal-body">
       <div>
-        <label class="form-label">Select Account to Follow</label>
-        <div class="account-selector" id="accountSelector">
-          <div class="account-option">
-            <div>
-              <div style="font-weight: 700;">TV-ACCOUNT-001</div>
-              <div style="font-size: 12px; color: var(--muted);">Balance: $145,750 • Connected</div>
-            </div>
-            <input type="radio" name="followerAccount" value="TV-ACCOUNT-001">
-          </div>
-          <div class="account-option">
-            <div>
-              <div style="font-weight: 700;">TV-ACCOUNT-002</div>
-              <div style="font-size: 12px; color: var(--muted);">Balance: $89,200 • Connected</div>
-            </div>
-            <input type="radio" name="followerAccount" value="TV-ACCOUNT-002">
-          </div>
-          <div class="account-option">
-            <div>
-              <div style="font-weight: 700;">TV-ACCOUNT-003</div>
-              <div style="font-size: 12px; color: var(--muted);">Balance: $203,450 • Connected</div>
-            </div>
-            <input type="radio" name="followerAccount" value="TV-ACCOUNT-003">
-          </div>
-        </div>
+        <div class="form-label">Leader</div>
+        <div class="modal-list" id="cpLeaderList"></div>
       </div>
-      <div class="grid g-2">
-        <div>
-          <label class="form-label">Copy Ratio</label>
-          <select class="form-input">
-            <option>1:1 (Match exactly)</option>
-            <option>1:0.5 (Half size)</option>
-            <option>1:2 (Double size)</option>
-            <option>Custom</option>
-          </select>
-        </div>
-        <div>
-          <label class="form-label">Max Position Size</label>
-          <input type="text" class="form-input" placeholder="$25,000" value="$25,000">
-        </div>
+      <div>
+        <div class="form-label">Followers</div>
+        <div class="modal-list" id="cpFollowerList"></div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn" id="cancelAddFollower">Cancel</button>
-      <button class="btn primary" id="confirmAddFollower">Add Follower</button>
+      <button class="btn" id="cpCancelEdit">Cancel</button>
+      <button class="btn primary" id="cpSaveEdit">Save</button>
     </div>
   </div>
 </div>
@@ -1127,64 +1126,17 @@ color: var(–ink);
   const $ = q => document.querySelector(q);
   const $$ = q => Array.from(document.querySelectorAll(q));
 
-  /* Theme */
-  const THEME_KEY='td_theme';
-  function setTheme(mode){ 
-    document.documentElement.setAttribute('data-theme', mode); 
-    localStorage.setItem(THEME_KEY, mode); 
-  }
-  function toggleTheme(){ 
-    const cur=document.documentElement.getAttribute('data-theme')||'dark'; 
-    setTheme(cur==='dark'?'light':'dark'); 
-  }
-  const savedTheme = localStorage.getItem(THEME_KEY) || 'dark'; 
-  setTheme(savedTheme);
-  $('#themeBtn').addEventListener('click', toggleTheme);
-
-  /* Navigation */
-  function initHamburgerAutoclose(){
-    const navCheckbox = $('#nav'); 
-    const overlay = $('.overlay'); 
-    const main = document.querySelector('main');
-    const closeNav=()=>{ if(navCheckbox) navCheckbox.checked=false; };
-    if(overlay) overlay.addEventListener('click', closeNav);
-    if(main) main.addEventListener('click', closeNav);
-  }
-  
-  function goto(route){
-    const pages=$$('section[data-page]');
-    if(!pages.some(p=>p.id===route)) route='copy'; // Default to copy trading
-    pages.forEach(p=>{
-      const show=(p.id===route);
-      p.classList.toggle('show',show);
-      p.style.display=show?'block':'none';
-      p.style.visibility=show?'visible':'hidden';
-      p.setAttribute('aria-hidden', show? 'false':'true');
-    });
-    $$('.navbtn').forEach(n=>n.classList.toggle('active', n.dataset.route===route));
-    if(location.hash.slice(1)!==route) { 
-      try{history.replaceState(null,'','#'+route);}catch(e){location.hash='#'+route;} 
-    }
-    window.scrollTo({top:0,left:0,behavior:'instant'});
-  }
-  
-  function initRouting(){
-    $$('.navbtn').forEach(n=>n.addEventListener('click', e=>{
-      e.preventDefault(); 
-      e.stopPropagation(); 
-      goto(n.dataset.route); 
-    }));
-    window.addEventListener('hashchange', ()=>goto(location.hash.slice(1)));
-    goto(location.hash.slice(1)||'copy');
-  }
-
-  /* Toast notifications */
+  /* utils */
+  function fmt(n){ const s=(typeof n==='number')?n:parseFloat(String(n||0)); const sign=s<0?'-':''; return sign+'$'+Math.abs(s).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  const toNumber = x => (typeof x==='number')?x:parseFloat(String(x).replace(/[^0-9.\-]/g,''))||0;
+  function sum(arr){ return arr.reduce((a,b)=>a+b,0); }
+  function lastN(arr,n){ return arr.slice(Math.max(0,arr.length-n)); }
   function showToast(message, type = 'info'){
     const colors = {
-      success: 'var(--success)',
-      danger: 'var(--danger)',
-      warning: 'var(--warning)',
-      info: 'var(--info)'
+      success: '#10b981',
+      danger: '#ef4444', 
+      warning: '#f59e0b',
+      info: '#8b5cf6'
     };
     const n=document.createElement('div');
     n.style.cssText=`position:fixed;top:84px;right:20px;background:var(--panel);border:1px solid var(--stroke);border-left:4px solid ${colors[type]};border-radius:12px;padding:12px 16px;color:var(--ink);box-shadow:var(--shadow);z-index:1000;max-width:300px;font-weight:600;`;
@@ -1193,159 +1145,406 @@ color: var(–ink);
     setTimeout(()=>n.remove(), 3000);
   }
 
-  /* Live data simulation */
-  function updateLiveData() {
-    // Update last sync time
-    $('#lastSync').textContent = Math.floor(Math.random() * 10) + ' seconds ago';
+  /* theme */
+  const THEME_KEY='td_theme';
+  function setTheme(mode){ document.documentElement.setAttribute('data-theme', mode); localStorage.setItem(THEME_KEY, mode); }
+  function toggleTheme(){ const cur=document.documentElement.getAttribute('data-theme')||'dark'; setTheme(cur==='dark'?'light':'dark'); }
+  const savedTheme = localStorage.getItem(THEME_KEY) || 'dark'; setTheme(savedTheme);
+  $('#themeBtn').addEventListener('click', toggleTheme);
+
+  /* nav autoclose + router */
+  function initHamburgerAutoclose(){
+    const navCheckbox = $('#nav'); const overlay = $('.overlay'); const main = document.querySelector('main');
+    const closeNav=()=>{ if(navCheckbox) navCheckbox.checked=false; };
+    if(overlay) overlay.addEventListener('click', closeNav);
+    if(main) main.addEventListener('click', closeNav);
+  }
+  function goto(route){
+    const pages=$$('section[data-page]');
+    if(!pages.some(p=>p.id===route)) route='overview';
+    pages.forEach(p=>{
+      const show=(p.id===route);
+      p.classList.toggle('show',show);
+      p.style.display=show?'block':'none';
+      p.style.visibility=show?'visible':'hidden';
+      p.setAttribute('aria-hidden', show? 'false':'true');
+    });
+    $$('.navbtn').forEach(n=>n.classList.toggle('active', n.dataset.route===route));
+    if(location.hash.slice(1)!==route) { try{history.replaceState(null,'','#'+route);}catch(e){location.hash='#'+route;} }
+    window.scrollTo({top:0,left:0,behavior:'instant'});
+  }
+  function initRouting(){
+    $$('.navbtn').forEach(n=>n.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); goto(n.dataset.route); }));
+    window.addEventListener('hashchange', ()=>goto(location.hash.slice(1)));
+    goto(location.hash.slice(1)||'overview');
+  }
+
+  /* deterministic 30-day dataset */
+  function seededRand(seed){ let t=seed; return ()=> (t = (t*9301 + 49297) % 233280) / 233280; }
+  const rand = seededRand(1337);
+  const DATA = (function buildData(){
+    const pnlDaily=[]; let drift=120, vol=280;
+    for(let i=0;i<30;i++){
+      const shock = (rand()-0.5)*vol;
+      drift += (rand()-0.48)*60;
+      const v = Math.round((drift + shock)*100)/100;
+      pnlDaily.push(v);
+    }
+    const leader = { acct:'TV-LEADER-203682037', side:'Long', qty:1, avg:22681.50 };
+    const baseOpen = Math.round(((rand()-0.5)*700+300)*100)/100;
+    leader.open = baseOpen;
+    leader.balance = 50000 + sum(pnlDaily);
+    leader.day = pnlDaily[pnlDaily.length-1];
+    const followers=[0,1,2].map((i)=>{
+      const skew=1 + (rand()-0.5)*0.06;
+      const bal=48000 + i*1500 + sum(pnlDaily)*skew;
+      return {
+        acct:'TV-FOLLOW-20368203'+(4+i),
+        ratio:1,
+        balance: bal,
+        day: leader.day*skew,
+        open: leader.open*skew,
+        avg: 22681.50,
+        side:'Long',
+        qty:1
+      };
+    });
+    const positions=[
+      {sym:'ESZ5', side:'Long', qty:2, notional:142000, price:5847.25},
+      {sym:'NQZ5', side:'Long', qty:1, notional:98500, price:22681.50},
+      {sym:'CLX5', side:'Short', qty:3, notional:32700, price:89.45}
+    ];
+    const baseId = ()=> Math.random().toString(16).slice(2,10).toUpperCase();
+    const orders=[];
+    const mkTime = (h,m,s)=> [h.toString().padStart(2,'0'),m.toString().padStart(2,'0'),s.toString().padStart(2,'0')].join(':');
+    const leaderNow = {id:baseId(), acct: leader.acct, time: mkTime(9,18,11), contract:'ESZ5', type:'Market', side:'Buy', qty:1, price:5847.25, status:'Filled'};
+    orders.push(leaderNow);
+    followers.forEach((f,i)=>{ orders.push({id:baseId(), acct:f.acct, time: mkTime(9,18,12+i), contract:'ESZ5', type:'Market', side:'Buy', qty:1, price: leaderNow.price - i*0.25, status:'Filled'}); });
+    const l2 = {id:baseId(), acct: leader.acct, time: mkTime(8,45,33), contract:'NQZ5', type:'Limit', side:'Buy', qty:1, price:22681.50, status:'Filled'};
+    orders.push(l2);
+    followers.forEach((f,i)=> orders.push({id:baseId(), acct:f.acct, time: mkTime(8,45,34+i), contract:'NQZ5', type:'Limit', side:'Buy', qty:1, price:l2.price - i*1.0, status:'Filled'}));
+    const activities=[
+      {time:new Date().toTimeString().slice(0,8), type:'system', msg:'All systems operational'},
+      {time:'14:32:15', type:'trade', msg:'Position opened: ESZ5 Long x2 @ 5,847.25'},
+      {time:'14:31:58', type:'copy', msg:'Order copied to 3 follower accounts'},
+      {time:'14:29:43', type:'system', msg:'Real-time sync active'}
+    ];
+    return {
+      pnlDaily, accounts:{leader, followers}, positions, orders, activities,
+      monthlyYTD: [2847.92,4234.15,6789.33,8912.47,7234.82,9456.78,11234.56,12847.93,14567.89,16234.77,18456.92,0]
+    };
+  })();
+
+  /* persistence */
+  const RISK_KEY='td_risk_settings';
+  const COPY_KEY='td_copy_map';
+
+  function loadRisk(){
+    try{ const o=JSON.parse(localStorage.getItem(RISK_KEY)||'{}'); if(o.loss) $('#rcLoss').value=o.loss; if(o.trades) $('#rcTrades').value=o.trades; if(o.pos) $('#rcPos').value=o.pos; }catch(e){}
+  }
+  function saveRisk(){
+    const o={ loss:$('#rcLoss').value, trades:$('#rcTrades').value, pos:$('#rcPos').value };
+    localStorage.setItem(RISK_KEY, JSON.stringify(o));
+    showToast('Risk settings saved', 'success');
+  }
+  function resetRisk(){
+    $('#rcLoss').value='$1,500'; $('#rcTrades').value='40'; $('#rcPos').value='12';
+    localStorage.removeItem(RISK_KEY);
+    showToast('Risk settings reset', 'info');
+  }
+
+  function defaultCopyMap(){ return { leader: DATA.accounts.leader.acct, followers: DATA.accounts.followers.map(f=>f.acct) }; }
+  function loadCopyMap(){ try{ const o=JSON.parse(localStorage.getItem(COPY_KEY)||'null'); return (o && o.leader)? o : defaultCopyMap(); }catch(e){ return defaultCopyMap(); } }
+  function saveCopyMap(map){ localStorage.setItem(COPY_KEY, JSON.stringify(map)); showToast('Copy trading updated', 'success'); }
+
+  /* totals derived from copy map */
+  function getRowsFromMap(map){
+    const all = [DATA.accounts.leader, ...DATA.accounts.followers];
+    const leader = all.find(a=>a.acct===map.leader) || DATA.accounts.leader;
+    const followers = all.filter(a=>map.followers.includes(a.acct) && a.acct!==leader.acct);
+    const mkRow = (acct, role) => ({ role, acct: acct.acct, side: acct.side||'Long', qty:1, balance: acct.balance, avg: acct.avg || 22681.50, day: acct.day, open: acct.open });
+    return [mkRow(leader,'Leader'), ...followers.map(f=>mkRow(f,'Follower'))];
+  }
+  function computeTotals(map){
+    const rows = getRowsFromMap(map);
+    const dayTotal  = sum(rows.map(r=>toNumber(r.day)));
+    const openTotal = sum(rows.map(r=>toNumber(r.open)));
+    const balTotal  = sum(rows.map(r=>toNumber(r.balance)));
+    const followers = rows.filter(r=>r.role==='Follower').length;
+    return {rows, dayTotal, openTotal, balTotal, followers};
+  }
+
+  /* overview */
+  function updateOverview(map){
+    const {dayTotal, openTotal} = computeTotals(map);
+    const y = DATA.pnlDaily[DATA.pnlDaily.length-2] || 0;
+    const pct = y!==0 ? ((dayTotal - y)/Math.abs(y)*100) : 0;
+    $('#kpiRealized').textContent=fmt(dayTotal);
+    $('#kpiRealized').className='kpi ' + (dayTotal>=0?'positive':'negative');
+    $('#kpiOpen').textContent=fmt(openTotal);
+    $('#kpiOpen').className='kpi ' + (openTotal>=0?'positive':'negative');
+    $('#dailyChange').textContent=(pct>=0?'+':'')+pct.toFixed(1)+'% from yesterday';
+    $('#dailyChange').className='kpi-change '+(pct>=0?'positive':'negative');
+    $('#syncLatency').textContent=(Math.floor(Math.random()*20)+8)+'ms';
+    spark($('#spark'), (function(){
+      const steps=48, end=dayTotal, arr=[0]; for(let i=1;i<steps;i++){ const remain=end-arr[i-1]; const step=remain/(steps-i) + (Math.random()-0.5)*Math.abs(remain)*0.05; arr.push(arr[i-1]+step); } return arr;
+    })());
+  }
+  function updateExposure(){
+    const total = DATA.positions.reduce((a,p)=>a+Math.abs(p.notional),0);
+    $('#kpiExposure').textContent='$'+total.toLocaleString();
+    const chips=$('#expoChips'); chips.innerHTML = DATA.positions.map(p=> '<div class="exposure-chip"><span class="badge '+(p.side==='Long'?'success':'danger')+'">'+p.sym+'</span><span>'+p.side+' '+p.qty+' • $'+Math.round(Math.abs(p.notional)/1000)+'k</span></div>').join('');
+    const stack=$('#expoStack'); stack.innerHTML='';
+    const colors=['#8b5cf6','#6d28d9','#a78bfa']; DATA.positions.forEach((p,i)=>{ const w=(Math.abs(p.notional)/total)*100; const d=document.createElement('div'); d.style.cssText='width:'+w+'%;background:'+colors[i%colors.length]+';'; stack.appendChild(d); });
+  }
+  function spark(el, values){
+    const w=100,h=24,max=Math.max(...values),min=Math.min(...values),range=(max-min)||1;
+    const pts=values.map((v,i)=>[(i/(values.length-1))*w, h - ((v-min)/range*h)]);
+    const path=pts.map((p,i)=>(i?'L':'M')+p.join(',')).join(' ');
+    const up = values[values.length-1] >= values[0];
+    el.innerHTML = '<defs>\
+      <linearGradient id="sparkUp" x1="0%" y1="0%" x2="100%" y2="0%">\
+        <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3" />\
+        <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.8" />\
+      </linearGradient>\
+      <linearGradient id="sparkDown" x1="0%" y1="0%" x2="100%" y2="0%">\
+        <stop offset="0%" style="stop-color:#ef4444;stop-opacity:0.3" />\
+        <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0.8" />\
+      </linearGradient>\
+    </defs>\
+    <path d="'+path+'" fill="none" stroke="'+(up?'url(#sparkUp)':'url(#sparkDown)')+'" stroke-width="2" stroke-linecap="round"/>\
+    <circle cx="'+pts[pts.length-1][0]+'" cy="'+pts[pts.length-1][1]+'" r="2" fill="'+(up?'#10b981':'#ef4444')+'"/>';
+  }
+
+  /* Copy Trading UI */
+  function updateFollowerOverview(map) {
+    const {balTotal, dayTotal, followers} = computeTotals(map);
+    const followerBalTotal = balTotal - DATA.accounts.leader.balance;
+    const followerDayTotal = dayTotal - DATA.accounts.leader.day;
     
-    // Simulate price updates
-    const prices = $$('[data-live-price]');
-    prices.forEach(el => {
-      const current = parseFloat(el.textContent.replace(/[^0-9.-]/g, ''));
-      const change = (Math.random() - 0.5) * 2; // -1 to +1
-      const newPrice = current + change;
-      el.textContent = '$' + newPrice.toFixed(2);
+    $('#followerCount').textContent = followers + ' Active';
+    $('#combinedBalance').textContent = '$' + followerBalTotal.toLocaleString();
+    $('#totalDayPL').textContent = fmt(followerDayTotal);
+    $('#totalDayPL').className = 'follower-metric-value ' + (followerDayTotal >= 0 ? 'positive' : 'negative');
+    $('#avgSuccessRate').textContent = (Math.random() * 2 + 97).toFixed(1) + '%';
+    $('#copyRatio').textContent = '1:1';
+  }
+
+  function renderCpSummary(map){
+    const { dayTotal, openTotal, followers, balTotal } = computeTotals(map);
+    $('#cpSummaryRow').innerHTML =
+      '<span class="kpi-chip"><small>Day P&L</small> '+fmt(dayTotal)+'</span>\
+       <span class="kpi-chip"><small>Open P&L</small> '+fmt(openTotal)+'</span>\
+       <span class="kpi-chip"><small>Followers</small> '+followers+'</span>\
+       <span class="kpi-chip"><small>Balance</small> '+fmt(balTotal)+'</span>';
+  }
+  function renderCpMobile(map){
+    const host = $('#cpMobileList');
+    const {rows}=computeTotals(map);
+    host.innerHTML = rows.map(r => '\
+      <div class="cp-card">\
+        <div class="cp-top">\
+          <div class="cp-tags">'+(r.role==='Leader' ? '<span class="badge warning">[LEADER]</span>' : '<span class="badge success">Follower</span>')+'\
+          <span class="badge '+(r.side==='Long'?'success':'danger')+'">'+r.side+'</span><span class="badge">Qty '+r.qty+'</span></div>\
+          <div class="cp-acct">'+r.acct+'</div>\
+        </div>\
+        <div class="cp-stats">\
+          <div class="cp-kv"><b>Day P&L</b><span>'+fmt(r.day)+'</span></div>\
+          <div class="cp-kv"><b>Open P&L</b><span>'+fmt(r.open)+'</span></div>\
+        </div>\
+        <div class="cp-details">\
+          <div class="cp-stats">\
+            <div class="cp-kv"><b>Balance</b><span>'+fmt(r.balance)+'</span></div>\
+            <div class="cp-kv"><b>Avg Price</b><span>$'+Number(r.avg).toLocaleString()+'</span></div>\
+          </div>\
+          <div class="cp-actions">\
+            <button class="btn sm" data-maction="flatten" data-acct="'+r.acct+'">Flatten</button>\
+            '+(r.role!=='Leader' ? '<button class="btn sm" data-maction="disable-follower" data-acct="'+r.acct+'">Disable</button>' : '<button class="btn sm" data-maction="pause-leader" data-acct="'+r.acct+'">Pause</button>')+'\
+            <span class="badge success">Synced</span>\
+          </div>\
+        </div>\
+        <div class="cp-toggle">Tap to see details ▾</div>\
+      </div>').join('');
+    $$('#cpMobileList .cp-card').forEach(card => {
+      const toggle = card.querySelector('.cp-toggle');
+      toggle.addEventListener('click', () => {
+        card.classList.toggle('open');
+        toggle.textContent = card.classList.contains('open') ? 'Hide details ▴' : 'Tap to see details ▾';
+      });
+    });
+    // mobile action handlers
+    $$('#cpMobileList [data-maction]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const acct = btn.getAttribute('data-acct');
+        const action = btn.getAttribute('data-maction');
+        handleRowAction(action, acct);
+      });
     });
   }
 
-  /* Modal Management */
-  function openModal(modalId, backdropId) {
-    $(backdropId).classList.add('open');
-    $(modalId).classList.add('open');
-    $(modalId).setAttribute('aria-hidden', 'false');
+  /* Orders & Activity */
+  function renderOrders(){
+    const o = DATA.orders;
+    $('#ordBody').innerHTML = o.map(x => '<tr><td><code style="font-size:11px">'+x.id+'</code></td><td><code style="font-size:11px">'+x.acct+'</code></td><td>'+x.time+'</td><td><span class="badge">'+x.contract+'</span></td><td>'+x.type+'</td><td><span class="badge '+(x.side==='Buy'?'success':'danger')+'">'+x.side+'</span></td><td>'+x.qty+'</td><td>$'+Number(x.price).toLocaleString()+'</td><td><span class="badge success">'+x.status+'</span></td></tr>').join('');
+  }
+  function renderActivities(){
+    const acts = DATA.activities;
+    $('#actBody').innerHTML = acts.map(a => '<tr><td style="font-family:monospace;font-size:12px">'+a.time+'</td><td><span class="badge">'+a.type+'</span></td><td>'+a.msg+'</td></tr>').join('');
+  }
+  function pushActivity(type,msg){
+    DATA.activities.unshift({time:new Date().toTimeString().slice(0,8), type, msg});
+    renderActivities();
   }
 
-  function closeModal(modalId, backdropId) {
-    $(backdropId).classList.remove('open');
-    $(modalId).classList.remove('open');
-    $(modalId).setAttribute('aria-hidden', 'true');
+  /* Analytics */
+  function enhancedBars(el, values, showZeroLine=true){
+    const w=100,h=40,p=8,max=Math.max(...values.map(v=>Math.abs(v)))||1, barW=(w-p*2)/values.length-2, zeroY=h/2;
+    let svg = showZeroLine ? '<line x1="'+p+'" y1="'+zeroY+'" x2="'+(w-p)+'" y2="'+zeroY+'" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>' : '';
+    values.forEach((v,i)=>{
+      const x = p + i*((w-p*2)/values.length);
+      const barH = (Math.abs(v)/max)*(h/2-4);
+      const y = v>=0 ? zeroY - barH : zeroY;
+      const color = v>=0 ? '#10b981' : '#ef4444';
+      const opacity = v>=0 ? '0.8' : '0.6';
+      svg += '<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+barH+'" rx="2" fill="'+color+'" opacity="'+opacity+'"/>';
+    });
+    el.innerHTML = svg;
+  }
+  function enhancedEquity(el, values){
+    const w=100,h=30; let c=0;
+    const cum=values.map(v=>c+=v), min=Math.min(...cum), max=Math.max(...cum), range=(max-min)||1;
+    const pts=cum.map((v,i)=>[(i/(cum.length-1))*w, h - ((v-min)/range*h)]);
+    const path=pts.map((p,i)=>(i?'L':'M')+p.join(',')).join(' ');
+    el.innerHTML = '<defs><linearGradient id="equityUp" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3"/><stop offset="100%" style="stop-color:#10b981;stop-opacity:0.1"/></linearGradient></defs><path d="'+path+' L'+w+','+h+' L0,'+h+' Z" fill="url(#equityUp)"/><path d="'+path+'" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round"/>';
+  }
+  function updateAnalytics(map){
+    const {dayTotal}=computeTotals(map);
+    const wins = DATA.pnlDaily.filter(v=>v>0);
+    const losses = DATA.pnlDaily.filter(v=>v<=0);
+    const profitFactor = sum(wins)/Math.max(1,Math.abs(sum(losses)));
+    const winRate = (wins.length/DATA.pnlDaily.length)*100;
+    $('#aPLToday').textContent=fmt(dayTotal);
+    $('#aPLToday').className='kpi '+(dayTotal>=0?'positive':'negative');
+    $('#aPLNote').textContent='Total: '+fmt(sum(DATA.pnlDaily));
+    $('#aPF').textContent=profitFactor.toFixed(2);
+    $('#aWR').textContent=winRate.toFixed(1)+'%';
+    const recentWins = lastN(DATA.pnlDaily,7).filter(v=>v>0).length;
+    $('#aDW').textContent=((recentWins/7)*100).toFixed(1)+'%';
+    $('#aDWNote').textContent=recentWins+' wins, '+(7-recentWins)+' losses this week';
+    $('#aDailySum').textContent=fmt(sum(lastN(DATA.pnlDaily,7)));
+    $('#aWeeklySum').textContent=fmt(sum(lastN(DATA.pnlDaily,21)));
+    $('#aMonthlySum').textContent=fmt(sum(DATA.monthlyYTD));
+    enhancedBars($('#dailyBars'), lastN(DATA.pnlDaily,7));
+    enhancedBars($('#weeklyBars'), lastN(DATA.pnlDaily,21));
+    enhancedBars($('#monthlyBars'), DATA.monthlyYTD);
+    enhancedEquity($('#eqCurve'), DATA.pnlDaily);
+    const now=new Date(); $('#calLabel').textContent=now.toLocaleString(undefined,{month:'long', year:'numeric'});
+    const grid=$('#calGrid'); grid.innerHTML='';
+    const first=new Date(now.getFullYear(), now.getMonth(), 1); const start=first.getDay();
+    const days=new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+    for(let i=0;i<start;i++){ const d=document.createElement('div'); d.className='day'; grid.appendChild(d); }
+    for(let day=1; day<=days; day++){ const idx=day-1; const pnl = DATA.pnlDaily[idx] ?? 0; const cell=document.createElement('div'); cell.className='day '+(pnl>=0?'win':'loss'); cell.innerHTML='<div class="muted" style="font-size:11px;font-weight:700">'+day+'</div><div style="font-weight:800;margin-top:4px">'+fmt(pnl)+'</div>'; grid.appendChild(cell); }
   }
 
-  /* Event Listeners */
-  
-  // Emergency actions
-  $('#emergencyStop').addEventListener('click', () => {
-    showToast('🚨 EMERGENCY STOP ACTIVATED - All trading halted', 'danger');
-    $('#copyStatusBadge').className = 'copy-status-badge inactive';
-    $('#copyStatusBadge').textContent = 'Copy Trading Stopped';
-  });
+  /* copy modal */
+  function openCpModal(map){
+    const backdrop=$('#cpBackdrop'), modal=$('#cpModal');
+    backdrop.classList.add('open'); modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+    const all = [DATA.accounts.leader, ...DATA.accounts.followers];
+    const leaderList=$('#cpLeaderList'); const followerList=$('#cpFollowerList');
+    leaderList.innerHTML = all.map(a=> '<div class="modal-row"><span>'+a.acct+'</span><input type="radio" name="leadSel" value="'+a.acct+'" '+(map.leader===a.acct?'checked':'')+'></div>').join('');
+    followerList.innerHTML = all.map(a=> '<div class="modal-row"><span>'+a.acct+'</span><input type="checkbox" name="folSel" value="'+a.acct+'" '+(map.followers.includes(a.acct)&&map.leader!==a.acct?'checked':'')+' '+(map.leader===a.acct?'disabled':'')+'></div>').join('');
+  }
+  function closeCpModal(){ $('#cpBackdrop').classList.remove('open'); $('#cpModal').classList.remove('open'); $('#cpModal').setAttribute('aria-hidden','true'); }
 
-  $('#closeAllPositions').addEventListener('click', () => {
-    showToast('Closing all positions...', 'warning');
-  });
+  /* row actions simulate live */
+  function handleRowAction(action, acct){
+    if(action==='flatten'){ showToast('Flatten sent for '+acct, 'warning'); pushActivity('trade','Flatten requested for '+acct); }
+    if(action==='disable-follower'){ showToast('Follower '+acct+' disabled', 'warning'); pushActivity('copy','Disabled follower '+acct); }
+    if(action==='pause-leader'){ showToast('Leader '+acct+' paused', 'warning'); pushActivity('copy','Paused leader '+acct); }
+  }
 
-  $('#cancelAllOrders').addEventListener('click', () => {
-    showToast('Cancelling all pending orders...', 'warning');
-  });
+  /* init */
+  initHamburgerAutoclose();
+  initRouting();
+  loadRisk();
 
-  $('#quickEmergency').addEventListener('click', () => {
-    showToast('🚨 EMERGENCY STOP ACTIVATED', 'danger');
-  });
+  let copyMap = loadCopyMap();
+  updateOverview(copyMap);
+  updateExposure();
+  updateFollowerOverview(copyMap);
+  renderCpSummary(copyMap);
+  renderCpMobile(copyMap);
+  renderOrders();
+  renderActivities();
+  updateAnalytics(copyMap);
 
-  // Copy trading actions
+  // Live updates for copy trading
+  setInterval(() => {
+    updateFollowerOverview(copyMap);
+  }, 5000);
+
+  // bindings
+  $('#riskSave').addEventListener('click', saveRisk);
+  $('#riskReset').addEventListener('click', resetRisk);
+
+  const toggleCopy = ()=>{
+    const el=$('#kpiCopy'); const on=el.textContent.trim()==='ACTIVE';
+    el.textContent = on ? 'DISABLED' : 'ACTIVE';
+    el.style.color = on ? 'var(--muted)' : 'var(--success)';
+    $('#copyState').textContent = on ? 'COPY TRADING OFF' : 'COPY TRADING ON';
+    $('#copyState').className = 'badge ' + (on ? 'danger' : 'success');
+    showToast('Copy trading ' + (on?'disabled':'enabled'), on ? 'danger' : 'success');
+    pushActivity('system','Copy trading ' + (on?'disabled':'enabled'));
+  };
+  $('#ovDisable').addEventListener('click', toggleCopy);
+  const closeAll = ()=>{ showToast('All positions have been closed', 'warning'); pushActivity('trade','Close All Positions'); };
+  const cancelAll = ()=>{ showToast('All pending orders cancelled', 'warning'); pushActivity('trade','Cancel All Orders'); };
+  const emergency = ()=>{ showToast('EMERGENCY STOP: All trading halted', 'danger'); pushActivity('system','EMERGENCY STOP'); };
+  $('#ovClose').addEventListener('click', closeAll);
+  $('#ovCancel').addEventListener('click', cancelAll);
+  $('#mEmergency').addEventListener('click', emergency);
+  $('#mClose').addEventListener('click', closeAll);
+  $('#mCancel').addEventListener('click', cancelAll);
+
+  // Copy trading specific actions
   $('#addFollower').addEventListener('click', () => {
-    openModal('#followerModal', '#followerBackdrop');
+    showToast('Add Follower modal opened', 'info');
   });
 
-  $('#closeFollowerModal').addEventListener('click', () => {
-    closeModal('#followerModal', '#followerBackdrop');
+  $('#configureRatios').addEventListener('click', () => {
+    showToast('Configure Ratios modal opened', 'info');
   });
 
-  $('#cancelAddFollower').addEventListener('click', () => {
-    closeModal('#followerModal', '#followerBackdrop');
+  $('#manageFollowers').addEventListener('click', () => {
+    showToast('Manage Followers modal opened', 'info');
   });
 
-  $('#confirmAddFollower').addEventListener('click', () => {
-    const selected = document.querySelector('input[name="followerAccount"]:checked');
-    if (selected) {
-      showToast(`✅ Added ${selected.value} as follower`, 'success');
-      closeModal('#followerModal', '#followerBackdrop');
-    } else {
-      showToast('Please select an account', 'warning');
-    }
+  $('#syncAllNow').addEventListener('click', () => {
+    showToast('Syncing all positions...', 'info');
+    setTimeout(() => {
+      showToast('All positions synchronized successfully', 'success');
+    }, 1500);
   });
 
-  // Account selector interaction
-  $$('.account-option').forEach(option => {
-    option.addEventListener('click', () => {
-      $$('.account-option').forEach(opt => opt.classList.remove('selected'));
-      option.classList.add('selected');
-      const radio = option.querySelector('input[type="radio"]');
-      if (radio) radio.checked = true;
-    });
-  });
-
-  // Risk management
   $('#saveRiskSettings').addEventListener('click', () => {
-    showToast('✅ Risk settings saved successfully', 'success');
+    showToast('Risk management settings saved', 'success');
   });
 
-  // Position management
-  $$('button:contains("Close")').forEach(btn => {
-    if (btn.textContent.includes('Close')) {
-      btn.addEventListener('click', () => {
-        showToast('Position close order submitted', 'info');
-      });
-    }
-  });
-
-  $$('button:contains("Sync Now")').forEach(btn => {
-    if (btn.textContent.includes('Sync Now')) {
-      btn.addEventListener('click', (e) => {
-        showToast('Syncing position...', 'info');
-        // Update the status badge after a short delay
-        setTimeout(() => {
-          const row = e.target.closest('tr');
-          const statusBadge = row.querySelector('.badge.warning');
-          if (statusBadge) {
-            statusBadge.className = 'badge success';
-            statusBadge.textContent = 'SYNCED';
-          }
-          showToast('✅ Position synced successfully', 'success');
-        }, 1500);
-      });
-    }
-  });
-
-  // Position table interactions
-  $$('#positionTable button').forEach(btn => {
+  // Position table action handlers
+  $$('#syncTableBody button').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      e.stopPropagation();
       const action = btn.textContent.trim();
       const row = btn.closest('tr');
-      const account = row.querySelector('code').textContent;
+      const isMaster = row.classList.contains('master');
+      const accountCode = row.querySelector('code').textContent;
       
       switch(action) {
         case 'Close':
-          showToast(`Closing position for ${account}`, 'warning');
+          showToast(`Closing position for ${accountCode}`, 'warning');
           break;
         case 'Edit':
-          showToast(`Opening position editor for ${account}`, 'info');
+          showToast(`Opening position editor for ${accountCode}`, 'info');
           break;
         case 'Disable':
-          showToast(`Disabling follower ${account}`, 'warning');
-          break;
-        case 'Sync Now':
-          showToast(`Synchronizing ${account}...`, 'info');
-          break;
-      }
-    });
-  });
-
-  /* Initialize */
-  initHamburgerAutoclose();
-  initRouting();
-  
-  // Start live data updates
-  setInterval(updateLiveData, 5000);
-  
-  // Show welcome message
-  setTimeout(() => {
-    showToast('✅ Copy trading platform loaded successfully', 'success');
-  }, 1000);
-
-})();
-</script>
-
-</body>
-</html>
+          showToast(`Disabling follower ${account
