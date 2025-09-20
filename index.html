@@ -28,8 +28,6 @@
   --danger-bg: rgba(239, 68, 68, 0.1);
   --warning: #f59e0b;
   --warning-bg: rgba(245, 158, 11, 0.1);
-  --info: #3b82f6;
-  --info-bg: rgba(59, 130, 246, 0.1);
   --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
 }
@@ -55,8 +53,6 @@
   --danger-bg: rgba(220,38,38,.12);
   --warning:#d97706;
   --warning-bg: rgba(217,119,6,.12);
-  --info:#2563eb;
-  --info-bg: rgba(37,99,235,.12);
 }
 *,
 *::before,
@@ -166,84 +162,216 @@ box-shadow: var(–shadow); transition: all .3s ease; position: relative; overfl
 .card.primary { background: linear-gradient(135deg, rgba(139,92,246,.1) 0%, rgba(109,40,217,.05) 100%); border-color: rgba(139,92,246,.2); }
 .card h3 { margin: 0 0 12px; font-size: 12px; color: var(–muted); letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
 
-/* Copy Trading Enhanced Styles */
-.copy-hero {
-background: linear-gradient(135deg, rgba(139,92,246,.12) 0%, rgba(16,185,129,.08) 100%);
-border: 1px solid rgba(139,92,246,.25);
+/* Follower Accounts Card - v2 Style */
+.follower-accounts-card {
+background: linear-gradient(135deg, rgba(16,185,129,.08) 0%, var(–panel) 100%);
+border: 1px solid rgba(16,185,129,.3);
 border-radius: 16px;
 padding: 20px;
 margin-bottom: 20px;
-position: relative;
-overflow: hidden;
 }
-.copy-hero::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 0; right: 0; bottom: 0;
-background: radial-gradient(circle at 30% 20%, rgba(139,92,246,.15), transparent 60%);
-pointer-events: none;
-}
-.copy-hero-content {
-position: relative;
-z-index: 1;
+.follower-header {
 display: flex;
+align-items: center;
 justify-content: space-between;
-align-items: center;
-flex-wrap: wrap;
-gap: 16px;
+margin-bottom: 16px;
 }
-.copy-status-large {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-padding: 8px 14px;
+.follower-metrics {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 12px;
+margin-bottom: 16px;
+}
+.follower-metric {
+background: var(–glass);
+border: 1px solid var(–stroke);
 border-radius: 10px;
-font-weight: 700;
-font-size: 13px;
+padding: 12px;
+text-align: center;
+}
+.follower-metric-label {
+font-size: 11px;
 text-transform: uppercase;
-letter-spacing: 0.05em;
+color: var(–muted);
+font-weight: 700;
+margin-bottom: 4px;
 }
-.copy-status-large.active {
-background: var(–success-bg);
-border: 1px solid rgba(16,185,129,.3);
+.follower-metric-value {
+font-size: 18px;
+font-weight: 800;
+color: var(–ink);
+}
+.follower-actions {
+display: flex;
+gap: 8px;
+flex-wrap: wrap;
+margin-bottom: 12px;
+}
+.connection-status {
+display: flex;
+align-items: center;
+gap: 6px;
+font-size: 12px;
+font-weight: 600;
 color: var(–success);
+background: var(–success-bg);
+border: 1px solid rgba(16,185,129,.2);
+padding: 6px 10px;
+border-radius: 8px;
 }
-.copy-status-large::before {
+.connection-status::before {
 content: ‘’;
 width: 6px;
 height: 6px;
 border-radius: 50%;
-background: currentColor;
-animation: pulse 2s infinite;
+background: var(–success);
 }
 
-.performance-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-gap: 16px;
+/* Master-Follower Flow Visualization */
+.master-follower-flow {
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 20px 0;
+padding: 20px;
+background: var(–glass);
+border: 1px solid var(–stroke);
+border-radius: 16px;
+}
+.flow-section {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 12px;
+}
+.flow-label {
+font-weight: 700;
+font-size: 12px;
+text-transform: uppercase;
+color: var(–muted);
+letter-spacing: 0.05em;
+}
+.flow-arrow {
+font-size: 24px;
+color: var(–prime);
+margin: 0 20px;
+animation: flowPulse 2s ease-in-out infinite;
+}
+@keyframes flowPulse {
+0%, 100% { opacity: 0.6; transform: scale(1); }
+50% { opacity: 1; transform: scale(1.1); }
+}
+.flow-followers-grid {
+display: flex;
+gap: 8px;
+}
+.flow-account {
+padding: 8px 12px;
+border-radius: 8px;
+font-size: 11px;
+font-weight: 700;
+font-family: ui-monospace, monospace;
+border: 1px solid;
+}
+.flow-account.master-account {
+background: var(–warning-bg);
+color: var(–warning);
+border-color: rgba(245,158,11,.3);
+}
+.flow-account.follower-account {
+background: var(–success-bg);
+color: var(–success);
+border-color: rgba(16,185,129,.3);
+}
+
+/* Risk Management Panel */
+.risk-management-panel {
+background: var(–panel);
+border: 1px solid var(–stroke);
+border-radius: 16px;
+padding: 20px;
 margin-bottom: 20px;
 }
-.perf-metric {
+.risk-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+margin-bottom: 20px;
+}
+.risk-title {
+font-weight: 700;
+font-size: 18px;
+color: var(–ink);
+}
+.risk-controls {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 16px;
+margin-bottom: 24px;
+}
+.risk-control {
+display: flex;
+flex-direction: column;
+gap: 6px;
+}
+.risk-label {
+font-size: 12px;
+font-weight: 700;
+color: var(–ink-secondary);
+text-transform: uppercase;
+letter-spacing: 0.05em;
+}
+.risk-input {
+padding: 12px 14px;
+border: 1px solid var(–stroke);
+border-radius: 8px;
+background: var(–glass);
+color: var(–ink);
+font-size: 14px;
+font-weight: 600;
+transition: all 0.2s ease;
+}
+.risk-input:focus {
+outline: none;
+border-color: var(–prime);
+background: var(–glass-strong);
+box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+.risk-features {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 20px;
+}
+.risk-feature-group {
 background: var(–glass);
 border: 1px solid var(–stroke);
 border-radius: 12px;
-padding: 14px 16px;
-text-align: center;
+padding: 18px;
 }
-.perf-value {
-font-size: 20px;
-font-weight: 800;
-margin-bottom: 4px;
+.risk-feature-title {
+font-weight: 700;
+font-size: 14px;
+margin-bottom: 14px;
 color: var(–ink);
 }
-.perf-value.positive { color: var(–success); }
-.perf-value.negative { color: var(–danger); }
-.perf-label {
-font-size: 11px;
-text-transform: uppercase;
-letter-spacing: 0.05em;
-color: var(–muted);
-font-weight: 700;
+.risk-checkbox {
+display: flex;
+align-items: center;
+gap: 10px;
+margin-bottom: 10px;
+cursor: pointer;
+font-size: 13px;
+color: var(–ink-secondary);
+}
+.risk-checkbox input[type=“checkbox”] {
+width: 16px;
+height: 16px;
+border-radius: 4px;
+border: 1px solid var(–stroke);
+background: var(–glass);
+}
+.risk-checkbox:last-child {
+margin-bottom: 0;
 }
 
 /* KPIs */
@@ -282,7 +410,6 @@ transition: all .2s ease; display: inline-flex; align-items: center; gap: 8px; t
 .badge.success { background: var(–success-bg); border-color: rgba(16,185,129,.2); color: var(–success); }
 .badge.danger  { background: var(–danger-bg);  border-color: rgba(239,68,68,.2); color: var(–danger); }
 .badge.warning { background: var(–warning-bg); border-color: rgba(245,158,11,.2); color: var(–warning); }
-.badge.info { background: var(–info-bg); border-color: rgba(59,130,246,.2); color: var(–info); }
 
 /* Tables */
 .table-container { overflow-x: auto; border-radius: 12px; border: 1px solid var(–stroke); background: var(–panel); }
@@ -367,12 +494,26 @@ section[data-page].show { display: block; visibility: visible; }
 .modal-row:last-child{border-bottom:none;}
 
 @media (max-width: 768px) {
-.copy-hero-content {
-flex-direction: column;
-text-align: center;
+.follower-metrics {
+grid-template-columns: 1fr;
 }
-.performance-grid {
-grid-template-columns: repeat(2, 1fr);
+.master-follower-flow {
+flex-direction: column;
+gap: 16px;
+}
+.flow-arrow {
+transform: rotate(90deg);
+margin: 0;
+}
+.flow-followers-grid {
+flex-direction: column;
+gap: 8px;
+}
+.risk-controls {
+grid-template-columns: 1fr;
+}
+.risk-features {
+grid-template-columns: 1fr;
 }
 }
 </style>
@@ -483,41 +624,59 @@ grid-template-columns: repeat(2, 1fr);
 
 <!-- Copy Trading -->
 <section id="copy" data-page="copy">
-  <!-- Enhanced Hero Section -->
-  <div class="copy-hero">
-    <div class="copy-hero-content">
-      <div>
-        <h2 style="margin: 0 0 8px; font-size: 24px; font-weight: 800; letter-spacing: -0.02em;">Copy Trading Dashboard</h2>
-        <p style="margin: 0; color: var(--ink-secondary); font-size: 14px;">Monitor and manage your master-follower relationships in real-time</p>
+  <!-- Follower Accounts Overview Card -->
+  <div class="follower-accounts-card">
+    <div class="follower-header">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="badge success">📊 FOLLOWER ACCOUNTS</span>
+        <span class="muted" id="followerCount">3 Active</span>
       </div>
-      <div style="text-align: right;">
-        <div id="copyStatusLarge" class="copy-status-large active">
-          Copy Trading Active
-        </div>
-        <div style="margin-top: 6px; font-size: 12px; color: var(--muted);">
-          Last sync: <span id="lastSyncTime">12ms ago</span>
-        </div>
+    </div>
+    
+    <div class="follower-metrics">
+      <div class="follower-metric">
+        <div class="follower-metric-label">Combined Balance</div>
+        <div class="follower-metric-value" id="combinedBalance">$562,579</div>
       </div>
+      <div class="follower-metric">
+        <div class="follower-metric-label">Total Day P&L</div>
+        <div class="follower-metric-value positive" id="totalDayPL">+$5,591</div>
+      </div>
+      <div class="follower-metric">
+        <div class="follower-metric-label">Avg Success Rate</div>
+        <div class="follower-metric-value" id="avgSuccessRate">98.7%</div>
+      </div>
+      <div class="follower-metric">
+        <div class="follower-metric-label">Copy Ratio</div>
+        <div class="follower-metric-value" id="copyRatio">1:1</div>
+      </div>
+    </div>
+
+    <div class="follower-actions">
+      <button class="btn primary" id="addFollower">Add Follower</button>
+      <button class="btn" id="configureRatios">Configure Ratios</button>
+      <button class="btn" id="manageFollowers">Manage All</button>
+    </div>
+
+    <div class="connection-status">
+      All followers synced
     </div>
   </div>
 
-  <!-- Performance Overview -->
-  <div class="performance-grid">
-    <div class="perf-metric">
-      <div class="perf-value positive" id="perfDayPL">$8,437</div>
-      <div class="perf-label">Total Day P&L</div>
+  <!-- Master-Follower Flow Visualization -->
+  <div class="master-follower-flow">
+    <div class="flow-section">
+      <div class="flow-label">Master</div>
+      <div class="flow-account master-account">TV-MASTER-20368</div>
     </div>
-    <div class="perf-metric">
-      <div class="perf-value" id="perfAccounts">4</div>
-      <div class="perf-label">Active Accounts</div>
-    </div>
-    <div class="perf-metric">
-      <div class="perf-value" id="perfBalance">$847,329</div>
-      <div class="perf-label">Total Balance</div>
-    </div>
-    <div class="perf-metric">
-      <div class="perf-value" id="perfSync">98.7%</div>
-      <div class="perf-label">Sync Success</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-section">
+      <div class="flow-label">Followers</div>
+      <div class="flow-followers-grid">
+        <div class="flow-account follower-account">TV-FOL-001</div>
+        <div class="flow-account follower-account">TV-FOL-002</div>
+        <div class="flow-account follower-account">TV-FOL-003</div>
+      </div>
     </div>
   </div>
 
@@ -535,38 +694,216 @@ grid-template-columns: repeat(2, 1fr);
   <!-- Orders (mobile cards placeholder) -->
   <div id="cpOrdersMobile"></div>
 
-  <!-- Desktop grouped table -->
-  <div class="card">
-    <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
-      <div class="toolbar-left" style="font-weight:700;font-size:16px;">Copy Trading Dashboard</div>
-      <div class="toolbar-right">
-        <button class="btn sm" id="cpEdit">Edit Copy Trading</button>
-        <button class="btn sm" id="cpDisable">Disable Followers</button>
-        <button class="btn sm" id="cpCancel">Cancel Orders</button>
-        <button class="btn danger sm" id="cpFlatten">Emergency Flatten</button>
+  <!-- Live Position Sync Table -->
+  <div class="live-sync-container" id="cpTableWrap">
+    <div class="sync-header">
+      <div class="sync-title">Live Position Sync</div>
+      <div class="sync-actions">
+        <button class="btn sm">Export Data</button>
+        <button class="btn sm primary" id="syncAllNow">Sync All Now</button>
       </div>
     </div>
-
-    <div id="cpTableWrap" class="table-container">
-      <table>
+    
+    <div class="sync-table-wrapper">
+      <table class="sync-table">
         <thead>
           <tr>
-            <th>Role</th>
             <th>Account</th>
-            <th>Position</th>
-            <th>Qty</th>
-            <th>Balance</th>
-            <th>Avg Price</th>
-            <th>Day P&L</th>
-            <th>Open P&L</th>
-            <th>Sync</th>
+            <th>Symbol</th>
+            <th>Side</th>
+            <th>Quantity</th>
+            <th>Entry Price</th>
+            <th>Current Price</th>
+            <th>P&L</th>
+            <th>Sync Status</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody id="cpBody"></tbody>
+        <tbody id="syncTableBody">
+          <!-- Master position -->
+          <tr class="master">
+            <td>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="badge warning">MASTER</span>
+                <code style="font-size: 11px;">TV-MASTER-20368</code>
+              </div>
+            </td>
+            <td><span class="badge">ES DEC24</span></td>
+            <td><span class="badge success">LONG</span></td>
+            <td><strong>2</strong></td>
+            <td>$5,847.25</td>
+            <td>$5,862.50</td>
+            <td><span style="color: var(--success); font-weight: 700;">+$765.00</span></td>
+            <td><span class="badge success">SYNCED</span></td>
+            <td>
+              <button class="btn sm">Close</button>
+              <button class="btn sm">Edit</button>
+            </td>
+          </tr>
+          
+          <!-- Follower positions -->
+          <tr class="follower">
+            <td>
+              <span class="badge success">FOLLOWER</span>
+              <code style="font-size: 11px;">TV-FOL-001</code>
+            </td>
+            <td><span class="badge">ES DEC24</span></td>
+            <td><span class="badge success">LONG</span></td>
+            <td><strong>2</strong></td>
+            <td>$5,847.50</td>
+            <td>$5,862.50</td>
+            <td><span style="color: var(--success); font-weight: 700;">+$765.00</span></td>
+            <td><span class="badge success">SYNCED</span></td>
+            <td>
+              <button class="btn sm">Close</button>
+              <button class="btn sm danger">Disable</button>
+            </td>
+          </tr>
+          
+          <tr class="follower">
+            <td>
+              <span class="badge success">FOLLOWER</span>
+              <code style="font-size: 11px;">TV-FOL-002</code>
+            </td>
+            <td><span class="badge">ES DEC24</span></td>
+            <td><span class="badge success">LONG</span></td>
+            <td><strong>1</strong></td>
+            <td>$5,848.00</td>
+            <td>$5,862.50</td>
+            <td><span style="color: var(--success); font-weight: 700;">+$362.50</span></td>
+            <td><span class="badge success">SYNCED</span></td>
+            <td>
+              <button class="btn sm">Close</button>
+              <button class="btn sm danger">Disable</button>
+            </td>
+          </tr>
+
+          <tr class="follower">
+            <td>
+              <span class="badge success">FOLLOWER</span>
+              <code style="font-size: 11px;">TV-FOL-003</code>
+            </td>
+            <td><span class="badge">ES DEC24</span></td>
+            <td><span class="badge success">LONG</span></td>
+            <td><strong>3</strong></td>
+            <td>$5,847.75</td>
+            <td>$5,862.50</td>
+            <td><span style="color: var(--success); font-weight: 700;">+$1,106.25</span></td>
+            <td><span class="badge warning">DELAYED</span></td>
+            <td>
+              <button class="btn sm primary">Sync Now</button>
+              <button class="btn sm danger">Disable</button>
+            </td>
+          </tr>
+
+          <!-- NQ Position Group -->
+          <tr class="master">
+            <td>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="badge warning">MASTER</span>
+                <code style="font-size: 11px;">TV-MASTER-20368</code>
+              </div>
+            </td>
+            <td><span class="badge">NQ DEC24</span></td>
+            <td><span class="badge success">LONG</span></td>
+            <td><strong>1</strong></td>
+            <td>$22,681.50</td>
+            <td>$22,745.25</td>
+            <td><span style="color: var(--success); font-weight: 700;">+$1,275.00</span></td>
+            <td><span class="badge success">SYNCED</span></td>
+            <td>
+              <button class="btn sm">Close</button>
+              <button class="btn sm">Edit</button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
+
+  <!-- Risk Management Panel -->
+  <div class="risk-management-panel">
+    <div class="risk-header">
+      <div class="risk-title">Risk Management</div>
+      <button class="btn primary" id="saveRiskSettings">Save Settings</button>
+    </div>
+    
+    <div class="risk-controls">
+      <div class="risk-control">
+        <label class="risk-label">Max Daily Loss</label>
+        <input type="text" class="risk-input" value="$5,000" id="maxDailyLoss">
+      </div>
+      <div class="risk-control">
+        <label class="risk-label">Max Concurrent Positions</label>
+        <input type="number" class="risk-input" value="8" id="maxPositions">
+      </div>
+      <div class="risk-control">
+        <label class="risk-label">Max Position Size</label>
+        <input type="text" class="risk-input" value="$50,000" id="maxPositionSize">
+      </div>
+      <div class="risk-control">
+        <label class="risk-label">Stop Loss %</label>
+        <input type="number" class="risk-input" value="2.5" step="0.1" id="stopLoss">
+      </div>
+    </div>
+
+    <div class="risk-features">
+      <div class="risk-feature-group">
+        <div class="risk-feature-title">Auto-Stop Features</div>
+        <label class="risk-checkbox">
+          <input type="checkbox" checked> Emergency stop on connection loss
+        </label>
+        <label class="risk-checkbox">
+          <input type="checkbox" checked> Pause on daily loss limit
+        </label>
+        <label class="risk-checkbox">
+          <input type="checkbox"> Email alerts on major losses
+        </label>
+      </div>
+      
+      <div class="risk-feature-group">
+        <div class="risk-feature-title">Copy Settings</div>
+        <label class="risk-checkbox">
+          <input type="checkbox" checked> Copy all trades automatically
+        </label>
+        <label class="risk-checkbox">
+          <input type="checkbox"> Require manual approval for large trades
+        </label>
+        <label class="risk-checkbox">
+          <input type="checkbox" checked> Mirror stop losses and take profits
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-weight: 700; font-size: 16px;">Recent Orders</div>
+      <div class="toolbar-right">
+        <button class="btn sm" id="ordFilter">Filter</button>
+        <button class="btn sm" id="ordExport">Export CSV</button>
+      </div>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Account</th>
+            <th>Time</th>
+            <th>Symbol</th>
+            <th>Type</th>
+            <th>Side</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="ordBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
 
   <div class="card" style="margin-top: 20px;">
     <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
@@ -817,7 +1154,7 @@ grid-template-columns: repeat(2, 1fr);
       const bal=48000 + i*1500 + sum(pnlDaily)*skew;
       return {
         acct:'TV-FOLLOW-20368203'+(4+i),
-        ratio:1, /* qty locked to 1 for now */
+        ratio:1,
         balance: bal,
         day: leader.day*skew,
         open: leader.open*skew,
@@ -841,10 +1178,10 @@ grid-template-columns: repeat(2, 1fr);
     orders.push(l2);
     followers.forEach((f,i)=> orders.push({id:baseId(), acct:f.acct, time: mkTime(8,45,34+i), contract:'NQZ5', type:'Limit', side:'Buy', qty:1, price:l2.price - i*1.0, status:'Filled'}));
     const activities=[
-      {time:new Date().toTimeString().slice(0,8), type:'system', msg:'✅ All systems operational'},
-      {time:'14:32:15', type:'trade', msg:'📈 Position opened: ESZ5 Long x2 @ 5,847.25'},
-      {time:'14:31:58', type:'copy', msg:'🔄 Order copied to 3 follower accounts'},
-      {time:'14:29:43', type:'system', msg:'⚡ Real-time sync active'}
+      {time:new Date().toTimeString().slice(0,8), type:'system', msg:'All systems operational'},
+      {time:'14:32:15', type:'trade', msg:'Position opened: ESZ5 Long x2 @ 5,847.25'},
+      {time:'14:31:58', type:'copy', msg:'Order copied to 3 follower accounts'},
+      {time:'14:29:43', type:'system', msg:'Real-time sync active'}
     ];
     return {
       pnlDaily, accounts:{leader, followers}, positions, orders, activities,
@@ -934,14 +1271,17 @@ grid-template-columns: repeat(2, 1fr);
   }
 
   /* Copy Trading UI */
-  function updateCopyPerformance(map) {
-    const {dayTotal, balTotal, followers} = computeTotals(map);
-    $('#perfDayPL').textContent = fmt(dayTotal);
-    $('#perfDayPL').className = 'perf-value ' + (dayTotal >= 0 ? 'positive' : 'negative');
-    $('#perfAccounts').textContent = (1 + followers).toString();
-    $('#perfBalance').textContent = '$' + Math.round(balTotal).toLocaleString();
-    $('#perfSync').textContent = (Math.random() * 2 + 97).toFixed(1) + '%';
-    $('#lastSyncTime').textContent = (Math.floor(Math.random() * 30) + 5) + 'ms ago';
+  function updateFollowerOverview(map) {
+    const {balTotal, dayTotal, followers} = computeTotals(map);
+    const followerBalTotal = balTotal - DATA.accounts.leader.balance;
+    const followerDayTotal = dayTotal - DATA.accounts.leader.day;
+    
+    $('#followerCount').textContent = followers + ' Active';
+    $('#combinedBalance').textContent = '$' + followerBalTotal.toLocaleString();
+    $('#totalDayPL').textContent = fmt(followerDayTotal);
+    $('#totalDayPL').className = 'follower-metric-value ' + (followerDayTotal >= 0 ? 'positive' : 'negative');
+    $('#avgSuccessRate').textContent = (Math.random() * 2 + 97).toFixed(1) + '%';
+    $('#copyRatio').textContent = '1:1';
   }
 
   function renderCopyDesktop(map){
@@ -995,6 +1335,7 @@ grid-template-columns: repeat(2, 1fr);
       });
     });
   }
+
   function renderCpSummary(map){
     const { dayTotal, openTotal, followers, balTotal } = computeTotals(map);
     $('#cpSummaryRow').innerHTML =
@@ -1124,9 +1465,9 @@ grid-template-columns: repeat(2, 1fr);
 
   /* row actions simulate live */
   function handleRowAction(action, acct){
-    if(action==='flatten'){ showToast('Flatten sent for '+acct); pushActivity('trade','🧹 Flatten requested for '+acct); }
-    if(action==='disable-follower'){ showToast('Follower '+acct+' disabled'); pushActivity('copy','⏸️ Disabled follower '+acct); }
-    if(action==='pause-leader'){ showToast('Leader '+acct+' paused'); pushActivity('copy','⏸️ Paused leader '+acct); }
+    if(action==='flatten'){ showToast('Flatten sent for '+acct); pushActivity('trade','Flatten requested for '+acct); }
+    if(action==='disable-follower'){ showToast('Follower '+acct+' disabled'); pushActivity('copy','Disabled follower '+acct); }
+    if(action==='pause-leader'){ showToast('Leader '+acct+' paused'); pushActivity('copy','Paused leader '+acct); }
   }
 
   /* init */
@@ -1137,7 +1478,7 @@ grid-template-columns: repeat(2, 1fr);
   let copyMap = loadCopyMap();
   updateOverview(copyMap);
   updateExposure();
-  updateCopyPerformance(copyMap);
+  updateFollowerOverview(copyMap);
   renderCopyDesktop(copyMap);
   renderCpSummary(copyMap);
   renderCpMobile(copyMap);
@@ -1147,7 +1488,7 @@ grid-template-columns: repeat(2, 1fr);
 
   // Live updates for copy trading
   setInterval(() => {
-    updateCopyPerformance(copyMap);
+    updateFollowerOverview(copyMap);
   }, 5000);
 
   // bindings
@@ -1160,20 +1501,74 @@ grid-template-columns: repeat(2, 1fr);
     el.style.color = on ? 'var(--muted)' : 'var(--success)';
     $('#copyState').textContent = on ? 'COPY TRADING OFF' : 'COPY TRADING ON';
     $('#copyState').className = 'badge ' + (on ? 'danger' : 'success');
-    $('#copyStatusLarge').textContent = on ? 'Copy Trading Stopped' : 'Copy Trading Active';
-    $('#copyStatusLarge').className = 'copy-status-large ' + (on ? 'inactive' : 'active');
     showToast('Copy trading ' + (on?'disabled':'enabled'));
     pushActivity('system','Copy trading ' + (on?'disabled':'enabled'));
   };
   $('#ovDisable').addEventListener('click', toggleCopy);
-  const closeAll = ()=>{ showToast('All positions have been closed'); pushActivity('trade','🔻 Close All Positions'); };
-  const cancelAll = ()=>{ showToast('All pending orders cancelled'); pushActivity('trade','🛑 Cancel All Orders'); };
-  const emergency = ()=>{ showToast('EMERGENCY STOP: All trading halted'); pushActivity('system','🚨 EMERGENCY STOP'); };
+  const closeAll = ()=>{ showToast('All positions have been closed'); pushActivity('trade','Close All Positions'); };
+  const cancelAll = ()=>{ showToast('All pending orders cancelled'); pushActivity('trade','Cancel All Orders'); };
+  const emergency = ()=>{ showToast('EMERGENCY STOP: All trading halted'); pushActivity('system','EMERGENCY STOP'); };
   $('#ovClose').addEventListener('click', closeAll);
   $('#ovCancel').addEventListener('click', cancelAll);
   $('#mEmergency').addEventListener('click', emergency);
   $('#mClose').addEventListener('click', closeAll);
   $('#mCancel').addEventListener('click', cancelAll);
+
+  // Copy trading specific actions
+  $('#addFollower').addEventListener('click', () => {
+    showToast('Add Follower clicked');
+  });
+
+  $('#configureRatios').addEventListener('click', () => {
+    showToast('Configure Ratios clicked');
+  });
+
+  $('#manageFollowers').addEventListener('click', () => {
+    showToast('Manage Followers clicked');
+  });
+
+  $('#syncAllNow').addEventListener('click', () => {
+    showToast('Syncing all positions...');
+    setTimeout(() => {
+      showToast('All positions synchronized');
+    }, 1500);
+  });
+
+  $('#saveRiskSettings').addEventListener('click', () => {
+    showToast('Risk management settings saved');
+  });
+
+  // Position table action handlers for the Live Position Sync table
+  $$('#syncTableBody button').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const action = btn.textContent.trim();
+      const row = btn.closest('tr');
+      const accountCode = row.querySelector('code').textContent;
+      
+      switch(action) {
+        case 'Close':
+          showToast(`Closing position for ${accountCode}`);
+          break;
+        case 'Edit':
+          showToast(`Opening position editor for ${accountCode}`);
+          break;
+        case 'Disable':
+          showToast(`Disabling follower ${accountCode}`);
+          break;
+        case 'Sync Now':
+          showToast(`Synchronizing ${accountCode}...`);
+          setTimeout(() => {
+            const statusBadge = row.querySelector('.badge.warning');
+            if (statusBadge) {
+              statusBadge.className = 'badge success';
+              statusBadge.textContent = 'SYNCED';
+            }
+            showToast(`${accountCode} synchronized successfully`);
+          }, 1500);
+          break;
+      }
+    });
+  });
 
   // copy modal
   $('#cpEdit').addEventListener('click', ()=> openCpModal(copyMap));
@@ -1187,8 +1582,7 @@ grid-template-columns: repeat(2, 1fr);
     saveCopyMap(copyMap);
     closeCpModal();
     updateOverview(copyMap);
-    updateCopyPerformance(copyMap);
-    renderCopyDesktop(copyMap);
+    updateFollowerOverview(copyMap);
     renderCpSummary(copyMap);
     renderCpMobile(copyMap);
     updateAnalytics(copyMap);
@@ -1202,6 +1596,11 @@ grid-template-columns: repeat(2, 1fr);
     $('#cpMobileWrap').style.display   = (tab==='accounts') ? 'block' : 'none';
     $('#cpOrdersMobile').style.display = (tab==='orders')   ? 'block' : 'none';
   }));
+
+  // Welcome toast
+  setTimeout(() => {
+    showToast('TraderDuo platform loaded successfully');
+  }, 1000);
 })();
 </script>
 
