@@ -1,4 +1,6 @@
-<html lang="en" data-theme="dark"><head>
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>TraderDuo — Professional Copy Trading Platform</title>
@@ -25,6 +27,8 @@
   --danger-bg: rgba(239, 68, 68, 0.1);
   --warning: #f59e0b;
   --warning-bg: rgba(245, 158, 11, 0.1);
+  --info: #3b82f6;
+  --info-bg: rgba(59, 130, 246, 0.1);
   --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
   --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
 }
@@ -50,6 +54,8 @@
   --danger-bg: rgba(220,38,38,.12);
   --warning:#d97706;
   --warning-bg: rgba(217,119,6,.12);
+  --info:#2563eb;
+  --info-bg: rgba(37,99,235,.12);
 }
 *,
 *::before,
@@ -145,7 +151,11 @@ aside {
 .navbtn.active, .navbtn:hover { background: var(--glass-strong); border-color: var(--stroke-light); color: var(--ink); transform: translateX(4px); }
 .navbtn.active::before { background: var(--prime); opacity: 1; box-shadow: 0 0 8px var(--prime); }
 .main { flex: 1; padding: 24px; transition: margin-left .3s ease; min-height: 100%; }
-@media(min-width: 1024px) { aside { position: sticky; top: 70px; transform: none; } .main { margin-left: 280px; padding: 32px; } }
+@media(min-width: 1024px) { 
+  aside { position: sticky; top: 70px; transform: none; } 
+  .main { margin-left: 280px; padding: 32px; } 
+  .overlay { display: none !important; }
+}
 
 /* Cards */
 .card {
@@ -157,10 +167,14 @@ aside {
 .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); }
 .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--stroke-light); }
 .card.primary { background: linear-gradient(135deg, rgba(139,92,246,.1) 0%, rgba(109,40,217,.05) 100%); border-color: rgba(139,92,246,.2); }
+.card.total-pnl { background: linear-gradient(135deg, rgba(139,92,246,.15) 0%, rgba(109,40,217,.08) 100%); border-color: rgba(139,92,246,.3); }
+.card.danger-alert { background: linear-gradient(135deg, rgba(239,68,68,.1) 0%, rgba(220,38,38,.05) 100%); border-color: rgba(239,68,68,.2); }
+.card.warning-alert { background: linear-gradient(135deg, rgba(245,158,11,.1) 0%, rgba(217,119,6,.05) 100%); border-color: rgba(245,158,11,.2); }
 .card h3 { margin: 0 0 12px; font-size: 12px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
 
 /* KPIs */
 .kpi { font-size: 32px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink); transition: all .3s ease; }
+.kpi.large { font-size: 48px; }
 .kpi.positive { color: var(--success); }
 .kpi.negative { color: var(--danger); }
 .kpi-change { display:flex; align-items:center; gap:4px; font-size:13px; font-weight:600; }
@@ -174,8 +188,9 @@ aside {
 .g-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .g-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .g-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.g-1-2 { grid-template-columns: 2fr 1fr; }
 @media(max-width: 1280px) { .g-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media(max-width: 768px)  { .g-4, .g-3, .g-2 { grid-template-columns: 1fr; } }
+@media(max-width: 768px)  { .g-4, .g-3, .g-2, .g-1-2 { grid-template-columns: 1fr; } }
 
 /* Buttons + badges */
 .btn {
@@ -188,13 +203,17 @@ aside {
 .btn.primary:hover { background: linear-gradient(135deg, var(--prime-light) 0%, var(--prime) 100%); box-shadow: 0 6px 20px rgba(139, 92, 246, .4); }
 .btn.danger { background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%); border-color: #dc2626; color: #fff; box-shadow: 0 4px 14px rgba(239,68,68,.3); }
 .btn.danger:hover { background: linear-gradient(135deg, #f87171 0%, var(--danger) 100%); box-shadow: 0 6px 20px rgba(239,68,68,.4); }
+.btn.info { background: linear-gradient(135deg, var(--info) 0%, #2563eb 100%); border-color: #2563eb; color: #fff; box-shadow: 0 4px 14px rgba(59,130,246,.3); }
+.btn.info:hover { background: linear-gradient(135deg, #60a5fa 0%, var(--info) 100%); box-shadow: 0 6px 20px rgba(59,130,246,.4); }
 .btn.sm{ padding:8px 10px; font-size:12px; }
+.btn.xs{ padding:6px 8px; font-size:11px; }
 
 /* Badges */
 .badge { display:inline-flex; align-items:center; gap:4px; padding:6px 10px; border-radius: 12px; border:1px solid var(--stroke); background:var(--glass); font-size:11px; font-weight:700; color:var(--ink); }
 .badge.success { background: var(--success-bg); border-color: rgba(16,185,129,.2); color: var(--success); }
 .badge.danger  { background: var(--danger-bg);  border-color: rgba(239,68,68,.2); color: var(--danger); }
 .badge.warning { background: var(--warning-bg); border-color: rgba(245,158,11,.2); color: var(--warning); }
+.badge.info { background: var(--info-bg); border-color: rgba(59,130,246,.2); color: var(--info); }
 
 /* Tables */
 .table-container { overflow-x: auto; border-radius: 12px; border: 1px solid var(--stroke); background: var(--panel); }
@@ -203,14 +222,12 @@ th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--st
 th { background: var(--glass); color: var(--muted); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; position: sticky; top: 0; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 tr:hover { background: var(--glass); }
 tr:last-child td { border-bottom: none; }
-/* Follower indentation */
-tr.follower td:first-child{ padding-left: 28px; }
-tr.group-header td{ background: var(--glass-strong); font-weight: 800; }
 
 /* Forms */
-.form-input { padding: 12px 14px; border-radius: 8px; border: 1px solid var(--stroke); background: var(--glass); color: var(--ink); font-size: 14px; transition: all .2s; }
+.form-input { padding: 12px 14px; border-radius: 8px; border: 1px solid var(--stroke); background: var(--glass); color: var(--ink); font-size: 14px; transition: all .2s; width: 100%; }
 .form-input:focus { outline: none; border-color: var(--prime); background: var(--glass-strong); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1); }
-.form-label { color: var(--ink-secondary); font-size: 12px; margin-bottom: 6px; display: block; }
+.form-label { color: var(--ink-secondary); font-size: 12px; margin-bottom: 6px; display: block; font-weight: 600; }
+.form-group { margin-bottom: 16px; }
 
 /* Muted text */
 .muted { color: var(--muted); }
@@ -219,68 +236,149 @@ tr.group-header td{ background: var(--glass-strong); font-weight: 800; }
 section[data-page] { display: none; visibility: hidden; width: 100%; }
 section[data-page].show { display: block; visibility: visible; }
 
-/* Simple calendar grid */
-.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
-.cal .day { padding: 8px; border: 1px solid var(--stroke); border-radius: 8px; background: var(--panel); }
-.cal .day.win { border-color: rgba(16,185,129,.4); }
-.cal .day.loss { border-color: rgba(239,68,68,.4); }
+/* Alert cards */
+.alert-card { padding: 16px; border-radius: 12px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s ease; }
+.alert-card:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+.alert-card.danger { background: var(--danger-bg); border: 1px solid rgba(239,68,68,.2); }
+.alert-card.warning { background: var(--warning-bg); border: 1px solid rgba(245,158,11,.2); }
+.alert-card.info { background: var(--info-bg); border: 1px solid rgba(59,130,246,.2); }
+.alert-card .alert-icon { font-size: 18px; }
+.alert-card .alert-content { flex: 1; }
+.alert-card .alert-title { font-weight: 700; margin-bottom: 4px; }
+.alert-card .alert-message { font-size: 13px; opacity: 0.9; }
 
-/* Quick actions */
-.quick-actions{ position: fixed; bottom: 16px; right: 16px; z-index: 80; }
-.quick-action{ width: 48px; height: 48px; border-radius: 12px; border: 1px solid var(--stroke); background: var(--glass); color: var(--ink); }
+/* Risk indicators */
+.risk-indicator { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; }
+.risk-indicator.low { background: var(--success-bg); color: var(--success); }
+.risk-indicator.medium { background: var(--warning-bg); color: var(--warning); }
+.risk-indicator.high { background: var(--danger-bg); color: var(--danger); }
 
-.svg { width: 100%; height: 100%; display: block; }
-.chart-container{ width: 100%; height: 120px; }
-.exposure-chips{ display:flex; gap:8px; flex-wrap:wrap; }
-.exposure-stack{ display:flex; height:10px; border-radius:999px; overflow:hidden; border:1px solid var(--stroke); margin-top:8px; }
-.exposure-chip{ display:flex; align-items:center; gap:8px; padding:6px 8px; border:1px solid var(--stroke); border-radius:999px; }
+/* Daily Loss Status */
+.loss-status { padding: 16px; border-radius: 12px; margin-bottom: 16px; }
+.loss-status.profitable { background: var(--success-bg); border: 1px solid rgba(16,185,129,.2); }
+.loss-status.approaching { background: var(--warning-bg); border: 1px solid rgba(245,158,11,.2); }
+.loss-status.exceeded { background: var(--danger-bg); border: 1px solid rgba(239,68,68,.2); animation: pulse-danger 2s infinite; }
+@keyframes pulse-danger { 0%,100%{opacity:1} 50%{opacity:.7} }
+.loss-status-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.loss-status-title { font-weight: 800; font-size: 16px; }
+.loss-status-value { font-weight: 800; font-size: 18px; }
+.loss-progress { height: 12px; background: var(--bg-secondary); border-radius: 6px; overflow: hidden; position: relative; }
+.loss-progress-bar { height: 100%; border-radius: 6px; transition: all 0.3s ease; }
+.loss-progress-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 10px; font-weight: 700; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
 
-/* Mobile-friendly Copy Trader */
-#cpSummary { position: sticky; top: 70px; z-index: 45; background: rgba(18,19,28,.9); border-bottom: 1px solid var(--stroke); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 10px 16px; }
-:root[data-theme="light"] #cpSummary{ background: rgba(255,255,255,.9); }
-#cpSummary .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-.kpi-chip { display:inline-flex; align-items:baseline; gap:6px; padding:8px 10px; border:1px solid var(--stroke); background: var(--panel); border-radius: 10px; font-weight:800; }
-.kpi-chip small { color: var(--muted); font-weight:700; }
-.tabs { display:flex; gap:8px; padding:10px 16px 0; }
-.tab { flex:0 0 auto; padding:8px 12px; border-radius:10px; border:1px solid var(--stroke); background: var(--glass); font-weight:800; cursor:pointer; user-select:none; }
-.tab.active { background: var(--glass-strong); border-color: var(--stroke-light); }
-#cpMobileWrap { display:none; padding:12px 16px 16px; }
-#cpMobileList { display:grid; gap:12px; }
-.cp-card { border:1px solid var(--stroke); background: var(--panel); border-radius:14px; padding:12px 14px; box-shadow: var(--shadow); }
-.cp-top { display:grid; grid-template-columns: 1fr auto; gap:8px; align-items:center; }
-.cp-tags { display:flex; gap:6px; flex-wrap:wrap; }
-.cp-acct { font-family: ui-monospace, Menlo, Monaco, monospace; font-size:12px; text-align:right; opacity:.9; }
-.cp-stats { margin-top:8px; display:grid; grid-template-columns: 1fr 1fr; gap:8px; }
-.cp-kv { background: var(--glass); border:1px solid var(--stroke); border-radius:10px; padding:8px 10px; font-size:12px; }
-.cp-kv b { display:block; font-size:11px; color:var(--muted); margin-bottom:4px; font-weight:700; }
-.cp-actions { margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
-.cp-details { display:none; margin-top:8px; }
-.cp-card.open .cp-details { display:block; }
-.cp-toggle { cursor:pointer; margin-top:6px; color:var(--muted); font-size:12px; }
-#cpOrdersMobile { display:none; padding:12px 16px 16px; }
-.ord-card { border:1px solid var(--stroke); background:var(--panel); border-radius:12px; padding:10px 12px; }
-.ord-line { display:flex; justify-content:space-between; gap:8px; font-size:12px; }
-.ord-line + .ord-line { margin-top:6px; }
-/* Desktop keeps table */
-@media (min-width: 768px) { #cpSummary, #cpMobileWrap, #cpOrdersMobile { display:none; } #cpTableWrap { display:block; } }
-/* Phone uses cards */
-@media (max-width: 767.98px) { #cpTableWrap { display:none; } #cpMobileWrap { display:block; } }
+/* Sync status */
+.sync-status { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+.sync-dot { width: 8px; height: 8px; border-radius: 50%; }
+.sync-dot.healthy { background: var(--success); animation: pulse 2s infinite; }
+.sync-dot.delayed { background: var(--warning); }
+.sync-dot.failed { background: var(--danger); }
+.sync-dot.paused { background: var(--muted); }
 
-/* Modal */
+/* Position management */
+.position-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--stroke); border-radius: 10px; margin: 4px; background: var(--glass); cursor: pointer; transition: all 0.2s ease; position: relative; }
+.position-chip:hover { background: var(--glass-strong); border-color: var(--stroke-light); }
+.position-chip .position-close { opacity: 0.6; font-size: 16px; margin-left: 8px; }
+.position-chip .position-close:hover { opacity: 1; color: var(--danger); }
+.position-chip .position-tooltip { position: absolute; top: -40px; left: 50%; transform: translateX(-50%); background: var(--panel); border: 1px solid var(--stroke); border-radius: 8px; padding: 8px 12px; font-size: 11px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 100; }
+.position-chip:hover .position-tooltip { opacity: 1; }
+
+/* Copy trading hierarchy */
+.leader-group { margin-bottom: 24px; }
+.leader-header { display: flex; align-items: center; gap: 12px; padding: 16px; background: var(--glass-strong); border: 1px solid var(--stroke-light); border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s ease; }
+.leader-header:hover { background: var(--glass); }
+.leader-header .group-icon { font-size: 16px; }
+.leader-header .group-title { flex: 1; font-weight: 700; }
+.leader-header .group-stats { display: flex; gap: 16px; font-size: 12px; color: var(--muted); }
+.leader-header .expand-icon { transition: transform 0.2s ease; }
+.leader-group.collapsed .expand-icon { transform: rotate(-90deg); }
+.leader-group.collapsed .follower-list { display: none; }
+
+.account-card { border: 1px solid var(--stroke); border-radius: 12px; background: var(--panel); margin-bottom: 8px; overflow: hidden; }
+.account-card.leader { background: linear-gradient(135deg, var(--glass-strong) 0%, var(--glass) 100%); }
+.account-card.follower { margin-left: 24px; position: relative; }
+.account-card.follower::before { content: ''; position: absolute; left: -12px; top: 0; bottom: 0; width: 2px; background: var(--stroke-light); }
+.account-card.follower::after { content: ''; position: absolute; left: -12px; top: 50%; width: 12px; height: 2px; background: var(--stroke-light); }
+
+.account-header { display: flex; align-items: center; justify-content: space-between; padding: 16px; }
+.account-info { flex: 1; }
+.account-name { font-weight: 700; margin-bottom: 4px; }
+.account-meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.account-stats { display: flex; gap: 16px; font-size: 12px; }
+.account-actions { display: flex; align-items: center; gap: 8px; }
+
+/* Account status styling */
+.account-card.paused { opacity: 0.6; }
+.account-card.paused .account-header { background: var(--warning-bg); }
+.account-card.orphaned { opacity: 0.7; }
+.account-card.orphaned .account-header { background: var(--danger-bg); }
+
+/* Trading Journal */
+.performance-metric { text-align: center; padding: 16px; border: 1px solid var(--stroke); border-radius: 10px; background: var(--glass); }
+.performance-metric .metric-value { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.performance-metric .metric-label { font-size: 11px; text-transform: uppercase; color: var(--muted); }
+
+.trade-entry { border: 1px solid var(--stroke); border-radius: 12px; padding: 16px; margin-bottom: 12px; background: var(--glass); }
+.trade-entry:hover { background: var(--glass-strong); }
+.trade-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.trade-meta { display: flex; gap: 12px; font-size: 12px; color: var(--muted); }
+
+/* Calendar */
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 16px; }
+.calendar-day { aspect-ratio: 1; border: 1px solid var(--stroke); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: all 0.2s ease; background: var(--panel); }
+.calendar-day:hover { background: var(--glass-strong); transform: translateY(-1px); }
+.calendar-day.win { border-color: rgba(16,185,129,.4); background: var(--success-bg); }
+.calendar-day.loss { border-color: rgba(239,68,68,.4); background: var(--danger-bg); }
+.calendar-day.empty { border: none; background: transparent; cursor: default; }
+.calendar-day.empty:hover { background: transparent; transform: none; }
+.calendar-day-number { font-size: 11px; font-weight: 700; color: var(--muted); }
+.calendar-day-pnl { font-size: 12px; font-weight: 800; margin-top: 4px; }
+.calendar-day-trades { font-size: 10px; color: var(--muted); }
+
+/* Chart containers */
+.chart-container { width: 100%; height: 120px; margin-top: 12px; }
+.chart-container.large { height: 200px; }
+
+/* Modal improvements */
 .modal-backdrop{ position: fixed; inset: 0; background: rgba(0,0,0,.6); display:none; z-index: 200; backdrop-filter: blur(4px); }
 .modal{ position: fixed; inset: 0; display:none; z-index: 210; align-items:center; justify-content:center; padding: 20px; }
 .modal.open,.modal-backdrop.open{display:flex;}
-.modal-card{ width: 100%; max-width: 560px; background: var(--panel); border:1px solid var(--stroke); border-radius:16px; box-shadow: var(--shadow-lg); padding:16px 18px; }
-.modal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;}
-.modal-body{display:grid; gap:12px;}
-.modal-footer{display:flex; justify-content:flex-end; gap:8px; margin-top:12px;}
-.modal-list{max-height:260px; overflow:auto; border:1px solid var(--stroke); border-radius:10px; padding:8px;}
-.modal-row{display:flex; align-items:center; justify-content:space-between; padding:6px 4px; border-bottom:1px dashed var(--stroke);}
-.modal-row:last-child{border-bottom:none;}
+.modal-card{ width: 100%; max-width: 600px; background: var(--panel); border:1px solid var(--stroke); border-radius:16px; box-shadow: var(--shadow-lg); padding:20px 24px; max-height: 80vh; overflow-y: auto; }
+.modal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;}
+.modal-body{display:grid; gap:16px;}
+.modal-footer{display:flex; justify-content:flex-end; gap:12px; margin-top:16px;}
+
+/* Correlation modal specific */
+.correlation-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 1px solid var(--stroke); border-radius: 8px; margin-bottom: 8px; background: var(--glass); }
+.correlation-value { font-weight: 700; }
+.correlation-value.high { color: var(--danger); }
+.correlation-value.medium { color: var(--warning); }
+.correlation-value.low { color: var(--success); }
+
+/* Search leader modal */
+.leader-search-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; border: 1px solid var(--stroke); border-radius: 8px; margin-bottom: 8px; background: var(--glass); cursor: pointer; transition: all 0.2s ease; }
+.leader-search-item:hover { background: var(--glass-strong); }
+.leader-search-info { flex: 1; }
+.leader-search-name { font-weight: 700; margin-bottom: 4px; }
+.leader-search-stats { display: flex; gap: 12px; font-size: 12px; color: var(--muted); }
+
+/* Filter panel */
+.filter-panel { background: var(--glass); border: 1px solid var(--stroke); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+.filter-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 12px; }
+
+/* SVG and Charts */
+.svg { width: 100%; height: 100%; display: block; }
+
+/* Desktop specific hiding for mobile elements */
+@media (min-width: 768px) { 
+  .mobile-only { display: none; }
+}
+@media (max-width: 767.98px) { 
+  .desktop-only { display: none; }
+}
 </style>
 </head>
 <body>
-<input id="nav" hidden="" type="checkbox">
+<input id="nav" hidden type="checkbox">
 
 <div class="top">
   <label class="hamb" for="nav">☰</label>
@@ -295,248 +393,732 @@ section[data-page].show { display: block; visibility: visible; }
 <div class="layout">
   <aside>
     <div class="nav-section">Dashboard</div>
-    <a class="navbtn" data-route="overview" href="#overview"><span>Overview</span></a>
+    <a class="navbtn active" data-route="overview" href="#overview"><span>Overview</span></a>
     <a class="navbtn" data-route="copy" href="#copy"><span>Copy Trading</span></a>
-    <a class="navbtn active" data-route="analytics" href="#analytics"><span>Analytics</span></a>
+    <a class="navbtn" data-route="journal" href="#journal"><span>Trading Journal</span></a>
 
     <div class="nav-section">Management</div>
-    <a class="navbtn" data-route="activity" href="#activity"><span>Activity Feed</span></a>
     <a class="navbtn" data-route="settings" href="#settings"><span>Settings</span></a>
 
     <div style="margin-top: auto; display: grid; gap: 10px;">
-      <button class="btn danger" id="mEmergency">🚨 Emergency Stop</button>
-      <button class="btn" id="mClose">Close Positions</button>
-      <button class="btn" id="mCancel">Cancel Orders</button>
+      <button class="btn danger" id="emergencyStop">🚨 Emergency Stop</button>
+      <button class="btn" id="closeAllPositions">Close All Positions</button>
+      <button class="btn" id="cancelAllOrders">Cancel All Orders</button>
     </div>
   </aside>
 
   <main class="main">
     <!-- Overview -->
-    <section id="overview" data-page="overview" class="" aria-hidden="true" style="display: none; visibility: hidden;">
-      <div class="card primary" style="margin-bottom: 20px;">
-        <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
-          <div>
-            <h3 style="margin: 0; color: white;">Performance Score</h3>
-            <div class="muted" style="font-size: 12px;">AI-powered risk assessment</div>
+    <section id="overview" data-page="overview" class="show" style="display: block; visibility: visible;">
+      <!-- Alert Cards -->
+      <div id="alertContainer">
+        <div class="alert-card warning" id="correlationAlert">
+          <div class="alert-icon">⚠️</div>
+          <div class="alert-content">
+            <div class="alert-title">High Position Correlation Detected</div>
+            <div class="alert-message">ESZ5 and NQZ5 positions are 89% correlated - consider reducing exposure</div>
           </div>
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <div id="performanceScore" class="kpi" style="font-size: 48px; margin: 0; color: white;">A+</div>
+          <button class="btn xs" id="reviewCorrelation">Review</button>
+        </div>
+      </div>
+
+      <!-- Daily Loss Status -->
+      <div class="loss-status profitable" id="lossStatus">
+        <div class="loss-status-header">
+          <div class="loss-status-title">Daily P&L Status</div>
+          <div class="loss-status-value positive">PROFITABLE: +$581.06</div>
+        </div>
+        <div class="loss-progress">
+          <div class="loss-progress-bar" style="width: 0%; background: linear-gradient(90deg, var(--success), #10b981);"></div>
+          <div class="loss-progress-text">Above Daily Limit - All Good!</div>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px;">
+          <span>Peak Drawdown: <strong style="color: var(--danger);">-$240</strong></span>
+          <span>Time Remaining: <strong>6h 23m</strong></span>
+          <span>Daily Limit: <strong>$1,500</strong></span>
+        </div>
+      </div>
+
+      <!-- Total P&L - Main Card -->
+      <div class="card total-pnl" style="margin-bottom: 20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <h3 style="margin: 0; color: white;">Total P&L</h3>
+            <div class="muted" style="font-size: 12px;">Realized + Unrealized</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 20px;">
+            <div style="text-align: center;">
+              <div id="totalPnL" class="kpi large" style="margin: 0; color: white;">$581.06</div>
+              <div class="kpi-change positive" id="totalChange">+8.7% today</div>
+            </div>
             <div style="text-align: right;">
-              <div id="riskLevel" class="badge success">Low Risk</div>
-              <div class="muted" style="font-size: 11px; margin-top: 4px;">Score: <span id="riskScore">92/100</span></div>
+              <div class="risk-indicator low">Low Risk</div>
+              <div class="muted" style="font-size: 11px; margin-top: 4px;">Risk Score: <span id="riskScore">92/100</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 16px; display: flex; gap: 16px;">
+          <div style="flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+            <div style="font-size: 11px; color: var(--muted); margin-bottom: 4px;">REALIZED TODAY</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--danger);">-$76.05</div>
+          </div>
+          <div style="flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+            <div style="font-size: 11px; color: var(--muted); margin-bottom: 4px;">UNREALIZED</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--success);">$657.11</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Metrics Grid -->
+      <div class="grid g-4">
+        <div class="card">
+          <h3>Daily Trading Limits</h3>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+            <span style="font-size: 14px; font-weight: 600;">Trades Today</span>
+            <span style="font-size: 16px; font-weight: 800;">12 / 40</span>
+          </div>
+          <div style="height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; margin-bottom: 12px;">
+            <div style="width: 30%; height: 100%; background: linear-gradient(90deg, var(--success), var(--warning)); border-radius: 4px;"></div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 14px; font-weight: 600;">Positions</span>
+            <span style="font-size: 16px; font-weight: 800;">5 / 12</span>
+          </div>
+          <div style="height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
+            <div style="width: 42%; height: 100%; background: linear-gradient(90deg, var(--success), var(--warning)); border-radius: 4px;"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Position Exposure</h3>
+          <div id="kpiExposure" class="kpi" style="font-size: 24px;">5 Positions</div>
+          <div style="display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap;">
+            <div class="position-chip" data-symbol="ESZ5" data-qty="2" data-notional="142000">
+              <span class="badge success">ESZ5 +2</span>
+              <span class="position-close">×</span>
+              <div class="position-tooltip">$142k notional (52% of portfolio)</div>
+            </div>
+            <div class="position-chip" data-symbol="NQZ5" data-qty="1" data-notional="98500">
+              <span class="badge success">NQZ5 +1</span>
+              <span class="position-close">×</span>
+              <div class="position-tooltip">$98.5k notional (36% of portfolio)</div>
+            </div>
+            <div class="position-chip" data-symbol="CLX5" data-qty="-3" data-notional="32700">
+              <span class="badge danger">CLX5 -3</span>
+              <span class="position-close">×</span>
+              <div class="position-tooltip">$32.7k notional (12% of portfolio)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Copy Trading Status</h3>
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+            <div id="kpiCopy" class="kpi" style="font-size: 24px; color: var(--success); margin: 0;">ACTIVE</div>
+            <div class="sync-status">
+              <div class="sync-dot healthy"></div>
+              <span>All synced</span>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 12px;">
+            <span class="muted">Leaders: <strong>2</strong></span>
+            <span class="muted">Followers: <strong>5</strong></span>
+            <span class="muted">Latency: <strong>18ms</strong></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Account Health</h3>
+          <div style="display: grid; gap: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px;">Total Balance</span>
+              <span style="font-weight: 800;">$347,892</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px;">Open P&L</span>
+              <span style="font-weight: 800; color: var(--success);">+$657.11</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 12px;">Day P&L</span>
+              <span style="font-weight: 800; color: var(--danger);">-$76.05</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="grid g-4">
+      <!-- Action Controls -->
+      <div class="grid g-1-2" style="margin-top: 20px;">
         <div class="card">
-          <h3>Day P&amp;L (Realized)</h3>
-          <div id="kpiRealized" class="kpi negative">-$76.05</div>
-          <div class="kpi-change negative" id="dailyChange">-212.8% from yesterday</div>
-          <div class="chart-container"><svg id="spark" class="svg" viewBox="0 0 100 24" preserveAspectRatio="none"><defs>      <linearGradient id="sparkUp" x1="0%" y1="0%" x2="100%" y2="0%">        <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3"></stop>        <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.8"></stop>      </linearGradient>      <linearGradient id="sparkDown" x1="0%" y1="0%" x2="100%" y2="0%">        <stop offset="0%" style="stop-color:#ef4444;stop-opacity:0.3"></stop>        <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0.8"></stop>      </linearGradient>    </defs>    <path d="M0,0 L2.127659574468085,0.7122314009687685 L4.25531914893617,1.140148608770236 L6.382978723404255,1.4254952559778111 L8.51063829787234,1.9341789148379007 L10.638297872340425,2.9220088440565064 L12.76595744680851,3.5592816927314708 L14.893617021276595,3.9696870939911264 L17.02127659574468,4.747121970203324 L19.148936170212767,5.102321568945545 L21.27659574468085,5.145974195041205 L23.404255319148938,5.9054773399244205 L25.53191489361702,6.800985979978254 L27.659574468085108,7.564419378525891 L29.78723404255319,8.287153349190532 L31.914893617021278,8.787341249776777 L34.04255319148936,9.06343456676526 L36.17021276595745,9.321644824582043 L38.297872340425535,9.463522570484347 L40.42553191489361,9.742519666673196 L42.5531914893617,10.088472154190907 L44.680851063829785,10.740235025808447 L46.808510638297875,11.138649169494222 L48.93617021276596,11.394121616882773 L51.06382978723404,11.928210454212689 L53.191489361702125,12.516854262831846 L55.319148936170215,12.832468678676225 L57.446808510638306,13.198017855286645 L59.57446808510638,13.504152219428942 L61.702127659574465,13.965687955509301 L63.829787234042556,14.629659405400524 L65.95744680851064,15.076402154582626 L68.08510638297872,15.547953320557651 L70.2127659574468,15.965234312339966 L72.3404255319149,16.62086132469583 L74.46808510638297,17.247617494724825 L76.59574468085107,17.789650154725514 L78.72340425531915,18.357600812923597 L80.85106382978722,18.956772701885072 L82.97872340425532,19.577493065175943 L85.1063829787234,20.13532314696789 L87.2340425531915,20.636104226572343 L89.36170212765957,21.17156843442975 L91.48936170212765,21.723939076680853 L93.61702127659575,22.305748348048454 L95.74468085106383,22.876705535038194 L97.87234042553192,23.451344337913643 L100,24" fill="none" stroke="url(#sparkDown)" stroke-width="2" stroke-linecap="round"></path>    <circle cx="100" cy="24" r="2" fill="#ef4444"></circle></svg></div>
-        </div>
-        <div class="card">
-          <h3>Open P&amp;L (Unrealized)</h3>
-          <div id="kpiOpen" class="kpi positive">$657.11</div>
-          <div class="exposure-container">
-            <div id="expoChips" class="exposure-chips"><div class="exposure-chip"><span class="badge success">ESZ5</span><span>Long 2 • $142k</span></div><div class="exposure-chip"><span class="badge success">NQZ5</span><span>Long 1 • $99k</span></div><div class="exposure-chip"><span class="badge danger">CLX5</span><span>Short 3 • $33k</span></div></div>
-            <div id="expoStack" class="exposure-stack"><div style="width: 51.976574%; background: rgb(139, 92, 246);"></div><div style="width: 36.054173%; background: rgb(109, 40, 217);"></div><div style="width: 11.969253%; background: rgb(167, 139, 250);"></div></div>
+          <h3>Risk Management Controls</h3>
+          <div class="grid g-3" style="margin-top: 8px;">
+            <div class="form-group">
+              <label class="form-label">Daily Max Loss</label>
+              <input id="rcLoss" class="form-input" value="$1,500">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Max Daily Trades</label>
+              <input id="rcTrades" class="form-input" value="40">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Position Limit</label>
+              <input id="rcPos" class="form-input" value="12">
+            </div>
+          </div>
+          <div style="margin-top: 16px; display:flex; gap:12px;">
+            <button id="saveRiskSettings" class="btn primary">Save Settings</button>
+            <button id="resetRiskSettings" class="btn">Reset</button>
           </div>
         </div>
-        <div class="card">
-          <h3>Active Exposure</h3>
-          <div id="kpiExposure" class="kpi" style="font-size: 24px;">$273,200</div>
-        </div>
-        <div class="card">
-          <h3>Copy Status</h3>
-          <div id="kpiCopy" class="kpi" style="font-size: 24px; color: var(--success);">ACTIVE</div>
-          <div class="muted" style="font-size: 12px;"><span id="kpiGroups">3</span> accounts synced • <span id="syncLatency">18ms</span> latency</div>
-        </div>
-      </div>
 
-      <div class="card" style="margin-top: 20px;">
-        <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
-          <div style="font-weight: 700; font-size: 16px;">Risk Management</div>
-          <div class="toolbar-right"><span id="copyState" class="badge success">COPY TRADING ON</span></div>
-        </div>
-        <div class="grid g-3" style="margin-top: 8px;">
-          <div class="form-group"><label class="form-label">Daily Max Loss</label><input id="rcLoss" class="form-input" value="$1,500"></div>
-          <div class="form-group"><label class="form-label">Max Daily Trades</label><input id="rcTrades" class="form-input" value="40"></div>
-          <div class="form-group"><label class="form-label">Position Limit</label><input id="rcPos" class="form-input" value="12"></div>
-        </div>
-        <div class="toolbar-right" style="margin-top: 12px; display:flex; gap:10px;">
-          <button id="riskSave" class="btn primary">Save Risk Settings</button>
-          <button id="riskReset" class="btn">Reset</button>
-        </div>
+        <div class="card">
+          <h3>Quick Actions</h3>
+          <div style="display: grid; gap: 12px; margin-top: 8px;">
+            <div style="display: grid; gap: 8px;">
+              <div style="font-size: 12px; font-weight: 600; color: var(--muted);">EMERGENCY CONTROLS</div>
+              <button id="emergencyStopAll" class="btn danger">🚨 Emergency Stop All</button>
+              <button id="closeAllPos" class="btn danger">Close All Positions</button>
+            </div>
+            
+            <div style="display: grid; gap: 8px;">
+              <div style="font-size: 12px; font-weight: 600; color: var(--muted);">COPY TRADING</div>
+              <button id="pauseCopyTrading" class="btn">Pause Copy Trading</button>
+              <button id="syncHealthCheck" class="btn info">Run Sync Health Check</button>
+            </div>
 
-        <div class="toolbar-right" style="margin-top: 16px; display:flex; gap:10px;">
-          <button id="ovDisable" class="btn">Disable Copy Trading</button>
-          <button id="ovClose" class="btn">Close All Positions</button>
-          <button id="ovCancel" class="btn danger">Cancel All Orders</button>
+            <div style="display: grid; gap: 8px;">
+              <div style="font-size: 12px; font-weight: 600; color: var(--muted);">MANAGEMENT</div>
+              <button id="addFollower" class="btn primary">Add New Follower</button>
+              <button id="exportDailyReport" class="btn">Export Daily Report</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Copy Trading -->
-    <section id="copy" data-page="copy" aria-hidden="true" class="" style="display: none; visibility: hidden;">
-      <!-- Sticky summary and tabs (mobile) -->
-      <div id="cpSummary">
-        <div class="row" id="cpSummaryRow"><span class="kpi-chip"><small>Day P&amp;L</small> -$76.05</span>       <span class="kpi-chip"><small>Open P&amp;L</small> $657.11</span>       <span class="kpi-chip"><small>Followers</small> 3</span>       <span class="kpi-chip"><small>Balance</small> $207,850.29</span></div>
-        <div class="tabs">
-          <div class="tab active" data-tab="accounts">Accounts</div>
-          <div class="tab" data-tab="orders">Orders</div>
+    <section id="copy" data-page="copy" style="display: none; visibility: hidden;">
+      <!-- Leader Group 1 -->
+      <div class="leader-group" id="leaderGroup1">
+        <div class="leader-header" onclick="toggleLeaderGroup('leaderGroup1')">
+          <div class="group-icon">👑</div>
+          <div class="group-title">Leader Group 1</div>
+          <div class="group-stats">
+            <span>4 accounts</span>
+            <span>Total P&L: <strong style="color: var(--danger);">-$76.05</strong></span>
+            <span>Status: <strong id="group1Status" style="color: var(--success);">Active</strong></span>
+          </div>
+          <div class="expand-icon">▼</div>
         </div>
-      </div>
+        
+        <div class="follower-list">
+          <!-- Leader Account -->
+          <div class="account-card leader" id="leader1">
+            <div class="account-header">
+              <div class="account-info">
+                <div class="account-name">TV-LEADER-203682037</div>
+                <div class="account-meta">Leader Account • Connected via Tradovate API</div>
+                <div class="account-stats">
+                  <span>Balance: <strong>$52,377</strong></span>
+                  <span>Day P&L: <strong style="color: var(--danger);">-$19.34</strong></span>
+                  <span>Open P&L: <strong style="color: var(--success);">$167.11</strong></span>
+                </div>
+              </div>
+              <div class="account-actions">
+                <div class="sync-status">
+                  <div class="sync-dot healthy" id="leader1Dot"></div>
+                  <span id="leader1Status">Active</span>
+                </div>
+                <button class="btn sm" onclick="pauseLeader('TV-LEADER-203682037')">Pause</button>
+                <button class="btn sm danger" onclick="removeAccount('TV-LEADER-203682037')">Remove</button>
+              </div>
+            </div>
+          </div>
 
-      <!-- Accounts (mobile cards) -->
-      <div id="cpMobileWrap"><div id="cpMobileList">      <div class="cp-card">        <div class="cp-top">          <div class="cp-tags"><span class="badge warning">[LEADER]</span>          <span class="badge success">Long</span><span class="badge">Qty 1</span></div>          <div class="cp-acct">TV-LEADER-203682037</div>        </div>        <div class="cp-stats">          <div class="cp-kv"><b>Day P&amp;L</b><span>-$19.34</span></div>          <div class="cp-kv"><b>Open P&amp;L</b><span>$167.11</span></div>        </div>        <div class="cp-details">          <div class="cp-stats">            <div class="cp-kv"><b>Balance</b><span>$52,377.87</span></div>            <div class="cp-kv"><b>Avg Price</b><span>$22,681.5</span></div>          </div>          <div class="cp-actions">            <button class="btn sm" data-maction="flatten" data-acct="TV-LEADER-203682037">Flatten</button>            <button class="btn sm" data-maction="pause-leader" data-acct="TV-LEADER-203682037">Pause</button>            <span class="badge success">Synced</span>          </div>        </div>        <div class="cp-toggle">Tap to see details ▾</div>      </div>      <div class="cp-card">        <div class="cp-top">          <div class="cp-tags"><span class="badge success">Follower</span>          <span class="badge success">Long</span><span class="badge">Qty 1</span></div>          <div class="cp-acct">TV-FOLLOW-203682034</div>        </div>        <div class="cp-stats">          <div class="cp-kv"><b>Day P&amp;L</b><span>-$18.77</span></div>          <div class="cp-kv"><b>Open P&amp;L</b><span>$162.14</span></div>        </div>        <div class="cp-details">          <div class="cp-stats">            <div class="cp-kv"><b>Balance</b><span>$50,307.18</span></div>            <div class="cp-kv"><b>Avg Price</b><span>$22,681.5</span></div>          </div>          <div class="cp-actions">            <button class="btn sm" data-maction="flatten" data-acct="TV-FOLLOW-203682034">Flatten</button>            <button class="btn sm" data-maction="disable-follower" data-acct="TV-FOLLOW-203682034">Disable</button>            <span class="badge success">Synced</span>          </div>        </div>        <div class="cp-toggle">Tap to see details ▾</div>      </div>      <div class="cp-card">        <div class="cp-top">          <div class="cp-tags"><span class="badge success">Follower</span>          <span class="badge success">Long</span><span class="badge">Qty 1</span></div>          <div class="cp-acct">TV-FOLLOW-203682035</div>        </div>        <div class="cp-stats">          <div class="cp-kv"><b>Day P&amp;L</b><span>-$18.89</span></div>          <div class="cp-kv"><b>Open P&amp;L</b><span>$163.25</span></div>        </div>        <div class="cp-details">          <div class="cp-stats">            <div class="cp-kv"><b>Balance</b><span>$51,822.98</span></div>            <div class="cp-kv"><b>Avg Price</b><span>$22,681.5</span></div>          </div>          <div class="cp-actions">            <button class="btn sm" data-maction="flatten" data-acct="TV-FOLLOW-203682035">Flatten</button>            <button class="btn sm" data-maction="disable-follower" data-acct="TV-FOLLOW-203682035">Disable</button>            <span class="badge success">Synced</span>          </div>        </div>        <div class="cp-toggle">Tap to see details ▾</div>      </div>      <div class="cp-card">        <div class="cp-top">          <div class="cp-tags"><span class="badge success">Follower</span>          <span class="badge success">Long</span><span class="badge">Qty 1</span></div>          <div class="cp-acct">TV-FOLLOW-203682036</div>        </div>        <div class="cp-stats">          <div class="cp-kv"><b>Day P&amp;L</b><span>-$19.05</span></div>          <div class="cp-kv"><b>Open P&amp;L</b><span>$164.61</span></div>        </div>        <div class="cp-details">          <div class="cp-stats">            <div class="cp-kv"><b>Balance</b><span>$53,342.27</span></div>            <div class="cp-kv"><b>Avg Price</b><span>$22,681.5</span></div>          </div>          <div class="cp-actions">            <button class="btn sm" data-maction="flatten" data-acct="TV-FOLLOW-203682036">Flatten</button>            <button class="btn sm" data-maction="disable-follower" data-acct="TV-FOLLOW-203682036">Disable</button>            <span class="badge success">Synced</span>          </div>        </div>        <div class="cp-toggle">Tap to see details ▾</div>      </div></div></div>
-      <!-- Orders (mobile cards placeholder) -->
-      <div id="cpOrdersMobile"></div>
+          <!-- Follower Accounts -->
+          <div class="account-card follower" id="follower1">
+            <div class="account-header">
+              <div class="account-info">
+                <div class="account-name">TV-FOLLOW-203682034</div>
+                <div class="account-meta">Following: TV-LEADER-203682037 • Ratio: 1:1</div>
+                <div class="account-stats">
+                  <span>Balance: <strong>$50,307</strong></span>
+                  <span>Day P&L: <strong style="color: var(--danger);">-$18.77</strong></span>
+                  <span>Open P&L: <strong style="color: var(--success);">$162.14</strong></span>
+                </div>
+              </div>
+              <div class="account-actions">
+                <div class="sync-status">
+                  <div class="sync-dot healthy" id="follower1Dot"></div>
+                  <span id="follower1Status">Synced</span>
+                </div>
+                <button class="btn sm" onclick="editFollower('TV-FOLLOW-203682034')">Edit</button>
+                <button class="btn sm" onclick="pauseFollower('TV-FOLLOW-203682034')">Pause</button>
+                <button class="btn sm danger" onclick="removeAccount('TV-FOLLOW-203682034')">Remove</button>
+              </div>
+            </div>
+          </div>
 
-      <!-- Desktop grouped table -->
-      <div class="card">
-        <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
-          <div class="toolbar-left" style="font-weight:700;font-size:16px;">Copy Trading Dashboard</div>
-          <div class="toolbar-right">
-            <button class="btn sm" id="cpEdit">Edit Copy Trading</button>
-            <button class="btn sm" id="cpDisable">Disable Followers</button>
-            <button class="btn sm" id="cpCancel">Cancel Orders</button>
-            <button class="btn danger sm" id="cpFlatten">Emergency Flatten</button>
+          <div class="account-card follower" id="follower2">
+            <div class="account-header">
+              <div class="account-info">
+                <div class="account-name">TV-FOLLOW-203682035</div>
+                <div class="account-meta">Following: TV-LEADER-203682037 • Ratio: 1:1</div>
+                <div class="account-stats">
+                  <span>Balance: <strong>$51,823</strong></span>
+                  <span>Day P&L: <strong style="color: var(--danger);">-$18.89</strong></span>
+                  <span>Open P&L: <strong style="color: var(--success);">$163.25</strong></span>
+                </div>
+              </div>
+              <div class="account-actions">
+                <div class="sync-status">
+                  <div class="sync-dot healthy" id="follower2Dot"></div>
+                  <span id="follower2Status">Synced</span>
+                </div>
+                <button class="btn sm" onclick="editFollower('TV-FOLLOW-203682035')">Edit</button>
+                <button class="btn sm" onclick="pauseFollower('TV-FOLLOW-203682035')">Pause</button>
+                <button class="btn sm danger" onclick="removeAccount('TV-FOLLOW-203682035')">Remove</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="account-card follower" id="follower3">
+            <div class="account-header">
+              <div class="account-info">
+                <div class="account-name">TV-FOLLOW-203682036</div>
+                <div class="account-meta">Following: TV-LEADER-203682037 • Ratio: 1:1</div>
+                <div class="account-stats">
+                  <span>Balance: <strong>$53,342</strong></span>
+                  <span>Day P&L: <strong style="color: var(--danger);">-$19.05</strong></span>
+                  <span>Open P&L: <strong style="color: var(--success);">$164.61</strong></span>
+                </div>
+              </div>
+              <div class="account-actions">
+                <div class="sync-status">
+                  <div class="sync-dot delayed" id="follower3Dot"></div>
+                  <span id="follower3Status">Delayed 2s</span>
+                </div>
+                <button class="btn sm" onclick="editFollower('TV-FOLLOW-203682036')">Edit</button>
+                <button class="btn sm" onclick="pauseFollower('TV-FOLLOW-203682036')">Pause</button>
+                <button class="btn sm danger" onclick="removeAccount('TV-FOLLOW-203682036')">Remove</button>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div id="cpTableWrap" class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Role</th>
-                <th>Account</th>
-                <th>Position</th>
-                <th>Qty</th>
-                <th>Balance</th>
-                <th>Avg Price</th>
-                <th>Day P&amp;L</th>
-                <th>Open P&amp;L</th>
-                <th>Sync</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="cpBody"><tr class="group-header">        <td><span class="badge warning">[LEADER]</span></td>        <td><code style="font-size:11px">TV-LEADER-203682037</code></td>        <td><span class="badge success">Long</span></td>        <td><strong>1</strong></td>        <td>$52,377.87</td>        <td>$22,681.5</td>        <td>-$19.34</td>        <td>$167.11</td>        <td><span class="badge success">Synced</span></td>        <td>          <button class="btn sm" data-action="flatten" data-acct="TV-LEADER-203682037">Flatten</button>          <button class="btn sm" data-action="pause-leader" data-acct="TV-LEADER-203682037">Pause</button>        </td>      </tr><tr class="follower">        <td><span class="badge success">Follower</span></td>        <td><code style="font-size:11px">↳ TV-FOLLOW-203682034</code></td>        <td><span class="badge success">Long</span></td>        <td><strong>1</strong></td>        <td>$50,307.18</td>        <td>$22,681.5</td>        <td>-$18.77</td>        <td>$162.14</td>        <td><span class="badge success">Synced</span></td>        <td>          <button class="btn sm" data-action="flatten" data-acct="TV-FOLLOW-203682034">Flatten</button>          <button class="btn sm" data-action="disable-follower" data-acct="TV-FOLLOW-203682034">Disable</button>        </td>      </tr><tr class="follower">        <td><span class="badge success">Follower</span></td>        <td><code style="font-size:11px">↳ TV-FOLLOW-203682035</code></td>        <td><span class="badge success">Long</span></td>        <td><strong>1</strong></td>        <td>$51,822.98</td>        <td>$22,681.5</td>        <td>-$18.89</td>        <td>$163.25</td>        <td><span class="badge success">Synced</span></td>        <td>          <button class="btn sm" data-action="flatten" data-acct="TV-FOLLOW-203682035">Flatten</button>          <button class="btn sm" data-action="disable-follower" data-acct="TV-FOLLOW-203682035">Disable</button>        </td>      </tr><tr class="follower">        <td><span class="badge success">Follower</span></td>        <td><code style="font-size:11px">↳ TV-FOLLOW-203682036</code></td>        <td><span class="badge success">Long</span></td>        <td><strong>1</strong></td>        <td>$53,342.27</td>        <td>$22,681.5</td>        <td>-$19.05</td>        <td>$164.61</td>        <td><span class="badge success">Synced</span></td>        <td>          <button class="btn sm" data-action="flatten" data-acct="TV-FOLLOW-203682036">Flatten</button>          <button class="btn sm" data-action="disable-follower" data-acct="TV-FOLLOW-203682036">Disable</button>        </td>      </tr></tbody>
-          </table>
+      <!-- Leader Group 2 -->
+      <div class="leader-group" id="leaderGroup2">
+        <div class="leader-header" onclick="toggleLeaderGroup('leaderGroup2')">
+          <div class="group-icon">👑</div>
+          <div class="group-title">Leader Group 2</div>
+          <div class="group-stats">
+            <span>3 accounts</span>
+            <span>Total P&L: <strong style="color: var(--success);">+$234.67</strong></span>
+            <span>Status: <strong id="group2Status" style="color: var(--success);">Active</strong></span>
+          </div>
+          <div class="expand-icon">▼</div>
+        </div>
+        
+        <div class="follower-list">
+          <!-- Leader Account 2 -->
+          <div class="account-card leader" id="leader2">
+            <div class="account-header">
+              <div class="account-info">
+                <div class="account-name">TV-LEADER-445729394</div>
+                <div class="account-meta">Leader Account • Connected via Tradovate API</div>
+                <div class="account-stats">
+                  <span>Balance: <strong>$85,420</strong></span>
+                  <span>Day P&L: <strong style="color: var(--success);">+$89.34</strong></span>
+                  <span>Open P&L: <strong style="color: var(--success);">+$234.50</strong></span>
+                </div>
+              </div>
+              <div class="account-actions">
+                <div class="sync-status">
+                  <div class="sync-dot healthy" id="leader2Dot"></div>
+                  <span id="leader2Status">Active</span>
+                </div>
+                <button class="btn sm" onclick="pauseLeader('TV-LEADER-445729394')">Pause</button>
+                <button class="btn sm danger" onclick="removeAccount('TV-LEADER-445729394')">Remove</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Follower Accounts for Leader 2 -->
+          <div class="account-card follower" id="follower4">
+            <div class="account-header">
+              <div class="account-info">
+                <div class="account-name">TV-FOLLOW-887234921</div>
+                <div class="account-meta">Following: TV-LEADER-445729394 • Ratio: 2:1</div>
+                <div class="account-stats">
+                  <span>Balance: <strong>$120,340</strong></span>
+                  <span>Day P&L: <strong style="color: var(--success);">+$178.68</strong></span>
+                  <span>Open P&L: <strong style="color: var(--success);">+$469.00</strong></span>
+                </div>
+              </div>
+              <div class="account-actions">
+                <div class="sync-status">
+                  <div class="sync-dot healthy" id="follower4Dot"></div>
+                  <span id="follower4Status">Synced</span>
+                </div>
+                <button class="btn sm" onclick="editFollower('TV-FOLLOW-887234921')">Edit</button>
+                <button class="btn sm" onclick="pauseFollower('TV-FOLLOW-887234921')">Pause</button>
+                <button class="btn sm danger" onclick="removeAccount('TV-FOLLOW-887234921')">Remove</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="account-card follower paused" id="follower5">
+            <div class="account-header">
+              <div class="account-info">
+                <div class="account-name">TV-FOLLOW-334857293</div>
+                <div class="account-meta">Following: TV-LEADER-445729394 • Ratio: 1:1</div>
+                <div class="account-stats">
+                  <span>Balance: <strong>$67,890</strong></span>
+                  <span>Day P&L: <strong style="color: var(--muted);">$0.00</strong></span>
+                  <span>Open P&L: <strong style="color: var(--muted);">$0.00</strong></span>
+                </div>
+              </div>
+              <div class="account-actions">
+                <div class="sync-status">
+                  <div class="sync-dot paused" id="follower5Dot"></div>
+                  <span id="follower5Status">Paused</span>
+                </div>
+                <button class="btn sm" onclick="editFollower('TV-FOLLOW-334857293')">Edit</button>
+                <button class="btn sm primary" onclick="resumeFollower('TV-FOLLOW-334857293')">Resume</button>
+                <button class="btn sm danger" onclick="removeAccount('TV-FOLLOW-334857293')">Remove</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="card" style="margin-top: 20px;">
-        <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
-          <div style="font-weight: 700; font-size: 16px;">Recent Orders</div>
-          <div class="toolbar-right">
-            <button class="btn sm" id="ordFilter">Filter</button>
-            <button class="btn sm" id="ordExport">Export CSV</button>
+      <!-- Add Account Actions -->
+      <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+        <button class="btn primary" id="addLeaderBtn">Add Leader Account</button>
+        <button class="btn primary" id="addFollowerBtn">Add Follower Account</button>
+        <button class="btn info" id="searchLeaderBtn">Search & Follow Leader</button>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between; margin-bottom: 16px;">
+          <h3 style="margin: 0;">Recent Copy Orders</h3>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn sm">Filter Orders</button>
+            <button class="btn sm">Export CSV</button>
           </div>
         </div>
         <div class="table-container">
           <table>
             <thead>
               <tr>
-                <th>Order ID</th>
-                <th>Account</th>
                 <th>Time</th>
+                <th>Leader</th>
+                <th>Followers</th>
                 <th>Symbol</th>
-                <th>Type</th>
                 <th>Side</th>
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Status</th>
               </tr>
             </thead>
-            <tbody id="ordBody"><tr><td><code style="font-size:11px">21B27B1C</code></td><td><code style="font-size:11px">TV-LEADER-203682037</code></td><td>09:18:11</td><td><span class="badge">ESZ5</span></td><td>Market</td><td><span class="badge success">Buy</span></td><td>1</td><td>$5,847.25</td><td><span class="badge success">Filled</span></td></tr><tr><td><code style="font-size:11px">09F6494A</code></td><td><code style="font-size:11px">TV-FOLLOW-203682034</code></td><td>09:18:12</td><td><span class="badge">ESZ5</span></td><td>Market</td><td><span class="badge success">Buy</span></td><td>1</td><td>$5,847.25</td><td><span class="badge success">Filled</span></td></tr><tr><td><code style="font-size:11px">7668597C</code></td><td><code style="font-size:11px">TV-FOLLOW-203682035</code></td><td>09:18:13</td><td><span class="badge">ESZ5</span></td><td>Market</td><td><span class="badge success">Buy</span></td><td>1</td><td>$5,847</td><td><span class="badge success">Filled</span></td></tr><tr><td><code style="font-size:11px">C7D73435</code></td><td><code style="font-size:11px">TV-FOLLOW-203682036</code></td><td>09:18:14</td><td><span class="badge">ESZ5</span></td><td>Market</td><td><span class="badge success">Buy</span></td><td>1</td><td>$5,846.75</td><td><span class="badge success">Filled</span></td></tr><tr><td><code style="font-size:11px">A4784F45</code></td><td><code style="font-size:11px">TV-LEADER-203682037</code></td><td>08:45:33</td><td><span class="badge">NQZ5</span></td><td>Limit</td><td><span class="badge success">Buy</span></td><td>1</td><td>$22,681.5</td><td><span class="badge success">Filled</span></td></tr><tr><td><code style="font-size:11px">D77B5E69</code></td><td><code style="font-size:11px">TV-FOLLOW-203682034</code></td><td>08:45:34</td><td><span class="badge">NQZ5</span></td><td>Limit</td><td><span class="badge success">Buy</span></td><td>1</td><td>$22,681.5</td><td><span class="badge success">Filled</span></td></tr><tr><td><code style="font-size:11px">4E859AE4</code></td><td><code style="font-size:11px">TV-FOLLOW-203682035</code></td><td>08:45:35</td><td><span class="badge">NQZ5</span></td><td>Limit</td><td><span class="badge success">Buy</span></td><td>1</td><td>$22,680.5</td><td><span class="badge success">Filled</span></td></tr><tr><td><code style="font-size:11px">60043C9F</code></td><td><code style="font-size:11px">TV-FOLLOW-203682036</code></td><td>08:45:36</td><td><span class="badge">NQZ5</span></td><td>Limit</td><td><span class="badge success">Buy</span></td><td>1</td><td>$22,679.5</td><td><span class="badge success">Filled</span></td></tr></tbody>
+            <tbody>
+              <tr>
+                <td>09:18:11</td>
+                <td><code style="font-size:11px;">TV-LEADER-203682037</code></td>
+                <td><span class="badge success">3 Copied</span></td>
+                <td><span class="badge">ESZ5</span></td>
+                <td><span class="badge success">Buy</span></td>
+                <td>1</td>
+                <td>$5,847.25</td>
+                <td><span class="badge success">All Filled</span></td>
+              </tr>
+              <tr>
+                <td>08:45:33</td>
+                <td><code style="font-size:11px;">TV-LEADER-203682037</code></td>
+                <td><span class="badge success">3 Copied</span></td>
+                <td><span class="badge">NQZ5</span></td>
+                <td><span class="badge success">Buy</span></td>
+                <td>1</td>
+                <td>$22,681.50</td>
+                <td><span class="badge success">All Filled</span></td>
+              </tr>
+              <tr>
+                <td>07:32:15</td>
+                <td><code style="font-size:11px;">TV-LEADER-445729394</code></td>
+                <td><span class="badge success">1 Copied</span></td>
+                <td><span class="badge">CLX5</span></td>
+                <td><span class="badge danger">Sell</span></td>
+                <td>2</td>
+                <td>$89.45</td>
+                <td><span class="badge success">All Filled</span></td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- Analytics -->
-    <section id="analytics" data-page="analytics" aria-hidden="false" class="show" style="display: block; visibility: visible;">
-      <div class="grid g-4">
-        <div class="card">
-          <h3>Today's P&amp;L</h3>
-          <div id="aPLToday" class="kpi negative">-$76.05</div>
-          <div id="aPLNote" class="muted" style="font-size: 12px;">Total: $2,377.87</div>
+    <!-- Trading Journal -->
+    <section id="journal" data-page="journal" style="display: none; visibility: hidden;">
+      <!-- Filter Panel -->
+      <div class="filter-panel" id="filterPanel" style="display: none;">
+        <h4 style="margin: 0 0 12px;">Filter Trades</h4>
+        <div class="filter-row">
+          <div class="form-group">
+            <label class="form-label">Date Range</label>
+            <select class="form-input">
+              <option>Last 7 days</option>
+              <option>Last 30 days</option>
+              <option>Last 90 days</option>
+              <option>Custom range</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Strategy</label>
+            <select class="form-input">
+              <option>All Strategies</option>
+              <option>ES Scalping</option>
+              <option>NQ Momentum</option>
+              <option>Oil Swing</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">P&L Filter</label>
+            <select class="form-input">
+              <option>All Trades</option>
+              <option>Winning Trades</option>
+              <option>Losing Trades</option>
+            </select>
+          </div>
         </div>
-        <div class="card">
-          <h3>Profit Factor</h3>
-          <div id="aPF" class="kpi">12.39</div>
-          <div class="kpi-change positive">+0.15 this week</div>
-        </div>
-        <div class="card">
-          <h3>Win Rate</h3>
-          <div id="aWR" class="kpi">73.3%</div>
-          <div class="kpi-change positive">+0.0% this month</div>
-        </div>
-        <div class="card">
-          <h3>Daily Win Rate</h3>
-          <div id="aDW" class="kpi">71.4%</div>
-          <div id="aDWNote" class="muted" style="font-size: 12px;">5 wins, 2 losses this week</div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top: 20px;">
-        <h3>Equity Curve (30 Days)</h3>
-        <div class="chart-container" style="height: 200px;">
-          <svg id="eqCurve" class="svg" viewBox="0 0 100 30" preserveAspectRatio="none"><defs><linearGradient id="equityUp" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3"></stop><stop offset="100%" style="stop-color:#10b981;stop-opacity:0.1"></stop></linearGradient></defs><path d="M0,30 L3.4482758620689653,29.966077478338235 L6.896551724137931,26.89543185473798 L10.344827586206897,24.578181770369948 L13.793103448275861,21.65598004970044 L17.24137931034483,20.485653052369535 L20.689655172413794,18.1781326835169 L24.137931034482758,18.033238811922843 L27.586206896551722,18.855136807689107 L31.03448275862069,19.31572050296493 L34.48275862068966,17.467600485609225 L37.93103448275862,17.327965919699167 L41.37931034482759,17.902282100391382 L44.827586206896555,16.81702437249909 L48.275862068965516,13.660389100965524 L51.724137931034484,11.540494462389393 L55.172413793103445,9.586267952859092 L58.620689655172406,7.251925125018079 L62.06896551724138,5.261935336836618 L65.51724137931035,5.386843846831489 L68.96551724137932,5.4570555777128185 L72.41379310344827,5.478618731017196 L75.86206896551724,3.640491394461076 L79.3103448275862,3.336635008568283 L82.75862068965517,1.8387847497666172 L86.20689655172413,2.2567680690020886 L89.65517241379311,1.0134682053057595 L93.10344827586206,0.8860615251109927 L96.55172413793103,0 L100,0.2542874298211437 L100,30 L0,30 Z" fill="url(#equityUp)"></path><path d="M0,30 L3.4482758620689653,29.966077478338235 L6.896551724137931,26.89543185473798 L10.344827586206897,24.578181770369948 L13.793103448275861,21.65598004970044 L17.24137931034483,20.485653052369535 L20.689655172413794,18.1781326835169 L24.137931034482758,18.033238811922843 L27.586206896551722,18.855136807689107 L31.03448275862069,19.31572050296493 L34.48275862068966,17.467600485609225 L37.93103448275862,17.327965919699167 L41.37931034482759,17.902282100391382 L44.827586206896555,16.81702437249909 L48.275862068965516,13.660389100965524 L51.724137931034484,11.540494462389393 L55.172413793103445,9.586267952859092 L58.620689655172406,7.251925125018079 L62.06896551724138,5.261935336836618 L65.51724137931035,5.386843846831489 L68.96551724137932,5.4570555777128185 L72.41379310344827,5.478618731017196 L75.86206896551724,3.640491394461076 L79.3103448275862,3.336635008568283 L82.75862068965517,1.8387847497666172 L86.20689655172413,2.2567680690020886 L89.65517241379311,1.0134682053057595 L93.10344827586206,0.8860615251109927 L96.55172413793103,0 L100,0.2542874298211437" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round"></path></svg>
-        </div>
-      </div>
-
-      <div class="grid g-3" style="margin-top: 20px;">
-        <div class="card">
-          <h3>Daily P&amp;L (Last 7)</h3>
-          <div id="aDailySum" class="kpi" style="font-size: 20px;">$257.54</div>
-          <div class="chart-container"><svg id="dailyBars" class="svg" viewBox="0 0 100 40"><line x1="8" y1="20" x2="92" y2="20" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"></line><rect x="8" y="16.754213483146067" width="10" height="3.2457865168539324" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="20" y="4" width="10" height="16" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="32" y="20" width="10" height="4.464887640449438" rx="2" fill="#ef4444" opacity="0.6"></rect><rect x="44" y="6.719101123595506" width="10" height="13.280898876404494" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="56" y="18.639044943820224" width="10" height="1.3609550561797752" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="68" y="10.535112359550562" width="10" height="9.464887640449438" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="80" y="20" width="10" height="2.716292134831461" rx="2" fill="#ef4444" opacity="0.6"></rect></svg></div>
-        </div>
-        <div class="card">
-          <h3>Weekly P&amp;L (Last 4)</h3>
-          <div id="aWeeklySum" class="kpi" style="font-size: 20px;">$1,414.70</div>
-          <div class="chart-container"><svg id="weeklyBars" class="svg" viewBox="0 0 100 40"><line x1="8" y1="20" x2="92" y2="20" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"></line><rect x="8" y="20" width="2" height="2.3345551482839055" rx="2" fill="#ef4444" opacity="0.6"></rect><rect x="12" y="10.63245584805065" width="2" height="9.36754415194935" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="16" y="19.29223592135955" width="2" height="0.7077640786404531" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="20" y="20" width="2" height="2.9110296567810727" rx="2" fill="#ef4444" opacity="0.6"></rect><rect x="24" y="14.499166944351883" width="2" height="5.500833055648117" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="28" y="4" width="2" height="16" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="32" y="9.254915028323893" width="2" height="10.745084971676107" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="36" y="10.094635121626126" width="2" height="9.905364878373874" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="40" y="8.167944018660448" width="2" height="11.832055981339552" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="44" y="9.913362212595802" width="2" height="10.086637787404198" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="48" y="20" width="2" height="0.6331222925691435" rx="2" fill="#ef4444" opacity="0.6"></rect><rect x="52" y="20" width="2" height="0.3558813728757081" rx="2" fill="#ef4444" opacity="0.6"></rect><rect x="56" y="20" width="2" height="0.10929690103298899" rx="2" fill="#ef4444" opacity="0.6"></rect><rect x="60" y="10.683105631456181" width="2" height="9.316894368543819" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="64" y="18.459846717760747" width="2" height="1.5401532822392534" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="68" y="12.407864045318227" width="2" height="7.592135954681773" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="72" y="20" width="2" height="2.1186271242919026" rx="2" fill="#ef4444" opacity="0.6"></rect><rect x="76" y="13.698100633122293" width="2" height="6.3018993668777075" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="80" y="19.354215261579473" width="2" height="0.6457847384205264" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="84" y="15.508830389870043" width="2" height="4.4911696101299565" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="88" y="20" width="2" height="1.2889036987670777" rx="2" fill="#ef4444" opacity="0.6"></rect></svg></div>
-        </div>
-        <div class="card">
-          <h3>Monthly P&amp;L (YTD)</h3>
-          <div id="aMonthlySum" class="kpi" style="font-size: 20px;">$112,817.54</div>
-          <div class="chart-container"><svg id="monthlyBars" class="svg" viewBox="0 0 100 40"><line x1="8" y1="20" x2="92" y2="20" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"></line><rect x="8" y="17.531185051460373" width="5" height="2.4688149485396265" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="15" y="16.329485092854064" width="5" height="3.6705149071459378" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="22" y="14.114441629480975" width="5" height="5.885558370519026" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="29" y="12.273926527286243" width="5" height="7.726073472713757" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="36" y="13.728253684796812" width="5" height="6.271746315203187" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="43" y="11.80207315196685" width="5" height="8.19792684803315" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="50" y="10.260944946394089" width="5" height="9.739055053605911" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="57" y="8.862341062322423" width="5" height="11.137658937677577" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="64" y="7.371336062571652" width="5" height="12.628663937428348" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="71" y="5.926345240701046" width="5" height="14.073654759298954" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="78" y="4" width="5" height="16" rx="2" fill="#10b981" opacity="0.8"></rect><rect x="85" y="20" width="5" height="0" rx="2" fill="#10b981" opacity="0.8"></rect></svg></div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn primary" onclick="applyFilters()">Apply Filters</button>
+          <button class="btn" onclick="clearFilters()">Clear</button>
+          <button class="btn" onclick="toggleFilterPanel()">Hide</button>
         </div>
       </div>
 
-      <div class="card" style="margin-top: 20px;">
-        <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
-          <div style="font-weight: 700; font-size: 16px;">Performance Calendar</div>
-          <div id="calLabel" class="muted">September 2025</div>
+      <!-- Performance Overview -->
+      <div class="grid g-4" style="margin-bottom: 20px;">
+        <div class="performance-metric">
+          <div class="metric-value positive">$2,847</div>
+          <div class="metric-label">Total P&L (30d)</div>
         </div>
-        <div id="calGrid" class="cal"><div class="day"></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">1</div><div style="font-weight:800;margin-top:4px">$115.54</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">2</div><div style="font-weight:800;margin-top:4px">$2.58</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">3</div><div style="font-weight:800;margin-top:4px">$233.54</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">4</div><div style="font-weight:800;margin-top:4px">$176.24</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">5</div><div style="font-weight:800;margin-top:4px">$222.25</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">6</div><div style="font-weight:800;margin-top:4px">$89.01</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">7</div><div style="font-weight:800;margin-top:4px">$175.50</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">8</div><div style="font-weight:800;margin-top:4px">$11.02</div></div><div class="day loss"><div class="muted" style="font-size:11px;font-weight:700">9</div><div style="font-weight:800;margin-top:4px">-$62.51</div></div><div class="day loss"><div class="muted" style="font-size:11px;font-weight:700">10</div><div style="font-weight:800;margin-top:4px">-$35.03</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">11</div><div style="font-weight:800;margin-top:4px">$140.56</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">12</div><div style="font-weight:800;margin-top:4px">$10.62</div></div><div class="day loss"><div class="muted" style="font-size:11px;font-weight:700">13</div><div style="font-weight:800;margin-top:4px">-$43.68</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">14</div><div style="font-weight:800;margin-top:4px">$82.54</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">15</div><div style="font-weight:800;margin-top:4px">$240.08</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">16</div><div style="font-weight:800;margin-top:4px">$161.23</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">17</div><div style="font-weight:800;margin-top:4px">$148.63</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">18</div><div style="font-weight:800;margin-top:4px">$177.54</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">19</div><div style="font-weight:800;margin-top:4px">$151.35</div></div><div class="day loss"><div class="muted" style="font-size:11px;font-weight:700">20</div><div style="font-weight:800;margin-top:4px">-$9.50</div></div><div class="day loss"><div class="muted" style="font-size:11px;font-weight:700">21</div><div style="font-weight:800;margin-top:4px">-$5.34</div></div><div class="day loss"><div class="muted" style="font-size:11px;font-weight:700">22</div><div style="font-weight:800;margin-top:4px">-$1.64</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">23</div><div style="font-weight:800;margin-top:4px">$139.80</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">24</div><div style="font-weight:800;margin-top:4px">$23.11</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">25</div><div style="font-weight:800;margin-top:4px">$113.92</div></div><div class="day loss"><div class="muted" style="font-size:11px;font-weight:700">26</div><div style="font-weight:800;margin-top:4px">-$31.79</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">27</div><div style="font-weight:800;margin-top:4px">$94.56</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">28</div><div style="font-weight:800;margin-top:4px">$9.69</div></div><div class="day win"><div class="muted" style="font-size:11px;font-weight:700">29</div><div style="font-weight:800;margin-top:4px">$67.39</div></div><div class="day loss"><div class="muted" style="font-size:11px;font-weight:700">30</div><div style="font-weight:800;margin-top:4px">-$19.34</div></div></div>
+        <div class="performance-metric">
+          <div class="metric-value">73.3%</div>
+          <div class="metric-label">Win Rate</div>
+        </div>
+        <div class="performance-metric">
+          <div class="metric-value">2.41</div>
+          <div class="metric-label">Profit Factor</div>
+        </div>
+        <div class="performance-metric">
+          <div class="metric-value">1.68</div>
+          <div class="metric-label">Sharpe Ratio</div>
+        </div>
       </div>
-    </section>
 
-    <!-- Activity -->
-    <section id="activity" data-page="activity" aria-hidden="true" style="display: none; visibility: hidden;">
-      <div class="card">
-        <div class="toolbar" style="display:flex;align-items:center;justify-content:space-between;">
-          <div style="font-weight: 700; font-size: 16px;">Activity Feed</div>
-          <button class="btn sm" id="actExport">Export CSV</button>
+      <!-- P&L Charts -->
+      <div class="grid g-3" style="margin-bottom: 20px;">
+        <div class="card">
+          <h3>Weekly P&L (Last 8)</h3>
+          <div id="weeklyPnL" class="kpi" style="font-size: 20px; color: var(--success);">$1,414</div>
+          <div class="chart-container">
+            <svg id="weeklyChart" class="svg" viewBox="0 0 100 40">
+              <line x1="8" y1="20" x2="92" y2="20" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+              <rect x="8" y="10" width="10" height="10" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="20" y="5" width="10" height="15" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="32" y="22" width="10" height="3" rx="2" fill="#ef4444" opacity="0.6"/>
+              <rect x="44" y="7" width="10" height="13" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="56" y="12" width="10" height="8" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="68" y="8" width="10" height="12" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="80" y="4" width="10" height="16" rx="2" fill="#10b981" opacity="0.8"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>Monthly P&L (YTD)</h3>
+          <div id="monthlyPnL" class="kpi" style="font-size: 20px; color: var(--success);">$18,456</div>
+          <div class="chart-container">
+            <svg id="monthlyChart" class="svg" viewBox="0 0 100 40">
+              <line x1="8" y1="20" x2="92" y2="20" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+              <rect x="8" y="15" width="7" height="5" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="17" y="12" width="7" height="8" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="26" y="8" width="7" height="12" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="35" y="10" width="7" height="10" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="44" y="6" width="7" height="14" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="53" y="4" width="7" height="16" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="62" y="7" width="7" height="13" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="71" y="5" width="7" height="15" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="80" y="3" width="7" height="17" rx="2" fill="#10b981" opacity="0.8"/>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>Yearly P&L</h3>
+          <div id="yearlyPnL" class="kpi" style="font-size: 20px; color: var(--success);">$47,892</div>
+          <div class="chart-container">
+            <svg id="yearlyChart" class="svg" viewBox="0 0 100 40">
+              <line x1="8" y1="20" x2="92" y2="20" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>
+              <rect x="20" y="12" width="15" height="8" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="40" y="6" width="15" height="14" rx="2" fill="#10b981" opacity="0.8"/>
+              <rect x="60" y="4" width="15" height="16" rx="2" fill="#10b981" opacity="0.8"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Performance Calendar -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between; margin-bottom: 16px;">
+          <h3 style="margin: 0;">Performance Calendar</h3>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span id="calendarMonth" class="muted">September 2025</span>
+            <button class="btn xs" onclick="changeCalendarMonth(-1)">◀</button>
+            <button class="btn xs" onclick="changeCalendarMonth(1)">▶</button>
+          </div>
+        </div>
+        <div class="calendar-grid" id="performanceCalendar">
+          <!-- Calendar days will be populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Strategy Performance -->
+      <div class="card" style="margin-bottom: 20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between; margin-bottom: 16px;">
+          <h3 style="margin: 0;">Strategy Performance</h3>
+          <button class="btn sm primary" id="addNewStrategy">Add New Strategy</button>
         </div>
         <div class="table-container">
           <table>
-            <thead><tr><th>Time</th><th>Type</th><th>Message</th></tr></thead>
-            <tbody id="actBody"><tr><td style="font-family:monospace;font-size:12px">18:09:47</td><td><span class="badge">system</span></td><td>✅ All systems operational</td></tr><tr><td style="font-family:monospace;font-size:12px">14:32:15</td><td><span class="badge">trade</span></td><td>📈 Position opened: ESZ5 Long x2 @ 5,847.25</td></tr><tr><td style="font-family:monospace;font-size:12px">14:31:58</td><td><span class="badge">copy</span></td><td>🔄 Order copied to 3 follower accounts</td></tr><tr><td style="font-family:monospace;font-size:12px">14:29:43</td><td><span class="badge">system</span></td><td>⚡ Real-time sync active</td></tr></tbody>
+            <thead>
+              <tr>
+                <th>Strategy</th>
+                <th>Trades</th>
+                <th>Win Rate</th>
+                <th>Profit Factor</th>
+                <th>Total P&L</th>
+                <th>Max DD</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>ES Scalping</strong></td>
+                <td>87</td>
+                <td><span style="color: var(--success);">76.4%</span></td>
+                <td>2.89</td>
+                <td><span style="color: var(--success);">$1,847</span></td>
+                <td><span style="color: var(--danger);">-$156</span></td>
+                <td>
+                  <button class="btn xs" onclick="viewStrategyDetails('ES Scalping')">View Details</button>
+                  <button class="btn xs" onclick="editStrategy('ES Scalping')">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>NQ Momentum</strong></td>
+                <td>34</td>
+                <td><span style="color: var(--success);">71.2%</span></td>
+                <td>1.94</td>
+                <td><span style="color: var(--success);">$743</span></td>
+                <td><span style="color: var(--danger);">-$234</span></td>
+                <td>
+                  <button class="btn xs" onclick="viewStrategyDetails('NQ Momentum')">View Details</button>
+                  <button class="btn xs" onclick="editStrategy('NQ Momentum')">Edit</button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Oil Swing</strong></td>
+                <td>12</td>
+                <td><span style="color: var(--success);">66.7%</span></td>
+                <td>1.42</td>
+                <td><span style="color: var(--success);">$257</span></td>
+                <td><span style="color: var(--danger);">-$89</span></td>
+                <td>
+                  <button class="btn xs" onclick="viewStrategyDetails('Oil Swing')">View Details</button>
+                  <button class="btn xs" onclick="editStrategy('Oil Swing')">Edit</button>
+                </td>
+              </tr>
+            </tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- Trade Journal -->
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between; margin-bottom: 16px;">
+          <h3 style="margin: 0;">Trade Journal</h3>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn sm primary" id="addTradeNote">Add Trade Note</button>
+            <button class="btn sm" id="filterTrades">Filter Trades</button>
+          </div>
+        </div>
+
+        <div id="tradeEntries">
+          <div class="trade-entry">
+            <div class="trade-header">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="badge success">ESZ5</span>
+                <span style="font-weight: 800;">Long +2 @ $5,847.25</span>
+                <span class="badge success">+$89.50</span>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <span class="muted" style="font-size: 12px;">Today, 9:18 AM</span>
+                <button class="btn xs" onclick="editTrade(1)">Edit</button>
+              </div>
+            </div>
+            <div class="trade-meta">
+              <span>Strategy: ES Scalping</span>
+              <span>Duration: 1h 23m</span>
+              <span>R/R: 1:2.4</span>
+            </div>
+            <div style="margin-top: 8px; padding: 8px; background: var(--glass); border-radius: 6px; font-size: 13px;">
+              <strong>Entry Reason:</strong> Breakout above key resistance at 5,845 with strong volume. RSI oversold bounce setup.
+            </div>
+          </div>
+
+          <div class="trade-entry">
+            <div class="trade-header">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="badge">NQZ5</span>
+                <span style="font-weight: 800;">Long +1 @ $22,681.50</span>
+                <span class="badge danger">-$45.25</span>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <span class="muted" style="font-size: 12px;">Yesterday, 2:15 PM</span>
+                <button class="btn xs" onclick="editTrade(2)">Edit</button>
+              </div>
+            </div>
+            <div class="trade-meta">
+              <span>Strategy: NQ Momentum</span>
+              <span>Duration: 45m</span>
+              <span>R/R: 1:1.8</span>
+            </div>
+            <div style="margin-top: 8px; padding: 8px; background: var(--glass); border-radius: 6px; font-size: 13px;">
+              <strong>Exit Reason:</strong> Stop loss hit. Market showed signs of weakness after initial momentum failed.
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 16px;">
+          <button class="btn" id="loadMoreTrades">Load More Trades</button>
         </div>
       </div>
     </section>
 
     <!-- Settings -->
-    <section id="settings" data-page="settings" aria-hidden="true" style="display: none; visibility: hidden;">
-      <div class="card">
-        <div style="font-weight: 700; font-size: 16px; margin-bottom: 20px;">Account Settings</div>
-        <div class="grid g-2">
-          <div class="form-group"><label class="form-label">Email Address</label><input class="form-input" value="trader@example.com"></div>
+    <section id="settings" data-page="settings" style="display: none; visibility: hidden;">
+      <div class="grid g-2" style="gap: 24px;">
+        <!-- Account Settings -->
+        <div class="card">
+          <h3>Account Settings</h3>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input class="form-input" value="trader@example.com" type="email">
+          </div>
           <div class="form-group">
             <label class="form-label">Subscription Plan</label>
             <select class="form-input">
@@ -545,58 +1127,397 @@ section[data-page].show { display: block; visibility: visible; }
               <option>Enterprise ($199/mo)</option>
             </select>
           </div>
+          <div class="form-group">
+            <label class="form-label">Time Zone</label>
+            <select class="form-input">
+              <option>Eastern Time (ET)</option>
+              <option>Central Time (CT)</option>
+              <option>Mountain Time (MT)</option>
+              <option>Pacific Time (PT)</option>
+            </select>
+          </div>
+          <div style="display:flex; gap:12px; margin-top: 16px;">
+            <button class="btn primary">Save Account Settings</button>
+            <button class="btn">Cancel</button>
+          </div>
         </div>
 
-        <div class="grid g-2" style="margin-top: 20px;">
-          <div>
-            <div class="form-label" style="margin-bottom: 12px;">Tradovate API</div>
-            <div class="form-group"><input class="form-input" placeholder="Client ID"></div>
-            <div class="form-group"><input class="form-input" placeholder="Client Secret" type="password"></div>
-            <button id="testApi" class="btn primary">Test Connection</button>
+        <!-- API Configuration -->
+        <div class="card">
+          <h3>API Configuration</h3>
+          <div class="form-group">
+            <label class="form-label">Tradovate Client ID</label>
+            <input class="form-input" placeholder="Enter your Tradovate Client ID">
           </div>
-          <div>
-            <div class="form-label" style="margin-bottom: 12px;">Usage Overview</div>
-            <div style="height: 12px; border-radius: 999px; background: var(--bg-secondary); border: 1px solid var(--stroke); overflow: hidden;">
-              <span id="usage" style="display: block; height: 12px; background: linear-gradient(90deg, var(--prime), var(--prime-light)); width: 65%;"></span>
+          <div class="form-group">
+            <label class="form-label">Tradovate Client Secret</label>
+            <input class="form-input" placeholder="Enter your Client Secret" type="password">
+          </div>
+          <div class="form-group">
+            <label class="form-label">API Environment</label>
+            <select class="form-input">
+              <option>Live Trading</option>
+              <option>Demo/Paper Trading</option>
+            </select>
+          </div>
+          <div style="display:flex; gap:12px; margin-top: 16px;">
+            <button class="btn primary">Test Connection</button>
+            <button class="btn">Save API Settings</button>
+          </div>
+        </div>
+
+        <!-- Notification Settings -->
+        <div class="card">
+          <h3>Notification Settings</h3>
+          <div style="display: grid; gap: 12px;">
+            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+              <input type="checkbox" checked>
+              <span>Email alerts for copy trade executions</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+              <input type="checkbox" checked>
+              <span>SMS alerts for risk limit breaches</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+              <input type="checkbox">
+              <span>Push notifications for sync failures</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+              <input type="checkbox" checked>
+              <span>Daily performance summary emails</span>
+            </label>
+          </div>
+          <div style="margin-top: 16px;">
+            <button class="btn primary">Save Notification Settings</button>
+          </div>
+        </div>
+
+        <!-- Usage Overview -->
+        <div class="card">
+          <h3>Usage Overview</h3>
+          <div style="margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 12px; color: var(--muted);">API Calls This Month</span>
+              <span style="font-size: 12px; font-weight: 600;">1,247 / 2,000</span>
             </div>
-            <div class="muted" style="font-size: 12px; margin-top: 8px;">3 of 5 broker connections used</div>
-            <div class="muted" style="font-size: 12px;">1,247 of 2,000 monthly trades</div>
+            <div style="height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
+              <div style="width: 62%; height: 100%; background: linear-gradient(90deg, var(--prime), var(--prime-light));"></div>
+            </div>
           </div>
-        </div>
+          
+          <div style="margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 12px; color: var(--muted);">Connected Accounts</span>
+              <span style="font-size: 12px; font-weight: 600;">7 / 10</span>
+            </div>
+            <div style="height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
+              <div style="width: 70%; height: 100%; background: linear-gradient(90deg, var(--success), #10b981);"></div>
+            </div>
+          </div>
 
-        <div class="toolbar-right" style="margin-top: 24px; display:flex; gap:10px; justify-content: flex-end;">
-          <button class="btn">Cancel</button>
-          <button class="btn primary">Save Changes</button>
+          <div style="display: grid; gap: 8px; font-size: 12px;">
+            <div style="display: flex; justify-content: space-between;">
+              <span>Copy trades executed</span>
+              <strong>234 this month</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>Data storage used</span>
+              <strong>3.7 GB / 5 GB</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>Plan renewal</span>
+              <strong>December 15, 2025</strong>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 </div>
 
-<!-- Quick Actions -->
-<div class="quick-actions"><button class="quick-action" title="Emergency Stop">🚨</button></div>
+<!-- Modals -->
 
-<!-- Copy Trading Modal -->
-<div class="modal-backdrop" id="cpBackdrop"></div>
-<div class="modal" id="cpModal" aria-hidden="true">
-  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="cpModalTitle">
+<!-- Correlation Review Modal -->
+<div class="modal-backdrop" id="correlationModalBackdrop"></div>
+<div class="modal" id="correlationModal">
+  <div class="modal-card">
     <div class="modal-head">
-      <div id="cpModalTitle" style="font-weight:800">Edit Copy Trading</div>
-      <button class="btn" id="cpCloseX">Close</button>
+      <h3>Position Correlation Analysis</h3>
+      <button class="btn" onclick="closeModal('#correlationModal')">Close</button>
     </div>
     <div class="modal-body">
       <div>
-        <div class="form-label">Leader</div>
-        <div class="modal-list" id="cpLeaderList"></div>
+        <h4>Pairwise Correlations (Last 24hr)</h4>
+        <div class="correlation-item">
+          <div>
+            <div style="font-weight: 600;">ESZ5 ↔ NQZ5</div>
+            <div style="font-size: 12px; color: var(--muted);">High correlation detected</div>
+          </div>
+          <div class="correlation-value high">89%</div>
+        </div>
+        <div class="correlation-item">
+          <div>
+            <div style="font-weight: 600;">ESZ5 ↔ CLX5</div>
+            <div style="font-size: 12px; color: var(--muted);">Low correlation</div>
+          </div>
+          <div class="correlation-value low">-12%</div>
+        </div>
       </div>
       <div>
-        <div class="form-label">Followers</div>
-        <div class="modal-list" id="cpFollowerList"></div>
+        <h4>Portfolio Risk Metrics</h4>
+        <div style="display: grid; gap: 8px; padding: 12px; background: var(--glass); border-radius: 8px;">
+          <div style="display: flex; justify-content: space-between;">
+            <span>Position Concentration</span>
+            <strong>73%</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>Correlation-Adjusted Exposure</span>
+            <strong>$198k</strong>
+          </div>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn" id="cpCancelEdit">Cancel</button>
-      <button class="btn primary" id="cpSaveEdit">Save</button>
+      <button class="btn" onclick="reducePosition('ESZ5')">Reduce ESZ5 by 1</button>
+      <button class="btn danger" onclick="closePosition('NQZ5')">Close NQZ5</button>
+      <button class="btn info">Set Correlation Limit</button>
+    </div>
+  </div>
+</div>
+
+<!-- Search Leader Modal -->
+<div class="modal-backdrop" id="searchLeaderModalBackdrop"></div>
+<div class="modal" id="searchLeaderModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Search & Follow Leaders</h3>
+      <button class="btn" onclick="closeModal('#searchLeaderModal')">Close</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Search Leaders</label>
+        <input class="form-input" placeholder="Enter account ID or trader name..." id="leaderSearchInput">
+      </div>
+      <div>
+        <h4>Available Leaders</h4>
+        <div id="leaderSearchResults">
+          <div class="leader-search-item" onclick="selectLeaderToFollow('TV-LEADER-999888777')">
+            <div class="leader-search-info">
+              <div class="leader-search-name">TV-LEADER-999888777</div>
+              <div class="leader-search-stats">
+                <span>Win Rate: 82.4%</span>
+                <span>30d P&L: +$4,567</span>
+                <span>Followers: 12</span>
+              </div>
+            </div>
+            <button class="btn sm primary">Follow</button>
+          </div>
+          <div class="leader-search-item" onclick="selectLeaderToFollow('TV-LEADER-555444333')">
+            <div class="leader-search-info">
+              <div class="leader-search-name">TV-LEADER-555444333</div>
+              <div class="leader-search-stats">
+                <span>Win Rate: 75.1%</span>
+                <span>30d P&L: +$2,890</span>
+                <span>Followers: 8</span>
+              </div>
+            </div>
+            <button class="btn sm primary">Follow</button>
+          </div>
+          <div class="leader-search-item" onclick="selectLeaderToFollow('TV-LEADER-222111000')">
+            <div class="leader-search-info">
+              <div class="leader-search-name">TV-LEADER-222111000</div>
+              <div class="leader-search-stats">
+                <span>Win Rate: 71.8%</span>
+                <span>30d P&L: +$1,234</span>
+                <span>Followers: 5</span>
+              </div>
+            </div>
+            <button class="btn sm primary">Follow</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('#searchLeaderModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Follower Modal -->
+<div class="modal-backdrop" id="editFollowerModalBackdrop"></div>
+<div class="modal" id="editFollowerModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="editFollowerTitle">Edit Follower Account</h3>
+      <button class="btn" onclick="closeModal('#editFollowerModal')">Close</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Follow Leader</label>
+        <select class="form-input" id="editLeaderSelect">
+          <option>TV-LEADER-203682037</option>
+          <option>TV-LEADER-445729394</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Copy Ratio</label>
+        <input class="form-input" id="editCopyRatio" placeholder="1.0">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select class="form-input" id="editStatus">
+          <option>Active</option>
+          <option>Paused</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Max Position Size</label>
+        <input class="form-input" id="editMaxPosition" placeholder="$50,000">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Daily Loss Limit</label>
+        <input class="form-input" id="editDailyLimit" placeholder="$500">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('#editFollowerModal')">Cancel</button>
+      <button class="btn primary" onclick="saveFollowerEdit()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Account Modal -->
+<div class="modal-backdrop" id="addAccountModalBackdrop"></div>
+<div class="modal" id="addAccountModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="addAccountTitle">Add Trading Account</h3>
+      <button class="btn" onclick="closeModal('#addAccountModal')">Close</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Account Type</label>
+        <select class="form-input" id="accountType" onchange="toggleAccountFields()">
+          <option>Leader Account</option>
+          <option>Follower Account</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Account ID</label>
+        <input class="form-input" placeholder="Enter Tradovate Account ID" id="accountId">
+      </div>
+      <div class="form-group" id="leaderSelectGroup" style="display: none;">
+        <label class="form-label">Follow Leader</label>
+        <select class="form-input" id="leaderSelect">
+          <option>TV-LEADER-203682037</option>
+          <option>TV-LEADER-445729394</option>
+        </select>
+      </div>
+      <div class="form-group" id="ratioGroup" style="display: none;">
+        <label class="form-label">Copy Ratio</label>
+        <input class="form-input" placeholder="1.0" id="copyRatio">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('#addAccountModal')">Cancel</button>
+      <button class="btn primary" onclick="saveAccount()">Add Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Strategy Modal -->
+<div class="modal-backdrop" id="addStrategyModalBackdrop"></div>
+<div class="modal" id="addStrategyModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Add New Strategy</h3>
+      <button class="btn" onclick="closeModal('#addStrategyModal')">Close</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Strategy Name</label>
+        <input class="form-input" id="strategyName" placeholder="Enter strategy name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-input" id="strategyDescription" style="min-height: 80px;" placeholder="Describe your strategy..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Primary Instruments</label>
+        <input class="form-input" id="strategyInstruments" placeholder="ES, NQ, CL">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('#addStrategyModal')">Cancel</button>
+      <button class="btn primary" onclick="saveStrategy()">Add Strategy</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Trade Note Modal -->
+<div class="modal-backdrop" id="addTradeModalBackdrop"></div>
+<div class="modal" id="addTradeModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="tradeModalTitle">Add Trade Note</h3>
+      <button class="btn" onclick="closeModal('#addTradeModal')">Close</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Symbol</label>
+        <input class="form-input" id="tradeSymbol" placeholder="ESZ5">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Side & Quantity</label>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <select class="form-input" id="tradeSide">
+            <option>Long</option>
+            <option>Short</option>
+          </select>
+          <input class="form-input" id="tradeQty" placeholder="Quantity">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Entry Price</label>
+        <input class="form-input" id="tradeEntry" placeholder="5847.25">
+      </div>
+      <div class="form-group">
+        <label class="form-label">P&L</label>
+        <input class="form-input" id="tradePnL" placeholder="+89.50">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Strategy</label>
+        <select class="form-input" id="tradeStrategy">
+          <option>ES Scalping</option>
+          <option>NQ Momentum</option>
+          <option>Oil Swing</option>
+          <option>Manual Trade</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Entry Reason</label>
+        <textarea class="form-input" id="tradeReason" style="min-height: 80px;" placeholder="Describe your entry reasoning..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('#addTradeModal')">Cancel</button>
+      <button class="btn primary" onclick="saveTradeNote()">Save Trade Note</button>
+    </div>
+  </div>
+</div>
+
+<!-- Calendar Day Detail Modal -->
+<div class="modal-backdrop" id="calendarDayModalBackdrop"></div>
+<div class="modal" id="calendarDayModal">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="calendarDayTitle">September 15, 2025</h3>
+      <button class="btn" onclick="closeModal('#calendarDayModal')">Close</button>
+    </div>
+    <div class="modal-body">
+      <div id="calendarDayContent">
+        <!-- Content will be populated by JavaScript -->
+      </div>
     </div>
   </div>
 </div>
@@ -604,441 +1525,719 @@ section[data-page].show { display: block; visibility: visible; }
 <script>
 (function(){
   const $ = q => document.querySelector(q);
-  const $$ = q => Array.from(document.querySelectorAll(q));
+  const $ = q => Array.from(document.querySelectorAll(q));
 
-  /* utils */
-  function fmt(n){ const s=(typeof n==='number')?n:parseFloat(String(n||0)); const sign=s<0?'-':''; return sign+'$'+Math.abs(s).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); }
-  const toNumber = x => (typeof x==='number')?x:parseFloat(String(x).replace(/[^0-9.\-]/g,''))||0;
-  function sum(arr){ return arr.reduce((a,b)=>a+b,0); }
-  function lastN(arr,n){ return arr.slice(Math.max(0,arr.length-n)); }
-  function showToast(message){
-    const n=document.createElement('div');
-    n.style.cssText='position:fixed;top:84px;right:20px;background:var(--panel);border:1px solid var(--stroke);border-radius:12px;padding:12px 14px;color:var(--ink);box-shadow:var(--shadow);z-index:1000';
-    n.textContent=message; document.body.appendChild(n); setTimeout(()=>n.remove(), 2200);
+  // Global state
+  let currentCalendarMonth = new Date();
+  let selectedFollower = null;
+  let currentTradeId = null;
+  let accountStates = {
+    leaders: {
+      'TV-LEADER-203682037': { status: 'active', followers: ['TV-FOLLOW-203682034', 'TV-FOLLOW-203682035', 'TV-FOLLOW-203682036'] },
+      'TV-LEADER-445729394': { status: 'active', followers: ['TV-FOLLOW-887234921', 'TV-FOLLOW-334857293'] }
+    },
+    followers: {
+      'TV-FOLLOW-203682034': { status: 'active', leader: 'TV-LEADER-203682037' },
+      'TV-FOLLOW-203682035': { status: 'active', leader: 'TV-LEADER-203682037' },
+      'TV-FOLLOW-203682036': { status: 'active', leader: 'TV-LEADER-203682037' },
+      'TV-FOLLOW-887234921': { status: 'active', leader: 'TV-LEADER-445729394' },
+      'TV-FOLLOW-334857293': { status: 'paused', leader: 'TV-LEADER-445729394' }
+    }
+  };
+
+  /* Utility functions */
+  function fmt(n){ 
+    const s=(typeof n==='number')?n:parseFloat(String(n||0)); 
+    const sign=s<0?'-':''; 
+    return sign+'
+      +Math.abs(s).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); 
+  }
+  
+  function showToast(message, type = 'info'){
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+      position:fixed;top:84px;right:20px;background:var(--panel);border:1px solid var(--stroke);
+      border-radius:12px;padding:12px 16px;color:var(--ink);box-shadow:var(--shadow);z-index:1000;
+      max-width:300px;
+    `;
+    if(type === 'success') toast.style.borderColor = 'var(--success)';
+    if(type === 'danger') toast.style.borderColor = 'var(--danger)';
+    if(type === 'warning') toast.style.borderColor = 'var(--warning)';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
   }
 
-  /* theme */
-  const THEME_KEY='td_theme';
-  function setTheme(mode){ document.documentElement.setAttribute('data-theme', mode); localStorage.setItem(THEME_KEY, mode); }
-  function toggleTheme(){ const cur=document.documentElement.getAttribute('data-theme')||'dark'; setTheme(cur==='dark'?'light':'dark'); }
-  const savedTheme = localStorage.getItem(THEME_KEY) || 'dark'; setTheme(savedTheme);
+  /* Theme management */
+  const THEME_KEY = 'td_theme';
+  function setTheme(mode){ 
+    document.documentElement.setAttribute('data-theme', mode); 
+    localStorage.setItem(THEME_KEY, mode); 
+  }
+  function toggleTheme(){ 
+    const cur = document.documentElement.getAttribute('data-theme') || 'dark'; 
+    setTheme(cur === 'dark' ? 'light' : 'dark'); 
+  }
+  const savedTheme = localStorage.getItem(THEME_KEY) || 'dark';
+  setTheme(savedTheme);
   $('#themeBtn').addEventListener('click', toggleTheme);
 
-  /* nav autoclose + router */
-  function initHamburgerAutoclose(){
-    const navCheckbox = $('#nav'); const overlay = $('.overlay'); const main = document.querySelector('main');
-    const closeNav=()=>{ if(navCheckbox) navCheckbox.checked=false; };
+  /* Navigation */
+  function initNavigation(){
+    const navCheckbox = $('#nav');
+    const overlay = $('.overlay');
+    const main = document.querySelector('main');
+    
+    // Auto-close navigation
+    const closeNav = () => { if(navCheckbox) navCheckbox.checked = false; };
     if(overlay) overlay.addEventListener('click', closeNav);
     if(main) main.addEventListener('click', closeNav);
-  }
-  function goto(route){
-    const pages=$$('section[data-page]');
-    if(!pages.some(p=>p.id===route)) route='overview';
-    pages.forEach(p=>{
-      const show=(p.id===route);
-      p.classList.toggle('show',show);
-      p.style.display=show?'block':'none';
-      p.style.visibility=show?'visible':'hidden';
-      p.setAttribute('aria-hidden', show? 'false':'true');
-    });
-    $$('.navbtn').forEach(n=>n.classList.toggle('active', n.dataset.route===route));
-    if(location.hash.slice(1)!==route) { try{history.replaceState(null,'','#'+route);}catch(e){location.hash='#'+route;} }
-    window.scrollTo({top:0,left:0,behavior:'instant'});
-  }
-  function initRouting(){
-    $$('.navbtn').forEach(n=>n.addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); goto(n.dataset.route); }));
-    window.addEventListener('hashchange', ()=>goto(location.hash.slice(1)));
-    goto(location.hash.slice(1)||'overview');
-  }
-
-  /* deterministic 30-day dataset */
-  function seededRand(seed){ let t=seed; return ()=> (t = (t*9301 + 49297) % 233280) / 233280; }
-  const rand = seededRand(1337);
-  const DATA = (function buildData(){
-    const pnlDaily=[]; let drift=120, vol=280;
-    for(let i=0;i<30;i++){
-      const shock = (rand()-0.5)*vol;
-      drift += (rand()-0.48)*60;
-      const v = Math.round((drift + shock)*100)/100;
-      pnlDaily.push(v);
+    
+    // Route handling
+    function goto(route){
+      const pages = $('section[data-page]');
+      if(!pages.some(p => p.id === route)) route = 'overview';
+      
+      pages.forEach(p => {
+        const show = (p.id === route);
+        p.classList.toggle('show', show);
+        p.style.display = show ? 'block' : 'none';
+        p.style.visibility = show ? 'visible' : 'hidden';
+      });
+      
+      $('.navbtn').forEach(n => n.classList.toggle('active', n.dataset.route === route));
+      
+      if(location.hash.slice(1) !== route) {
+        try { history.replaceState(null, '', '#' + route); } 
+        catch(e) { location.hash = '#' + route; }
+      }
+      
+      window.scrollTo({top: 0, left: 0, behavior: 'instant'});
+      closeNav();
     }
-    const leader = { acct:'TV-LEADER-203682037', side:'Long', qty:1, avg:22681.50 };
-    const baseOpen = Math.round(((rand()-0.5)*700+300)*100)/100;
-    leader.open = baseOpen;
-    leader.balance = 50000 + sum(pnlDaily);
-    leader.day = pnlDaily[pnlDaily.length-1];
-    const followers=[0,1,2].map((i)=>{
-      const skew=1 + (rand()-0.5)*0.06;
-      const bal=48000 + i*1500 + sum(pnlDaily)*skew;
-      return {
-        acct:'TV-FOLLOW-20368203'+(4+i),
-        ratio:1, /* qty locked to 1 for now */
-        balance: bal,
-        day: leader.day*skew,
-        open: leader.open*skew,
-        avg: 22681.50,
-        side:'Long',
-        qty:1
-      };
-    });
-    const positions=[
-      {sym:'ESZ5', side:'Long', qty:2, notional:142000, price:5847.25},
-      {sym:'NQZ5', side:'Long', qty:1, notional:98500, price:22681.50},
-      {sym:'CLX5', side:'Short', qty:3, notional:32700, price:89.45}
-    ];
-    const baseId = ()=> Math.random().toString(16).slice(2,10).toUpperCase();
-    const orders=[];
-    const mkTime = (h,m,s)=> [h.toString().padStart(2,'0'),m.toString().padStart(2,'0'),s.toString().padStart(2,'0')].join(':');
-    const leaderNow = {id:baseId(), acct: leader.acct, time: mkTime(9,18,11), contract:'ESZ5', type:'Market', side:'Buy', qty:1, price:5847.25, status:'Filled'};
-    orders.push(leaderNow);
-    followers.forEach((f,i)=>{ orders.push({id:baseId(), acct:f.acct, time: mkTime(9,18,12+i), contract:'ESZ5', type:'Market', side:'Buy', qty:1, price: leaderNow.price - i*0.25, status:'Filled'}); });
-    const l2 = {id:baseId(), acct: leader.acct, time: mkTime(8,45,33), contract:'NQZ5', type:'Limit', side:'Buy', qty:1, price:22681.50, status:'Filled'};
-    orders.push(l2);
-    followers.forEach((f,i)=> orders.push({id:baseId(), acct:f.acct, time: mkTime(8,45,34+i), contract:'NQZ5', type:'Limit', side:'Buy', qty:1, price:l2.price - i*1.0, status:'Filled'}));
-    const activities=[
-      {time:new Date().toTimeString().slice(0,8), type:'system', msg:'✅ All systems operational'},
-      {time:'14:32:15', type:'trade', msg:'📈 Position opened: ESZ5 Long x2 @ 5,847.25'},
-      {time:'14:31:58', type:'copy', msg:'🔄 Order copied to 3 follower accounts'},
-      {time:'14:29:43', type:'system', msg:'⚡ Real-time sync active'}
-    ];
-    return {
-      pnlDaily, accounts:{leader, followers}, positions, orders, activities,
-      monthlyYTD: [2847.92,4234.15,6789.33,8912.47,7234.82,9456.78,11234.56,12847.93,14567.89,16234.77,18456.92,0]
-    };
-  })();
-
-  /* persistence */
-  const RISK_KEY='td_risk_settings';
-  const COPY_KEY='td_copy_map';
-
-  function loadRisk(){
-    try{ const o=JSON.parse(localStorage.getItem(RISK_KEY)||'{}'); if(o.loss) $('#rcLoss').value=o.loss; if(o.trades) $('#rcTrades').value=o.trades; if(o.pos) $('#rcPos').value=o.pos; }catch(e){}
-  }
-  function saveRisk(){
-    const o={ loss:$('#rcLoss').value, trades:$('#rcTrades').value, pos:$('#rcPos').value };
-    localStorage.setItem(RISK_KEY, JSON.stringify(o));
-    showToast('Risk settings saved');
-  }
-  function resetRisk(){
-    $('#rcLoss').value='$1,500'; $('#rcTrades').value='40'; $('#rcPos').value='12';
-    localStorage.removeItem(RISK_KEY);
-    showToast('Risk settings reset');
+    
+    $('.navbtn').forEach(n => n.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      goto(n.dataset.route);
+    }));
+    
+    window.addEventListener('hashchange', () => goto(location.hash.slice(1)));
+    goto(location.hash.slice(1) || 'overview');
   }
 
-  function defaultCopyMap(){ return { leader: DATA.accounts.leader.acct, followers: DATA.accounts.followers.map(f=>f.acct) }; }
-  function loadCopyMap(){ try{ const o=JSON.parse(localStorage.getItem(COPY_KEY)||'null'); return (o && o.leader)? o : defaultCopyMap(); }catch(e){ return defaultCopyMap(); } }
-  function saveCopyMap(map){ localStorage.setItem(COPY_KEY, JSON.stringify(map)); showToast('Copy trading updated'); }
-
-  /* totals derived from copy map */
-  function getRowsFromMap(map){
-    const all = [DATA.accounts.leader, ...DATA.accounts.followers];
-    const leader = all.find(a=>a.acct===map.leader) || DATA.accounts.leader;
-    const followers = all.filter(a=>map.followers.includes(a.acct) && a.acct!==leader.acct);
-    const mkRow = (acct, role) => ({ role, acct: acct.acct, side: acct.side||'Long', qty:1, balance: acct.balance, avg: acct.avg || 22681.50, day: acct.day, open: acct.open });
-    return [mkRow(leader,'Leader'), ...followers.map(f=>mkRow(f,'Follower'))];
+  /* Modal management */
+  window.openModal = function(modalId) {
+    const backdrop = document.querySelector(modalId + 'Backdrop');
+    const modal = document.querySelector(modalId);
+    if(backdrop) backdrop.classList.add('open');
+    if(modal) modal.classList.add('open');
   }
-  function computeTotals(map){
-    const rows = getRowsFromMap(map);
-    const dayTotal  = sum(rows.map(r=>toNumber(r.day)));
-    const openTotal = sum(rows.map(r=>toNumber(r.open)));
-    const balTotal  = sum(rows.map(r=>toNumber(r.balance)));
-    const followers = rows.filter(r=>r.role==='Follower').length;
-    return {rows, dayTotal, openTotal, balTotal, followers};
+  
+  window.closeModal = function(modalId) {
+    const backdrop = document.querySelector(modalId + 'Backdrop');
+    const modal = document.querySelector(modalId);
+    if(backdrop) backdrop.classList.remove('open');
+    if(modal) modal.classList.remove('open');
   }
 
-  /* overview */
-  function updateOverview(map){
-    const {dayTotal, openTotal} = computeTotals(map);
-    const y = DATA.pnlDaily[DATA.pnlDaily.length-2] || 0;
-    const pct = y!==0 ? ((dayTotal - y)/Math.abs(y)*100) : 0;
-    $('#kpiRealized').textContent=fmt(dayTotal);
-    $('#kpiRealized').className='kpi ' + (dayTotal>=0?'positive':'negative');
-    $('#kpiOpen').textContent=fmt(openTotal);
-    $('#kpiOpen').className='kpi ' + (openTotal>=0?'positive':'negative');
-    $('#dailyChange').textContent=(pct>=0?'+':'')+pct.toFixed(1)+'% from yesterday';
-    $('#dailyChange').className='kpi-change '+(pct>=0?'positive':'negative');
-    $('#syncLatency').textContent=(Math.floor(Math.random()*20)+8)+'ms';
-    spark($('#spark'), (function(){
-      const steps=48, end=dayTotal, arr=[0]; for(let i=1;i<steps;i++){ const remain=end-arr[i-1]; const step=remain/(steps-i) + (Math.random()-0.5)*Math.abs(remain)*0.05; arr.push(arr[i-1]+step); } return arr;
-    })());
-  }
-  function updateExposure(){
-    const total = DATA.positions.reduce((a,p)=>a+Math.abs(p.notional),0);
-    $('#kpiExposure').textContent='$'+total.toLocaleString();
-    const chips=$('#expoChips'); chips.innerHTML = DATA.positions.map(p=> '<div class="exposure-chip"><span class="badge '+(p.side==='Long'?'success':'danger')+'">'+p.sym+'</span><span>'+p.side+' '+p.qty+' • $'+Math.round(Math.abs(p.notional)/1000)+'k</span></div>').join('');
-    const stack=$('#expoStack'); stack.innerHTML='';
-    const colors=['#8b5cf6','#6d28d9','#a78bfa']; DATA.positions.forEach((p,i)=>{ const w=(Math.abs(p.notional)/total)*100; const d=document.createElement('div'); d.style.cssText='width:'+w+'%;background:'+colors[i%colors.length]+';'; stack.appendChild(d); });
-  }
-  function spark(el, values){
-    const w=100,h=24,max=Math.max(...values),min=Math.min(...values),range=(max-min)||1;
-    const pts=values.map((v,i)=>[(i/(values.length-1))*w, h - ((v-min)/range*h)]);
-    const path=pts.map((p,i)=>(i?'L':'M')+p.join(',')).join(' ');
-    const up = values[values.length-1] >= values[0];
-    el.innerHTML = '<defs>\
-      <linearGradient id="sparkUp" x1="0%" y1="0%" x2="100%" y2="0%">\
-        <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3" />\
-        <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.8" />\
-      </linearGradient>\
-      <linearGradient id="sparkDown" x1="0%" y1="0%" x2="100%" y2="0%">\
-        <stop offset="0%" style="stop-color:#ef4444;stop-opacity:0.3" />\
-        <stop offset="100%" style="stop-color:#ef4444;stop-opacity:0.8" />\
-      </linearGradient>\
-    </defs>\
-    <path d="'+path+'" fill="none" stroke="'+(up?'url(#sparkUp)':'url(#sparkDown)')+'" stroke-width="2" stroke-linecap="round"/>\
-    <circle cx="'+pts[pts.length-1][0]+'" cy="'+pts[pts.length-1][1]+'" r="2" fill="'+(up?'#10b981':'#ef4444')+'"/>';
-  }
-
-  /* Copy Trading UI */
-  function renderCopyDesktop(map){
-    const {rows}=computeTotals(map);
-    // group: first row is leader header; followers indented under it
-    const leader = rows.find(r=>r.role==='Leader');
-    const followers = rows.filter(r=>r.role==='Follower');
-    let html = '';
-    if(leader){
-      html += '<tr class="group-header">\
-        <td><span class="badge warning">[LEADER]</span></td>\
-        <td><code style="font-size:11px">'+leader.acct+'</code></td>\
-        <td><span class="badge '+(leader.side==='Long'?'success':'danger')+'">'+leader.side+'</span></td>\
-        <td><strong>'+leader.qty+'</strong></td>\
-        <td>'+fmt(leader.balance)+'</td>\
-        <td>$'+Number(leader.avg).toLocaleString()+'</td>\
-        <td>'+fmt(leader.day)+'</td>\
-        <td>'+fmt(leader.open)+'</td>\
-        <td><span class="badge success">Synced</span></td>\
-        <td>\
-          <button class="btn sm" data-action="flatten" data-acct="'+leader.acct+'">Flatten</button>\
-          <button class="btn sm" data-action="pause-leader" data-acct="'+leader.acct+'">Pause</button>\
-        </td>\
-      </tr>';
+  /* Copy Trading State Management */
+  function updateAccountStatus(accountId, status) {
+    accountStates.followers[accountId] = accountStates.followers[accountId] || {};
+    accountStates.followers[accountId].status = status;
+    
+    const accountElement = document.getElementById(accountId.replace(/[^a-zA-Z0-9]/g, ''));
+    const dotElement = document.getElementById(accountId.replace(/[^a-zA-Z0-9]/g, '') + 'Dot');
+    const statusElement = document.getElementById(accountId.replace(/[^a-zA-Z0-9]/g, '') + 'Status');
+    
+    if(accountElement && dotElement && statusElement) {
+      accountElement.classList.remove('paused', 'orphaned');
+      dotElement.classList.remove('healthy', 'paused', 'failed');
+      
+      if(status === 'paused') {
+        accountElement.classList.add('paused');
+        dotElement.classList.add('paused');
+        statusElement.textContent = 'Paused';
+      } else if(status === 'active') {
+        dotElement.classList.add('healthy');
+        statusElement.textContent = 'Synced';
+      }
     }
-    followers.forEach(f=>{
-      html += '<tr class="follower">\
-        <td><span class="badge success">Follower</span></td>\
-        <td><code style="font-size:11px">↳ '+f.acct+'</code></td>\
-        <td><span class="badge '+(f.side==='Long'?'success':'danger')+'">'+f.side+'</span></td>\
-        <td><strong>'+f.qty+'</strong></td>\
-        <td>'+fmt(f.balance)+'</td>\
-        <td>$'+Number(f.avg).toLocaleString()+'</td>\
-        <td>'+fmt(f.day)+'</td>\
-        <td>'+fmt(f.open)+'</td>\
-        <td><span class="badge success">Synced</span></td>\
-        <td>\
-          <button class="btn sm" data-action="flatten" data-acct="'+f.acct+'">Flatten</button>\
-          <button class="btn sm" data-action="disable-follower" data-acct="'+f.acct+'">Disable</button>\
-        </td>\
-      </tr>';
-    });
-    $('#cpBody').innerHTML = html;
+  }
 
-    // attach row action handlers
-    $$('#cpBody [data-action]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const acct = btn.getAttribute('data-acct');
-        const action = btn.getAttribute('data-action');
-        handleRowAction(action, acct);
+  function updateLeaderStatus(leaderId, status) {
+    accountStates.leaders[leaderId] = accountStates.leaders[leaderId] || { followers: [] };
+    accountStates.leaders[leaderId].status = status;
+    
+    const followers = accountStates.leaders[leaderId].followers || [];
+    
+    if(status === 'paused') {
+      // Pause all followers when leader is paused
+      followers.forEach(followerId => {
+        updateAccountStatus(followerId, 'leader_paused');
+        const followerStatusElement = document.getElementById(followerId.replace(/[^a-zA-Z0-9]/g, '') + 'Status');
+        if(followerStatusElement) followerStatusElement.textContent = 'Leader Paused';
+      });
+      
+      // Update group status
+      const groupStatusElement = document.getElementById('group1Status');
+      if(groupStatusElement) {
+        groupStatusElement.textContent = 'Paused';
+        groupStatusElement.style.color = 'var(--warning)';
+      }
+    } else if(status === 'active') {
+      // Reactivate followers when leader is resumed
+      followers.forEach(followerId => {
+        if(accountStates.followers[followerId]?.status !== 'paused') {
+          updateAccountStatus(followerId, 'active');
+        }
+      });
+      
+      // Update group status
+      const groupStatusElement = document.getElementById('group1Status');
+      if(groupStatusElement) {
+        groupStatusElement.textContent = 'Active';
+        groupStatusElement.style.color = 'var(--success)';
+      }
+    }
+  }
+
+  /* Copy Trading Functions */
+  window.toggleLeaderGroup = function(groupId) {
+    const group = document.getElementById(groupId);
+    if(group) {
+      group.classList.toggle('collapsed');
+    }
+  }
+
+  window.pauseLeader = function(leaderId) {
+    const currentStatus = accountStates.leaders[leaderId]?.status || 'active';
+    const newStatus = currentStatus === 'active' ? 'paused' : 'active';
+    const action = newStatus === 'paused' ? 'paused' : 'resumed';
+    
+    updateLeaderStatus(leaderId, newStatus);
+    showToast(`Leader ${leaderId} ${action}. All followers affected.`, 'warning');
+    
+    // Update button text
+    const leaderElement = document.querySelector(`[onclick="pauseLeader('${leaderId}')"]`);
+    if(leaderElement) {
+      leaderElement.textContent = newStatus === 'paused' ? 'Resume' : 'Pause';
+    }
+  }
+
+  window.pauseFollower = function(followerId) {
+    const currentStatus = accountStates.followers[followerId]?.status || 'active';
+    const newStatus = currentStatus === 'active' ? 'paused' : 'active';
+    const action = newStatus === 'paused' ? 'paused' : 'resumed';
+    
+    updateAccountStatus(followerId, newStatus);
+    showToast(`Follower ${followerId} ${action}`, 'info');
+    
+    // Update button text
+    const followerElement = document.querySelector(`[onclick="pauseFollower('${followerId}')"]`);
+    if(followerElement) {
+      followerElement.textContent = newStatus === 'paused' ? 'Resume' : 'Pause';
+    }
+  }
+
+  window.resumeFollower = function(followerId) {
+    updateAccountStatus(followerId, 'active');
+    showToast(`Follower ${followerId} resumed`, 'success');
+    
+    // Update button text
+    const followerElement = document.querySelector(`[onclick="resumeFollower('${followerId}')"]`);
+    if(followerElement) {
+      followerElement.onclick = () => pauseFollower(followerId);
+      followerElement.textContent = 'Pause';
+      followerElement.className = 'btn sm';
+    }
+  }
+
+  window.editFollower = function(accountId) {
+    selectedFollower = accountId;
+    $('#editFollowerTitle').textContent = `Edit Follower: ${accountId}`;
+    $('#editCopyRatio').value = '1.0';
+    $('#editStatus').value = accountStates.followers[accountId]?.status === 'paused' ? 'Paused' : 'Active';
+    $('#editMaxPosition').value = '$50,000';
+    $('#editDailyLimit').value = '$500';
+    openModal('#editFollowerModal');
+  }
+
+  window.saveFollowerEdit = function() {
+    if(selectedFollower) {
+      const newStatus = $('#editStatus').value.toLowerCase();
+      updateAccountStatus(selectedFollower, newStatus);
+      showToast(`Follower ${selectedFollower} updated successfully`, 'success');
+      closeModal('#editFollowerModal');
+      selectedFollower = null;
+    }
+  }
+
+  window.removeAccount = function(accountId) {
+    if(confirm(`Are you sure you want to remove account ${accountId}?`)) {
+      // Handle removal logic here
+      showToast(`Account ${accountId} removed`, 'success');
+      
+      // In a real implementation, you'd remove the DOM elements and update state
+      const accountElement = document.getElementById(accountId.replace(/[^a-zA-Z0-9]/g, ''));
+      if(accountElement) {
+        accountElement.style.opacity = '0.3';
+        accountElement.querySelector('.account-name').textContent += ' (REMOVED)';
+      }
+    }
+  }
+
+  window.selectLeaderToFollow = function(leaderId) {
+    $('#leaderSelect').value = leaderId;
+    $('#editLeaderSelect').value = leaderId;
+    showToast(`Selected leader: ${leaderId}`, 'info');
+    closeModal('#searchLeaderModal');
+    
+    // Open add follower modal
+    $('#accountType').value = 'Follower Account';
+    toggleAccountFields();
+    $('#addAccountTitle').textContent = 'Add Follower Account';
+    openModal('#addAccountModal');
+  }
+
+  /* Account Management */
+  window.toggleAccountFields = function() {
+    const accountType = $('#accountType');
+    const leaderSelectGroup = $('#leaderSelectGroup');
+    const ratioGroup = $('#ratioGroup');
+    
+    const isFollower = accountType.value === 'Follower Account';
+    leaderSelectGroup.style.display = isFollower ? 'block' : 'none';
+    ratioGroup.style.display = isFollower ? 'block' : 'none';
+  }
+
+  window.saveAccount = function() {
+    const type = $('#accountType').value;
+    const id = $('#accountId').value;
+    if(!id) {
+      showToast('Please enter an account ID', 'danger');
+      return;
+    }
+    showToast(`${type} added successfully: ${id}`, 'success');
+    closeModal('#addAccountModal');
+    $('#accountId').value = '';
+  }
+
+  /* Position Management */
+  window.reducePosition = function(symbol) {
+    showToast(`Reduced ${symbol} position by 1 lot`, 'success');
+    closeModal('#correlationModal');
+    
+    // Update position display
+    const positionChip = document.querySelector(`[data-symbol="${symbol}"]`);
+    if(positionChip) {
+      const badge = positionChip.querySelector('.badge');
+      const currentQty = parseInt(badge.textContent.match(/[+-]?\d+/)[0]);
+      const newQty = currentQty > 0 ? currentQty - 1 : currentQty + 1;
+      badge.textContent = `${symbol} ${newQty > 0 ? '+' : ''}${newQty}`;
+      
+      if(newQty === 0) {
+        positionChip.remove();
+      }
+    }
+  }
+
+  window.closePosition = function(symbol) {
+    showToast(`Closed ${symbol} position`, 'success');
+    closeModal('#correlationModal');
+    
+    // Remove position chip
+    const positionChip = document.querySelector(`[data-symbol="${symbol}"]`);
+    if(positionChip) {
+      positionChip.remove();
+    }
+  }
+
+  /* Trading Journal Functions */
+  window.addNewStrategy = function() {
+    openModal('#addStrategyModal');
+  }
+
+  window.saveStrategy = function() {
+    const name = $('#strategyName').value;
+    const description = $('#strategyDescription').value;
+    
+    if(!name) {
+      showToast('Please enter a strategy name', 'danger');
+      return;
+    }
+    
+    showToast(`Strategy "${name}" added successfully`, 'success');
+    closeModal('#addStrategyModal');
+    
+    // Clear form
+    $('#strategyName').value = '';
+    $('#strategyDescription').value = '';
+    $('#strategyInstruments').value = '';
+  }
+
+  window.viewStrategyDetails = function(strategyName) {
+    showToast(`Viewing details for ${strategyName}`, 'info');
+  }
+
+  window.editStrategy = function(strategyName) {
+    showToast(`Editing strategy: ${strategyName}`, 'info');
+  }
+
+  window.editTrade = function(tradeId) {
+    currentTradeId = tradeId;
+    $('#tradeModalTitle').textContent = 'Edit Trade Note';
+    
+    // Pre-fill with existing data (in real implementation, fetch from database)
+    if(tradeId === 1) {
+      $('#tradeSymbol').value = 'ESZ5';
+      $('#tradeSide').value = 'Long';
+      $('#tradeQty').value = '2';
+      $('#tradeEntry').value = '5847.25';
+      $('#tradePnL').value = '+89.50';
+      $('#tradeStrategy').value = 'ES Scalping';
+      $('#tradeReason').value = 'Breakout above key resistance at 5,845 with strong volume. RSI oversold bounce setup.';
+    }
+    
+    openModal('#addTradeModal');
+  }
+
+  window.saveTradeNote = function() {
+    const symbol = $('#tradeSymbol').value;
+    const side = $('#tradeSide').value;
+    const qty = $('#tradeQty').value;
+    
+    if(!symbol || !qty) {
+      showToast('Please fill in symbol and quantity', 'danger');
+      return;
+    }
+    
+    const action = currentTradeId ? 'updated' : 'saved';
+    showToast(`Trade note ${action} for ${symbol}`, 'success');
+    closeModal('#addTradeModal');
+    
+    // Clear form and reset
+    $('#tradeSymbol').value = '';
+    $('#tradeQty').value = '';
+    $('#tradeEntry').value = '';
+    $('#tradePnL').value = '';
+    $('#tradeReason').value = '';
+    $('#tradeModalTitle').textContent = 'Add Trade Note';
+    currentTradeId = null;
+  }
+
+  /* Filter Functions */
+  window.toggleFilterPanel = function() {
+    const panel = $('#filterPanel');
+    const isVisible = panel.style.display !== 'none';
+    panel.style.display = isVisible ? 'none' : 'block';
+    
+    const button = $('#filterTrades');
+    if(button) {
+      button.textContent = isVisible ? 'Filter Trades' : 'Hide Filters';
+    }
+  }
+
+  window.applyFilters = function() {
+    showToast('Filters applied successfully', 'success');
+    toggleFilterPanel();
+  }
+
+  window.clearFilters = function() {
+    showToast('Filters cleared', 'info');
+  }
+
+  /* Calendar Functions */
+  function generateCalendarData() {
+    const calendarData = {};
+    const today = new Date();
+    
+    // Generate sample P&L data for the current month
+    const year = currentCalendarMonth.getFullYear();
+    const month = currentCalendarMonth.getMonth();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    
+    for(let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(year, month, day);
+      if(date <= today) {
+        // Generate random P&L for past days
+        const pnl = (Math.random() - 0.3) * 400; // Slight positive bias
+        const trades = Math.floor(Math.random() * 5) + 1;
+        calendarData[day] = {
+          pnl: Math.round(pnl * 100) / 100,
+          trades: trades
+        };
+      }
+    }
+    
+    return calendarData;
+  }
+
+  function renderCalendar() {
+    const calendar = $('#performanceCalendar');
+    const data = generateCalendarData();
+    
+    const year = currentCalendarMonth.getFullYear();
+    const month = currentCalendarMonth.getMonth();
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    
+    $('#calendarMonth').textContent = currentCalendarMonth.toLocaleString('default', { month: 'long', year: 'numeric' });
+    
+    calendar.innerHTML = '';
+    
+    // Add empty cells for days before the first day of the month
+    for(let i = 0; i < firstDay; i++) {
+      const emptyDay = document.createElement('div');
+      emptyDay.className = 'calendar-day empty';
+      calendar.appendChild(emptyDay);
+    }
+    
+    // Add days of the month
+    for(let day = 1; day <= daysInMonth; day++) {
+      const dayData = data[day];
+      const dayElement = document.createElement('div');
+      dayElement.className = `calendar-day ${dayData ? (dayData.pnl >= 0 ? 'win' : 'loss') : ''}`;
+      dayElement.onclick = () => showCalendarDay(day, dayData);
+      
+      dayElement.innerHTML = `
+        <div class="calendar-day-number">${day}</div>
+        ${dayData ? `<div class="calendar-day-pnl">${fmt(dayData.pnl)}</div>` : ''}
+        ${dayData ? `<div class="calendar-day-trades">${dayData.trades} trades</div>` : ''}
+      `;
+      
+      calendar.appendChild(dayElement);
+    }
+  }
+
+  window.changeCalendarMonth = function(direction) {
+    currentCalendarMonth.setMonth(currentCalendarMonth.getMonth() + direction);
+    renderCalendar();
+  }
+
+  window.showCalendarDay = function(day, data) {
+    if(!data) return;
+    
+    const monthName = currentCalendarMonth.toLocaleString('default', { month: 'long' });
+    const year = currentCalendarMonth.getFullYear();
+    
+    $('#calendarDayTitle').textContent = `${monthName} ${day}, ${year}`;
+    $('#calendarDayContent').innerHTML = `
+      <div style="display: grid; gap: 16px;">
+        <div style="text-align: center; padding: 16px; background: var(--glass); border-radius: 8px;">
+          <div style="font-size: 24px; font-weight: 800; color: ${data.pnl >= 0 ? 'var(--success)' : 'var(--danger)'};">
+            ${fmt(data.pnl)}
+          </div>
+          <div style="font-size: 12px; color: var(--muted); margin-top: 4px;">
+            ${data.trades} trades executed
+          </div>
+        </div>
+        <div>
+          <h4>Day Summary</h4>
+          <div style="font-size: 13px; line-height: 1.5;">
+            ${data.pnl >= 0 ? 'Profitable trading day with consistent execution.' : 'Challenging day with some setbacks, but within risk parameters.'}
+            Average trade size was moderate with good risk management.
+          </div>
+        </div>
+        <div>
+          <h4>Key Trades</h4>
+          <div style="font-size: 13px;">
+            • ES breakout trade: ${data.pnl >= 0 ? '+$89' : '-$45'}<br>
+            • NQ momentum play: ${data.pnl >= 0 ? '+$67' : '-$23'}<br>
+            • Oil scalp: ${data.pnl >= 0 ? '+$34' : '-$8'}
+          </div>
+        </div>
+      </div>
+    `;
+    
+    openModal('#calendarDayModal');
+  }
+
+  /* Loss Status Updates */
+  function updateLossStatus() {
+    const totalPnL = 581.06; // Current total P&L
+    const dailyLimit = 1500;
+    const lossStatus = $('#lossStatus');
+    const lossProgressBar = $('.loss-progress-bar');
+    const lossProgressText = $('.loss-progress-text');
+    const lossStatusValue = $('.loss-status-value');
+    
+    if(totalPnL >= 0) {
+      // Profitable day
+      lossStatus.className = 'loss-status profitable';
+      lossStatusValue.innerHTML = `PROFITABLE: <span class="positive">${fmt(totalPnL)}</span>`;
+      lossProgressBar.style.width = '0%';
+      lossProgressBar.style.background = 'linear-gradient(90deg, var(--success), #10b981)';
+      lossProgressText.textContent = 'Above Daily Limit - All Good!';
+    } else {
+      const lossAmount = Math.abs(totalPnL);
+      const percentage = Math.min((lossAmount / dailyLimit) * 100, 100);
+      
+      if(percentage < 75) {
+        lossStatus.className = 'loss-status profitable';
+        lossStatusValue.innerHTML = `WITHIN LIMITS: <span class="negative">${fmt(totalPnL)}</span>`;
+        lossProgressBar.style.background = 'linear-gradient(90deg, var(--success), var(--warning))';
+      } else if(percentage < 100) {
+        lossStatus.className = 'loss-status approaching';
+        lossStatusValue.innerHTML = `APPROACHING LIMIT: <span class="negative">${fmt(totalPnL)}</span>`;
+        lossProgressBar.style.background = 'linear-gradient(90deg, var(--warning), var(--danger))';
+      } else {
+        lossStatus.className = 'loss-status exceeded';
+        lossStatusValue.innerHTML = `LIMIT EXCEEDED: <span class="negative">${fmt(totalPnL)}</span>`;
+        lossProgressBar.style.background = 'linear-gradient(90deg, var(--danger), #dc2626)';
+      }
+      
+      lossProgressBar.style.width = percentage + '%';
+      lossProgressText.textContent = `${percentage.toFixed(1)}% of daily limit used`;
+    }
+  }
+
+  /* Action handlers */
+  function initActionHandlers() {
+    // Correlation alert handler
+    $('#reviewCorrelation')?.addEventListener('click', () => openModal('#correlationModal'));
+    
+    // Emergency controls
+    $('[id*="emergencyStop"], [id*="Emergency"]').forEach(btn => {
+      btn.addEventListener('click', () => showToast('EMERGENCY STOP activated - All trading halted', 'danger'));
+    });
+    
+    $('[id*="closeAll"], [id*="Close"]').forEach(btn => {
+      btn.addEventListener('click', () => showToast('All positions closed successfully', 'success'));
+    });
+    
+    $('[id*="cancelAll"], [id*="Cancel"]').forEach(btn => {
+      btn.addEventListener('click', () => showToast('All pending orders cancelled', 'success'));
+    });
+    
+    // Copy trading controls
+    $('#pauseCopyTrading')?.addEventListener('click', () => showToast('Copy trading paused', 'info'));
+    $('#syncHealthCheck')?.addEventListener('click', () => showToast('Sync health check completed - All connections healthy', 'success'));
+    
+    // Management actions
+    $('#addFollower')?.addEventListener('click', () => {
+      $('#accountType').value = 'Follower Account';
+      toggleAccountFields();
+      $('#addAccountTitle').textContent = 'Add Follower Account';
+      openModal('#addAccountModal');
+    });
+    
+    $('#addLeaderBtn')?.addEventListener('click', () => {
+      $('#accountType').value = 'Leader Account';
+      toggleAccountFields();
+      $('#addAccountTitle').textContent = 'Add Leader Account';
+      openModal('#addAccountModal');
+    });
+    
+    $('#addFollowerBtn')?.addEventListener('click', () => {
+      $('#accountType').value = 'Follower Account';
+      toggleAccountFields();
+      $('#addAccountTitle').textContent = 'Add Follower Account';
+      openModal('#addAccountModal');
+    });
+    
+    $('#searchLeaderBtn')?.addEventListener('click', () => openModal('#searchLeaderModal'));
+    
+    $('#exportDailyReport')?.addEventListener('click', () => showToast('Daily report exported successfully', 'success'));
+    
+    // Risk settings
+    $('#saveRiskSettings')?.addEventListener('click', () => showToast('Risk settings saved successfully', 'success'));
+    $('#resetRiskSettings')?.addEventListener('click', () => {
+      $('#rcLoss').value = '$1,500';
+      $('#rcTrades').value = '40';
+      $('#rcPos').value = '12';
+      showToast('Risk settings reset to defaults', 'info');
+    });
+    
+    // Journal actions
+    $('#addTradeNote')?.addEventListener('click', () => {
+      currentTradeId = null;
+      $('#tradeModalTitle').textContent = 'Add Trade Note';
+      openModal('#addTradeModal');
+    });
+    $('#filterTrades')?.addEventListener('click', toggleFilterPanel);
+    $('#loadMoreTrades')?.addEventListener('click', () => showToast('Loading more trades...', 'info'));
+    
+    // Position close buttons
+    $('.position-close').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const symbol = btn.closest('.position-chip').querySelector('.badge').textContent.split(' ')[0];
+        showToast(`Position ${symbol} closed successfully`, 'success');
+        btn.closest('.position-chip').remove();
+      });
+    });
+    
+    // Modal backdrop handlers
+    $('.modal-backdrop').forEach(backdrop => {
+      backdrop.addEventListener('click', () => {
+        const modalId = '#' + backdrop.id.replace('Backdrop', '');
+        closeModal(modalId);
       });
     });
   }
-  function renderCpSummary(map){
-    const { dayTotal, openTotal, followers, balTotal } = computeTotals(map);
-    $('#cpSummaryRow').innerHTML =
-      '<span class="kpi-chip"><small>Day P&L</small> '+fmt(dayTotal)+'</span>\
-       <span class="kpi-chip"><small>Open P&L</small> '+fmt(openTotal)+'</span>\
-       <span class="kpi-chip"><small>Followers</small> '+followers+'</span>\
-       <span class="kpi-chip"><small>Balance</small> '+fmt(balTotal)+'</span>';
-  }
-  function renderCpMobile(map){
-    const host = $('#cpMobileList');
-    const {rows}=computeTotals(map);
-    host.innerHTML = rows.map(r => '\
-      <div class="cp-card">\
-        <div class="cp-top">\
-          <div class="cp-tags">'+(r.role==='Leader' ? '<span class="badge warning">[LEADER]</span>' : '<span class="badge success">Follower</span>')+'\
-          <span class="badge '+(r.side==='Long'?'success':'danger')+'">'+r.side+'</span><span class="badge">Qty '+r.qty+'</span></div>\
-          <div class="cp-acct">'+r.acct+'</div>\
-        </div>\
-        <div class="cp-stats">\
-          <div class="cp-kv"><b>Day P&L</b><span>'+fmt(r.day)+'</span></div>\
-          <div class="cp-kv"><b>Open P&L</b><span>'+fmt(r.open)+'</span></div>\
-        </div>\
-        <div class="cp-details">\
-          <div class="cp-stats">\
-            <div class="cp-kv"><b>Balance</b><span>'+fmt(r.balance)+'</span></div>\
-            <div class="cp-kv"><b>Avg Price</b><span>$'+Number(r.avg).toLocaleString()+'</span></div>\
-          </div>\
-          <div class="cp-actions">\
-            <button class="btn sm" data-maction="flatten" data-acct="'+r.acct+'">Flatten</button>\
-            '+(r.role!=='Leader' ? '<button class="btn sm" data-maction="disable-follower" data-acct="'+r.acct+'">Disable</button>' : '<button class="btn sm" data-maction="pause-leader" data-acct="'+r.acct+'">Pause</button>')+'\
-            <span class="badge success">Synced</span>\
-          </div>\
-        </div>\
-        <div class="cp-toggle">Tap to see details ▾</div>\
-      </div>').join('');
-    $$('#cpMobileList .cp-card').forEach(card => {
-      const toggle = card.querySelector('.cp-toggle');
-      toggle.addEventListener('click', () => {
-        card.classList.toggle('open');
-        toggle.textContent = card.classList.contains('open') ? 'Hide details ▴' : 'Tap to see details ▾';
+
+  /* Data updates */
+  function updateRealTimeData() {
+    // Update loss status
+    updateLossStatus();
+    
+    // Simulate real-time P&L updates
+    setInterval(() => {
+      const totalPnL = $('#totalPnL');
+      if(totalPnL) {
+        const current = parseFloat(totalPnL.textContent.replace(/[^0-9.-]/g, ''));
+        const change = (Math.random() - 0.5) * 10;
+        const newValue = current + change;
+        totalPnL.textContent = fmt(newValue);
+        totalPnL.className = `kpi large ${newValue >= 0 ? 'positive' : 'negative'}`;
+        
+        // Update loss status with new value
+        updateLossStatus();
+      }
+    }, 8000);
+    
+    // Update sync status
+    setInterval(() => {
+      $('.sync-dot').forEach(dot => {
+        if(Math.random() > 0.95) { // Occasionally show delay
+          const wasHealthy = dot.classList.contains('healthy');
+          if(wasHealthy) {
+            dot.className = 'sync-dot delayed';
+            const textElement = dot.nextElementSibling;
+            if(textElement) {
+              textElement.textContent = 'Delayed ' + Math.floor(Math.random() * 5 + 1) + 's';
+              setTimeout(() => {
+                dot.className = 'sync-dot healthy';
+                textElement.textContent = 'Synced';
+              }, 3000);
+            }
+          }
+        }
       });
-    });
-    // mobile action handlers
-    $$('#cpMobileList [data-maction]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const acct = btn.getAttribute('data-acct');
-        const action = btn.getAttribute('data-maction');
-        handleRowAction(action, acct);
-      });
-    });
+    }, 12000);
   }
 
-  /* Orders & Activity */
-  function renderOrders(){
-    const o = DATA.orders;
-    $('#ordBody').innerHTML = o.map(x => '<tr><td><code style="font-size:11px">'+x.id+'</code></td><td><code style="font-size:11px">'+x.acct+'</code></td><td>'+x.time+'</td><td><span class="badge">'+x.contract+'</span></td><td>'+x.type+'</td><td><span class="badge '+(x.side==='Buy'?'success':'danger')+'">'+x.side+'</span></td><td>'+x.qty+'</td><td>$'+Number(x.price).toLocaleString()+'</td><td><span class="badge success">'+x.status+'</span></td></tr>').join('');
-  }
-  function renderActivities(){
-    const acts = DATA.activities;
-    $('#actBody').innerHTML = acts.map(a => '<tr><td style="font-family:monospace;font-size:12px">'+a.time+'</td><td><span class="badge">'+a.type+'</span></td><td>'+a.msg+'</td></tr>').join('');
-  }
-  function pushActivity(type,msg){
-    DATA.activities.unshift({time:new Date().toTimeString().slice(0,8), type, msg});
-    renderActivities();
+  /* Initialize everything */
+  function init() {
+    initNavigation();
+    initActionHandlers();
+    renderCalendar();
+    updateLossStatus();
+    updateRealTimeData();
+    
+    console.log('TraderDuo platform initialized successfully');
   }
 
-  /* Analytics */
-  function enhancedBars(el, values, showZeroLine=true){
-    const w=100,h=40,p=8,max=Math.max(...values.map(v=>Math.abs(v)))||1, barW=(w-p*2)/values.length-2, zeroY=h/2;
-    let svg = showZeroLine ? '<line x1="'+p+'" y1="'+zeroY+'" x2="'+(w-p)+'" y2="'+zeroY+'" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/>' : '';
-    values.forEach((v,i)=>{
-      const x = p + i*((w-p*2)/values.length);
-      const barH = (Math.abs(v)/max)*(h/2-4);
-      const y = v>=0 ? zeroY - barH : zeroY;
-      const color = v>=0 ? '#10b981' : '#ef4444';
-      const opacity = v>=0 ? '0.8' : '0.6';
-      svg += '<rect x="'+x+'" y="'+y+'" width="'+barW+'" height="'+barH+'" rx="2" fill="'+color+'" opacity="'+opacity+'"/>';
-    });
-    el.innerHTML = svg;
-  }
-  function enhancedEquity(el, values){
-    const w=100,h=30; let c=0;
-    const cum=values.map(v=>c+=v), min=Math.min(...cum), max=Math.max(...cum), range=(max-min)||1;
-    const pts=cum.map((v,i)=>[(i/(cum.length-1))*w, h - ((v-min)/range*h)]);
-    const path=pts.map((p,i)=>(i?'L':'M')+p.join(',')).join(' ');
-    el.innerHTML = '<defs><linearGradient id="equityUp" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3"/><stop offset="100%" style="stop-color:#10b981;stop-opacity:0.1"/></linearGradient></defs><path d="'+path+' L'+w+','+h+' L0,'+h+' Z" fill="url(#equityUp)"/><path d="'+path+'" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round"/>';
-  }
-  function updateAnalytics(map){
-    const {dayTotal}=computeTotals(map);
-    const wins = DATA.pnlDaily.filter(v=>v>0);
-    const losses = DATA.pnlDaily.filter(v=>v<=0);
-    const profitFactor = sum(wins)/Math.max(1,Math.abs(sum(losses)));
-    const winRate = (wins.length/DATA.pnlDaily.length)*100;
-    $('#aPLToday').textContent=fmt(dayTotal);
-    $('#aPLToday').className='kpi '+(dayTotal>=0?'positive':'negative');
-    $('#aPLNote').textContent='Total: '+fmt(sum(DATA.pnlDaily));
-    $('#aPF').textContent=profitFactor.toFixed(2);
-    $('#aWR').textContent=winRate.toFixed(1)+'%';
-    const recentWins = lastN(DATA.pnlDaily,7).filter(v=>v>0).length;
-    $('#aDW').textContent=((recentWins/7)*100).toFixed(1)+'%';
-    $('#aDWNote').textContent=recentWins+' wins, '+(7-recentWins)+' losses this week';
-    $('#aDailySum').textContent=fmt(sum(lastN(DATA.pnlDaily,7)));
-    $('#aWeeklySum').textContent=fmt(sum(lastN(DATA.pnlDaily,21)));
-    $('#aMonthlySum').textContent=fmt(sum(DATA.monthlyYTD));
-    enhancedBars($('#dailyBars'), lastN(DATA.pnlDaily,7));
-    enhancedBars($('#weeklyBars'), lastN(DATA.pnlDaily,21));
-    enhancedBars($('#monthlyBars'), DATA.monthlyYTD);
-    enhancedEquity($('#eqCurve'), DATA.pnlDaily);
-    const now=new Date(); $('#calLabel').textContent=now.toLocaleString(undefined,{month:'long', year:'numeric'});
-    const grid=$('#calGrid'); grid.innerHTML='';
-    const first=new Date(now.getFullYear(), now.getMonth(), 1); const start=first.getDay();
-    const days=new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
-    for(let i=0;i<start;i++){ const d=document.createElement('div'); d.className='day'; grid.appendChild(d); }
-    for(let day=1; day<=days; day++){ const idx=day-1; const pnl = DATA.pnlDaily[idx] ?? 0; const cell=document.createElement('div'); cell.className='day '+(pnl>=0?'win':'loss'); cell.innerHTML='<div class="muted" style="font-size:11px;font-weight:700">'+day+'</div><div style="font-weight:800;margin-top:4px">'+fmt(pnl)+'</div>'; grid.appendChild(cell); }
+  // Start when DOM is ready
+  if(document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
 
-  /* copy modal */
-  function openCpModal(map){
-    const backdrop=$('#cpBackdrop'), modal=$('#cpModal');
-    backdrop.classList.add('open'); modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
-    const all = [DATA.accounts.leader, ...DATA.accounts.followers];
-    const leaderList=$('#cpLeaderList'); const followerList=$('#cpFollowerList');
-    leaderList.innerHTML = all.map(a=> '<div class="modal-row"><span>'+a.acct+'</span><input type="radio" name="leadSel" value="'+a.acct+'" '+(map.leader===a.acct?'checked':'')+'></div>').join('');
-    followerList.innerHTML = all.map(a=> '<div class="modal-row"><span>'+a.acct+'</span><input type="checkbox" name="folSel" value="'+a.acct+'" '+(map.followers.includes(a.acct)&&map.leader!==a.acct?'checked':'')+' '+(map.leader===a.acct?'disabled':'')+'></div>').join('');
-  }
-  function closeCpModal(){ $('#cpBackdrop').classList.remove('open'); $('#cpModal').classList.remove('open'); $('#cpModal').setAttribute('aria-hidden','true'); }
-
-  /* row actions simulate live */
-  function handleRowAction(action, acct){
-    if(action==='flatten'){ showToast('Flatten sent for '+acct); pushActivity('trade','🧹 Flatten requested for '+acct); }
-    if(action==='disable-follower'){ showToast('Follower '+acct+' disabled'); pushActivity('copy','⏸️ Disabled follower '+acct); }
-    if(action==='pause-leader'){ showToast('Leader '+acct+' paused'); pushActivity('copy','⏸️ Paused leader '+acct); }
-  }
-
-  /* init */
-  initHamburgerAutoclose();
-  initRouting();
-  loadRisk();
-
-  let copyMap = loadCopyMap();
-  updateOverview(copyMap);
-  updateExposure();
-  renderCopyDesktop(copyMap);
-  renderCpSummary(copyMap);
-  renderCpMobile(copyMap);
-  renderOrders();
-  renderActivities();
-  updateAnalytics(copyMap);
-
-  // bindings
-  $('#riskSave').addEventListener('click', saveRisk);
-  $('#riskReset').addEventListener('click', resetRisk);
-
-  const toggleCopy = ()=>{
-    const el=$('#kpiCopy'); const on=el.textContent.trim()==='ACTIVE';
-    el.textContent = on ? 'DISABLED' : 'ACTIVE';
-    el.style.color = on ? 'var(--muted)' : 'var(--success)';
-    $('#copyState').textContent = on ? 'COPY TRADING OFF' : 'COPY TRADING ON';
-    $('#copyState').className = 'badge ' + (on ? 'danger' : 'success');
-    showToast('Copy trading ' + (on?'disabled':'enabled'));
-    pushActivity('system','Copy trading ' + (on?'disabled':'enabled'));
-  };
-  $('#ovDisable').addEventListener('click', toggleCopy);
-  const closeAll = ()=>{ showToast('All positions have been closed'); pushActivity('trade','🔻 Close All Positions'); };
-  const cancelAll = ()=>{ showToast('All pending orders cancelled'); pushActivity('trade','🛑 Cancel All Orders'); };
-  const emergency = ()=>{ showToast('EMERGENCY STOP: All trading halted'); pushActivity('system','🚨 EMERGENCY STOP'); };
-  $('#ovClose').addEventListener('click', closeAll);
-  $('#ovCancel').addEventListener('click', cancelAll);
-  $('#mEmergency').addEventListener('click', emergency);
-  $('#mClose').addEventListener('click', closeAll);
-  $('#mCancel').addEventListener('click', cancelAll);
-
-  // copy modal
-  $('#cpEdit').addEventListener('click', ()=> openCpModal(copyMap));
-  $('#cpCloseX').addEventListener('click', closeCpModal);
-  $('#cpCancelEdit').addEventListener('click', closeCpModal);
-  $('#cpSaveEdit').addEventListener('click', ()=>{
-    const leaderSel = document.querySelector('input[name="leadSel"]:checked');
-    const folSel = Array.from(document.querySelectorAll('input[name="folSel"]:checked')).map(x=>x.value);
-    const newMap = { leader: leaderSel ? leaderSel.value : copyMap.leader, followers: folSel.filter(a=>a!== (leaderSel?leaderSel.value:copyMap.leader)) };
-    copyMap = newMap;
-    saveCopyMap(copyMap);
-    closeCpModal();
-    updateOverview(copyMap);
-    renderCopyDesktop(copyMap);
-    renderCpSummary(copyMap);
-    renderCpMobile(copyMap);
-    updateAnalytics(copyMap);
-  });
-
-  // mobile tabs
-  $$('.tab').forEach(t => t.addEventListener('click', () => {
-    $$('.tab').forEach(x => x.classList.remove('active'));
-    t.classList.add('active');
-    const tab = t.dataset.tab;
-    $('#cpMobileWrap').style.display   = (tab==='accounts') ? 'block' : 'none';
-    $('#cpOrdersMobile').style.display = (tab==='orders')   ? 'block' : 'none';
-  }));
 })();
 </script>
 
-</body></html>
+</body>
+</html>
