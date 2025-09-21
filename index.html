@@ -410,61 +410,50 @@ section[data-page].show { display: block; visibility: visible; }
   <main class="main">
     <!-- Overview -->
     <section id="overview" data-page="overview" class="show" style="display: block; visibility: visible;">
-      <!-- Alert Cards -->
+      <!-- Compact Alert Bar -->
       <div id="alertContainer">
-        <div class="alert-card warning" id="correlationAlert">
+        <div class="alert-card warning" id="correlationAlert" style="padding: 12px; margin-bottom: 12px;">
           <div class="alert-icon">⚠️</div>
           <div class="alert-content">
-            <div class="alert-title">High Position Correlation Detected</div>
-            <div class="alert-message">ESZ5 and NQZ5 positions are 89% correlated - consider reducing exposure</div>
+            <div class="alert-title">High Position Correlation: ESZ5 ↔ NQZ5 (89%)</div>
           </div>
           <button class="btn xs" id="reviewCorrelation">Review</button>
         </div>
       </div>
 
-      <!-- Daily Loss Status -->
-      <div class="loss-status profitable" id="lossStatus">
-        <div class="loss-status-header">
-          <div class="loss-status-title">Daily P&L Status</div>
-          <div class="loss-status-value positive">PROFITABLE: +$581.06</div>
-        </div>
-        <div class="loss-progress">
-          <div class="loss-progress-bar" style="width: 0%; background: linear-gradient(90deg, var(--success), #10b981);"></div>
-          <div class="loss-progress-text">Above Daily Limit - All Good!</div>
-        </div>
-        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px;">
-          <span>Peak Drawdown: <strong style="color: var(--danger);">-$240</strong></span>
-          <span>Time Remaining: <strong>6h 23m</strong></span>
-          <span>Daily Limit: <strong>$1,500</strong></span>
-        </div>
-      </div>
-
-      <!-- Total P&L - Main Card -->
-      <div class="card total-pnl" style="margin-bottom: 20px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div>
-            <h3 style="margin: 0; color: white;">Total P&L</h3>
-            <div class="muted" style="font-size: 12px;">Realized + Unrealized</div>
+      <!-- Compact Status + Total P&L -->
+      <div class="grid g-2" style="margin-bottom: 16px;">
+        <div class="loss-status profitable" id="lossStatus" style="padding: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="loss-status-title" style="font-size: 14px;">Daily P&L Status</div>
+            <div class="loss-status-value positive" style="font-size: 14px;">PROFITABLE: +$581.06</div>
           </div>
-          <div style="display: flex; align-items: center; gap: 20px;">
-            <div style="text-align: center;">
-              <div id="totalPnL" class="kpi large" style="margin: 0; color: white;">$581.06</div>
-              <div class="kpi-change positive" id="totalChange">+8.7% today</div>
+          <div class="loss-progress" style="height: 6px; margin: 8px 0;">
+            <div class="loss-progress-bar" style="width: 0%; background: linear-gradient(90deg, var(--success), #10b981);"></div>
+            <div class="loss-progress-text" style="font-size: 9px;">Above Limit - Good!</div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 10px;">
+            <span>Peak DD: <strong>-$240</strong></span>
+            <span>Time: <strong>6h 23m</strong></span>
+            <span>Limit: <strong>$1,500</strong></span>
+          </div>
+        </div>
+
+        <div class="card total-pnl" style="padding: 12px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <h3 style="margin: 0; color: white; font-size: 11px;">TOTAL P&L</h3>
+              <div id="totalPnL" class="kpi" style="margin: 0; color: white; font-size: 28px;">$581.06</div>
+              <div class="kpi-change positive" id="totalChange" style="font-size: 11px;">+8.7% today</div>
             </div>
             <div style="text-align: right;">
-              <div class="risk-indicator low">Low Risk</div>
-              <div class="muted" style="font-size: 11px; margin-top: 4px;">Risk Score: <span id="riskScore">92/100</span></div>
+              <div class="risk-indicator low" style="margin-bottom: 4px;">Low Risk</div>
+              <div style="font-size: 10px; color: var(--muted);">Score: <span id="riskScore">92/100</span></div>
+              <div style="display: flex; gap: 8px; margin-top: 8px; font-size: 10px;">
+                <div>Realized: <strong style="color: var(--danger);">-$76</strong></div>
+                <div>Open: <strong style="color: var(--success);">+$657</strong></div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div style="margin-top: 16px; display: flex; gap: 16px;">
-          <div style="flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
-            <div style="font-size: 11px; color: var(--muted); margin-bottom: 4px;">REALIZED TODAY</div>
-            <div style="font-size: 20px; font-weight: 800; color: var(--danger);">-$76.05</div>
-          </div>
-          <div style="flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
-            <div style="font-size: 11px; color: var(--muted); margin-bottom: 4px;">UNREALIZED</div>
-            <div style="font-size: 20px; font-weight: 800; color: var(--success);">$657.11</div>
           </div>
         </div>
       </div>
