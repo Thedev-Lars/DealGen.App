@@ -2209,20 +2209,27 @@ section[data-page].show { display: block; visibility: visible; }
 
   /* Initialize everything */
   function init() {
-    initNavigation();
-    initActionHandlers();
-    renderCalendar();
-    updateLossStatus();
-    updateRealTimeData();
+    console.log('TraderDuo initializing...');
     
-    console.log('TraderDuo platform initialized successfully');
+    try {
+      initNavigation();
+      initActionHandlers();
+      renderCalendar();
+      updateLossStatus();
+      updateRealTimeData();
+      
+      console.log('TraderDuo platform initialized successfully');
+    } catch(error) {
+      console.error('Initialization error:', error);
+    }
   }
 
-  // Start when DOM is ready
+  // Ensure DOM is ready before initializing
   if(document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
-    init();
+    // DOM is already ready
+    setTimeout(init, 100);
   }
 
 })();
