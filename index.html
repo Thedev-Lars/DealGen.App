@@ -272,7 +272,6 @@ section[data-page].show { display: block; visibility: visible; }
 .sync-dot.healthy { background: var(--success); animation: pulse 2s infinite; }
 .sync-dot.delayed { background: var(--warning); }
 .sync-dot.failed { background: var(--danger); }
-.sync-dot.paused { background: var(--muted); }
 
 /* Position management */
 .position-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--stroke); border-radius: 10px; margin: 4px; background: var(--glass); cursor: pointer; transition: all 0.2s ease; position: relative; }
@@ -306,12 +305,6 @@ section[data-page].show { display: block; visibility: visible; }
 .account-stats { display: flex; gap: 16px; font-size: 12px; }
 .account-actions { display: flex; align-items: center; gap: 8px; }
 
-/* Account status styling */
-.account-card.paused { opacity: 0.6; }
-.account-card.paused .account-header { background: var(--warning-bg); }
-.account-card.orphaned { opacity: 0.7; }
-.account-card.orphaned .account-header { background: var(--danger-bg); }
-
 /* Trading Journal */
 .performance-metric { text-align: center; padding: 16px; border: 1px solid var(--stroke); border-radius: 10px; background: var(--glass); }
 .performance-metric .metric-value { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
@@ -332,7 +325,6 @@ section[data-page].show { display: block; visibility: visible; }
 .calendar-day.empty:hover { background: transparent; transform: none; }
 .calendar-day-number { font-size: 11px; font-weight: 700; color: var(--muted); }
 .calendar-day-pnl { font-size: 12px; font-weight: 800; margin-top: 4px; }
-.calendar-day-trades { font-size: 10px; color: var(--muted); }
 
 /* Chart containers */
 .chart-container { width: 100%; height: 120px; margin-top: 12px; }
@@ -354,16 +346,10 @@ section[data-page].show { display: block; visibility: visible; }
 .correlation-value.medium { color: var(--warning); }
 .correlation-value.low { color: var(--success); }
 
-/* Search leader modal */
-.leader-search-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; border: 1px solid var(--stroke); border-radius: 8px; margin-bottom: 8px; background: var(--glass); cursor: pointer; transition: all 0.2s ease; }
-.leader-search-item:hover { background: var(--glass-strong); }
-.leader-search-info { flex: 1; }
-.leader-search-name { font-weight: 700; margin-bottom: 4px; }
-.leader-search-stats { display: flex; gap: 12px; font-size: 12px; color: var(--muted); }
-
-/* Filter panel */
-.filter-panel { background: var(--glass); border: 1px solid var(--stroke); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-.filter-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 12px; }
+/* Quick actions */
+.quick-actions{ position: fixed; bottom: 16px; right: 16px; z-index: 80; display: flex; flex-direction: column; gap: 8px; }
+.quick-action{ width: 48px; height: 48px; border-radius: 12px; border: 1px solid var(--stroke); background: var(--glass); color: var(--ink); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
+.quick-action:hover { background: var(--glass-strong); transform: translateY(-2px); }
 
 /* SVG and Charts */
 .svg { width: 100%; height: 100%; display: block; }
@@ -410,50 +396,61 @@ section[data-page].show { display: block; visibility: visible; }
   <main class="main">
     <!-- Overview -->
     <section id="overview" data-page="overview" class="show" style="display: block; visibility: visible;">
-      <!-- Compact Alert Bar -->
+      <!-- Alert Cards -->
       <div id="alertContainer">
-        <div class="alert-card warning" id="correlationAlert" style="padding: 12px; margin-bottom: 12px;">
+        <div class="alert-card warning" id="correlationAlert">
           <div class="alert-icon">⚠️</div>
           <div class="alert-content">
-            <div class="alert-title">High Position Correlation: ESZ5 ↔ NQZ5 (89%)</div>
+            <div class="alert-title">High Position Correlation Detected</div>
+            <div class="alert-message">ESZ5 and NQZ5 positions are 89% correlated - consider reducing exposure</div>
           </div>
           <button class="btn xs" id="reviewCorrelation">Review</button>
         </div>
       </div>
 
-      <!-- Compact Status + Total P&L -->
-      <div class="grid g-2" style="margin-bottom: 16px;">
-        <div class="loss-status profitable" id="lossStatus" style="padding: 12px;">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div class="loss-status-title" style="font-size: 14px;">Daily P&L Status</div>
-            <div class="loss-status-value positive" style="font-size: 14px;">PROFITABLE: +$581.06</div>
-          </div>
-          <div class="loss-progress" style="height: 6px; margin: 8px 0;">
-            <div class="loss-progress-bar" style="width: 0%; background: linear-gradient(90deg, var(--success), #10b981);"></div>
-            <div class="loss-progress-text" style="font-size: 9px;">Above Limit - Good!</div>
-          </div>
-          <div style="display: flex; justify-content: space-between; font-size: 10px;">
-            <span>Peak DD: <strong>-$240</strong></span>
-            <span>Time: <strong>6h 23m</strong></span>
-            <span>Limit: <strong>$1,500</strong></span>
-          </div>
+      <!-- Daily Loss Status -->
+      <div class="loss-status profitable" id="lossStatus">
+        <div class="loss-status-header">
+          <div class="loss-status-title">Daily P&L Status</div>
+          <div class="loss-status-value positive">PROFITABLE: +$581.06</div>
         </div>
+        <div class="loss-progress">
+          <div class="loss-progress-bar" style="width: 0%; background: linear-gradient(90deg, var(--success), #10b981);"></div>
+          <div class="loss-progress-text">Above Daily Limit - All Good!</div>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px;">
+          <span>Peak Drawdown: <strong style="color: var(--danger);">-$240</strong></span>
+          <span>Time Remaining: <strong>6h 23m</strong></span>
+          <span>Daily Limit: <strong>$1,500</strong></span>
+        </div>
+      </div>
 
-        <div class="card total-pnl" style="padding: 12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;">
-            <div>
-              <h3 style="margin: 0; color: white; font-size: 11px;">TOTAL P&L</h3>
-              <div id="totalPnL" class="kpi" style="margin: 0; color: white; font-size: 28px;">$581.06</div>
-              <div class="kpi-change positive" id="totalChange" style="font-size: 11px;">+8.7% today</div>
+      <!-- Total P&L - Main Card -->
+      <div class="card total-pnl" style="margin-bottom: 20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <h3 style="margin: 0; color: white;">Total P&L</h3>
+            <div class="muted" style="font-size: 12px;">Realized + Unrealized</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 20px;">
+            <div style="text-align: center;">
+              <div id="totalPnL" class="kpi large" style="margin: 0; color: white;">$581.06</div>
+              <div class="kpi-change positive" id="totalChange">+8.7% today</div>
             </div>
             <div style="text-align: right;">
-              <div class="risk-indicator low" style="margin-bottom: 4px;">Low Risk</div>
-              <div style="font-size: 10px; color: var(--muted);">Score: <span id="riskScore">92/100</span></div>
-              <div style="display: flex; gap: 8px; margin-top: 8px; font-size: 10px;">
-                <div>Realized: <strong style="color: var(--danger);">-$76</strong></div>
-                <div>Open: <strong style="color: var(--success);">+$657</strong></div>
-              </div>
+              <div class="risk-indicator low">Low Risk</div>
+              <div class="muted" style="font-size: 11px; margin-top: 4px;">Risk Score: <span id="riskScore">92/100</span></div>
             </div>
+          </div>
+        </div>
+        <div style="margin-top: 16px; display: flex; gap: 16px;">
+          <div style="flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+            <div style="font-size: 11px; color: var(--muted); margin-bottom: 4px;">REALIZED TODAY</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--danger);">-$76.05</div>
+          </div>
+          <div style="flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+            <div style="font-size: 11px; color: var(--muted); margin-bottom: 4px;">UNREALIZED</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--success);">$657.11</div>
           </div>
         </div>
       </div>
@@ -461,21 +458,15 @@ section[data-page].show { display: block; visibility: visible; }
       <!-- Key Metrics Grid -->
       <div class="grid g-4">
         <div class="card">
-          <h3>Daily Trading Limits</h3>
+          <h3>Risk Monitoring</h3>
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-            <span style="font-size: 14px; font-weight: 600;">Trades Today</span>
-            <span style="font-size: 16px; font-weight: 800;">12 / 40</span>
-          </div>
-          <div style="height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden; margin-bottom: 12px;">
-            <div style="width: 30%; height: 100%; background: linear-gradient(90deg, var(--success), var(--warning)); border-radius: 4px;"></div>
-          </div>
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="font-size: 14px; font-weight: 600;">Positions</span>
-            <span style="font-size: 16px; font-weight: 800;">5 / 12</span>
+            <span style="font-size: 14px; font-weight: 600;">Margin Usage</span>
+            <span style="font-size: 16px; font-weight: 800;">24.3%</span>
           </div>
           <div style="height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
-            <div style="width: 42%; height: 100%; background: linear-gradient(90deg, var(--success), var(--warning)); border-radius: 4px;"></div>
+            <div style="width: 24.3%; height: 100%; background: linear-gradient(90deg, var(--success), var(--warning)); border-radius: 4px;"></div>
           </div>
+          <div class="muted" style="font-size: 11px; margin-top: 8px;">Buying Power: $156,420 available</div>
         </div>
 
         <div class="card">
@@ -510,8 +501,8 @@ section[data-page].show { display: block; visibility: visible; }
             </div>
           </div>
           <div style="display: flex; justify-content: space-between; font-size: 12px;">
-            <span class="muted">Leaders: <strong>2</strong></span>
-            <span class="muted">Followers: <strong>5</strong></span>
+            <span class="muted">Leaders: <strong>1</strong></span>
+            <span class="muted">Followers: <strong>3</strong></span>
             <span class="muted">Latency: <strong>18ms</strong></span>
           </div>
         </div>
@@ -521,7 +512,7 @@ section[data-page].show { display: block; visibility: visible; }
           <div style="display: grid; gap: 8px;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <span style="font-size: 12px;">Total Balance</span>
-              <span style="font-weight: 800;">$347,892</span>
+              <span style="font-weight: 800;">$207,850</span>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center;">
               <span style="font-size: 12px;">Open P&L</span>
@@ -594,14 +585,14 @@ section[data-page].show { display: block; visibility: visible; }
           <div class="group-stats">
             <span>4 accounts</span>
             <span>Total P&L: <strong style="color: var(--danger);">-$76.05</strong></span>
-            <span>Status: <strong id="group1Status" style="color: var(--success);">Active</strong></span>
+            <span>Status: <strong style="color: var(--success);">Active</strong></span>
           </div>
           <div class="expand-icon">▼</div>
         </div>
         
         <div class="follower-list">
           <!-- Leader Account -->
-          <div class="account-card leader" id="leader1">
+          <div class="account-card leader">
             <div class="account-header">
               <div class="account-info">
                 <div class="account-name">TV-LEADER-203682037</div>
@@ -614,17 +605,17 @@ section[data-page].show { display: block; visibility: visible; }
               </div>
               <div class="account-actions">
                 <div class="sync-status">
-                  <div class="sync-dot healthy" id="leader1Dot"></div>
-                  <span id="leader1Status">Active</span>
+                  <div class="sync-dot healthy"></div>
+                  <span>Active</span>
                 </div>
-                <button class="btn sm" onclick="pauseLeader('TV-LEADER-203682037')">Pause</button>
+                <button class="btn sm" onclick="pauseAccount('TV-LEADER-203682037')">Pause</button>
                 <button class="btn sm danger" onclick="removeAccount('TV-LEADER-203682037')">Remove</button>
               </div>
             </div>
           </div>
 
           <!-- Follower Accounts -->
-          <div class="account-card follower" id="follower1">
+          <div class="account-card follower">
             <div class="account-header">
               <div class="account-info">
                 <div class="account-name">TV-FOLLOW-203682034</div>
@@ -637,17 +628,17 @@ section[data-page].show { display: block; visibility: visible; }
               </div>
               <div class="account-actions">
                 <div class="sync-status">
-                  <div class="sync-dot healthy" id="follower1Dot"></div>
-                  <span id="follower1Status">Synced</span>
+                  <div class="sync-dot healthy"></div>
+                  <span>Synced</span>
                 </div>
                 <button class="btn sm" onclick="editFollower('TV-FOLLOW-203682034')">Edit</button>
-                <button class="btn sm" onclick="pauseFollower('TV-FOLLOW-203682034')">Pause</button>
+                <button class="btn sm" onclick="pauseAccount('TV-FOLLOW-203682034')">Pause</button>
                 <button class="btn sm danger" onclick="removeAccount('TV-FOLLOW-203682034')">Remove</button>
               </div>
             </div>
           </div>
 
-          <div class="account-card follower" id="follower2">
+          <div class="account-card follower">
             <div class="account-header">
               <div class="account-info">
                 <div class="account-name">TV-FOLLOW-203682035</div>
@@ -660,17 +651,17 @@ section[data-page].show { display: block; visibility: visible; }
               </div>
               <div class="account-actions">
                 <div class="sync-status">
-                  <div class="sync-dot healthy" id="follower2Dot"></div>
-                  <span id="follower2Status">Synced</span>
+                  <div class="sync-dot healthy"></div>
+                  <span>Synced</span>
                 </div>
                 <button class="btn sm" onclick="editFollower('TV-FOLLOW-203682035')">Edit</button>
-                <button class="btn sm" onclick="pauseFollower('TV-FOLLOW-203682035')">Pause</button>
+                <button class="btn sm" onclick="pauseAccount('TV-FOLLOW-203682035')">Pause</button>
                 <button class="btn sm danger" onclick="removeAccount('TV-FOLLOW-203682035')">Remove</button>
               </div>
             </div>
           </div>
 
-          <div class="account-card follower" id="follower3">
+          <div class="account-card follower">
             <div class="account-header">
               <div class="account-info">
                 <div class="account-name">TV-FOLLOW-203682036</div>
@@ -683,98 +674,12 @@ section[data-page].show { display: block; visibility: visible; }
               </div>
               <div class="account-actions">
                 <div class="sync-status">
-                  <div class="sync-dot delayed" id="follower3Dot"></div>
-                  <span id="follower3Status">Delayed 2s</span>
+                  <div class="sync-dot delayed"></div>
+                  <span>Delayed 2s</span>
                 </div>
                 <button class="btn sm" onclick="editFollower('TV-FOLLOW-203682036')">Edit</button>
-                <button class="btn sm" onclick="pauseFollower('TV-FOLLOW-203682036')">Pause</button>
+                <button class="btn sm" onclick="pauseAccount('TV-FOLLOW-203682036')">Pause</button>
                 <button class="btn sm danger" onclick="removeAccount('TV-FOLLOW-203682036')">Remove</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Leader Group 2 -->
-      <div class="leader-group" id="leaderGroup2">
-        <div class="leader-header" onclick="toggleLeaderGroup('leaderGroup2')">
-          <div class="group-icon">👑</div>
-          <div class="group-title">Leader Group 2</div>
-          <div class="group-stats">
-            <span>3 accounts</span>
-            <span>Total P&L: <strong style="color: var(--success);">+$234.67</strong></span>
-            <span>Status: <strong id="group2Status" style="color: var(--success);">Active</strong></span>
-          </div>
-          <div class="expand-icon">▼</div>
-        </div>
-        
-        <div class="follower-list">
-          <!-- Leader Account 2 -->
-          <div class="account-card leader" id="leader2">
-            <div class="account-header">
-              <div class="account-info">
-                <div class="account-name">TV-LEADER-445729394</div>
-                <div class="account-meta">Leader Account • Connected via Tradovate API</div>
-                <div class="account-stats">
-                  <span>Balance: <strong>$85,420</strong></span>
-                  <span>Day P&L: <strong style="color: var(--success);">+$89.34</strong></span>
-                  <span>Open P&L: <strong style="color: var(--success);">+$234.50</strong></span>
-                </div>
-              </div>
-              <div class="account-actions">
-                <div class="sync-status">
-                  <div class="sync-dot healthy" id="leader2Dot"></div>
-                  <span id="leader2Status">Active</span>
-                </div>
-                <button class="btn sm" onclick="pauseLeader('TV-LEADER-445729394')">Pause</button>
-                <button class="btn sm danger" onclick="removeAccount('TV-LEADER-445729394')">Remove</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Follower Accounts for Leader 2 -->
-          <div class="account-card follower" id="follower4">
-            <div class="account-header">
-              <div class="account-info">
-                <div class="account-name">TV-FOLLOW-887234921</div>
-                <div class="account-meta">Following: TV-LEADER-445729394 • Ratio: 2:1</div>
-                <div class="account-stats">
-                  <span>Balance: <strong>$120,340</strong></span>
-                  <span>Day P&L: <strong style="color: var(--success);">+$178.68</strong></span>
-                  <span>Open P&L: <strong style="color: var(--success);">+$469.00</strong></span>
-                </div>
-              </div>
-              <div class="account-actions">
-                <div class="sync-status">
-                  <div class="sync-dot healthy" id="follower4Dot"></div>
-                  <span id="follower4Status">Synced</span>
-                </div>
-                <button class="btn sm" onclick="editFollower('TV-FOLLOW-887234921')">Edit</button>
-                <button class="btn sm" onclick="pauseFollower('TV-FOLLOW-887234921')">Pause</button>
-                <button class="btn sm danger" onclick="removeAccount('TV-FOLLOW-887234921')">Remove</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="account-card follower paused" id="follower5">
-            <div class="account-header">
-              <div class="account-info">
-                <div class="account-name">TV-FOLLOW-334857293</div>
-                <div class="account-meta">Following: TV-LEADER-445729394 • Ratio: 1:1</div>
-                <div class="account-stats">
-                  <span>Balance: <strong>$67,890</strong></span>
-                  <span>Day P&L: <strong style="color: var(--muted);">$0.00</strong></span>
-                  <span>Open P&L: <strong style="color: var(--muted);">$0.00</strong></span>
-                </div>
-              </div>
-              <div class="account-actions">
-                <div class="sync-status">
-                  <div class="sync-dot paused" id="follower5Dot"></div>
-                  <span id="follower5Status">Paused</span>
-                </div>
-                <button class="btn sm" onclick="editFollower('TV-FOLLOW-334857293')">Edit</button>
-                <button class="btn sm primary" onclick="resumeFollower('TV-FOLLOW-334857293')">Resume</button>
-                <button class="btn sm danger" onclick="removeAccount('TV-FOLLOW-334857293')">Remove</button>
               </div>
             </div>
           </div>
@@ -785,7 +690,6 @@ section[data-page].show { display: block; visibility: visible; }
       <div style="display: flex; gap: 12px; margin-bottom: 24px;">
         <button class="btn primary" id="addLeaderBtn">Add Leader Account</button>
         <button class="btn primary" id="addFollowerBtn">Add Follower Account</button>
-        <button class="btn info" id="searchLeaderBtn">Search & Follow Leader</button>
       </div>
 
       <!-- Recent Orders -->
@@ -832,16 +736,6 @@ section[data-page].show { display: block; visibility: visible; }
                 <td>$22,681.50</td>
                 <td><span class="badge success">All Filled</span></td>
               </tr>
-              <tr>
-                <td>07:32:15</td>
-                <td><code style="font-size:11px;">TV-LEADER-445729394</code></td>
-                <td><span class="badge success">1 Copied</span></td>
-                <td><span class="badge">CLX5</span></td>
-                <td><span class="badge danger">Sell</span></td>
-                <td>2</td>
-                <td>$89.45</td>
-                <td><span class="badge success">All Filled</span></td>
-              </tr>
             </tbody>
           </table>
         </div>
@@ -850,44 +744,6 @@ section[data-page].show { display: block; visibility: visible; }
 
     <!-- Trading Journal -->
     <section id="journal" data-page="journal" style="display: none; visibility: hidden;">
-      <!-- Filter Panel -->
-      <div class="filter-panel" id="filterPanel" style="display: none;">
-        <h4 style="margin: 0 0 12px;">Filter Trades</h4>
-        <div class="filter-row">
-          <div class="form-group">
-            <label class="form-label">Date Range</label>
-            <select class="form-input">
-              <option>Last 7 days</option>
-              <option>Last 30 days</option>
-              <option>Last 90 days</option>
-              <option>Custom range</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Strategy</label>
-            <select class="form-input">
-              <option>All Strategies</option>
-              <option>ES Scalping</option>
-              <option>NQ Momentum</option>
-              <option>Oil Swing</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">P&L Filter</label>
-            <select class="form-input">
-              <option>All Trades</option>
-              <option>Winning Trades</option>
-              <option>Losing Trades</option>
-            </select>
-          </div>
-        </div>
-        <div style="display: flex; gap: 8px;">
-          <button class="btn primary" onclick="applyFilters()">Apply Filters</button>
-          <button class="btn" onclick="clearFilters()">Clear</button>
-          <button class="btn" onclick="toggleFilterPanel()">Hide</button>
-        </div>
-      </div>
-
       <!-- Performance Overview -->
       <div class="grid g-4" style="margin-bottom: 20px;">
         <div class="performance-metric">
@@ -1002,10 +858,7 @@ section[data-page].show { display: block; visibility: visible; }
                 <td>2.89</td>
                 <td><span style="color: var(--success);">$1,847</span></td>
                 <td><span style="color: var(--danger);">-$156</span></td>
-                <td>
-                  <button class="btn xs" onclick="viewStrategyDetails('ES Scalping')">View Details</button>
-                  <button class="btn xs" onclick="editStrategy('ES Scalping')">Edit</button>
-                </td>
+                <td><button class="btn xs" onclick="viewStrategyDetails('ES Scalping')">View Details</button></td>
               </tr>
               <tr>
                 <td><strong>NQ Momentum</strong></td>
@@ -1014,10 +867,7 @@ section[data-page].show { display: block; visibility: visible; }
                 <td>1.94</td>
                 <td><span style="color: var(--success);">$743</span></td>
                 <td><span style="color: var(--danger);">-$234</span></td>
-                <td>
-                  <button class="btn xs" onclick="viewStrategyDetails('NQ Momentum')">View Details</button>
-                  <button class="btn xs" onclick="editStrategy('NQ Momentum')">Edit</button>
-                </td>
+                <td><button class="btn xs" onclick="viewStrategyDetails('NQ Momentum')">View Details</button></td>
               </tr>
               <tr>
                 <td><strong>Oil Swing</strong></td>
@@ -1026,10 +876,7 @@ section[data-page].show { display: block; visibility: visible; }
                 <td>1.42</td>
                 <td><span style="color: var(--success);">$257</span></td>
                 <td><span style="color: var(--danger);">-$89</span></td>
-                <td>
-                  <button class="btn xs" onclick="viewStrategyDetails('Oil Swing')">View Details</button>
-                  <button class="btn xs" onclick="editStrategy('Oil Swing')">Edit</button>
-                </td>
+                <td><button class="btn xs" onclick="viewStrategyDetails('Oil Swing')">View Details</button></td>
               </tr>
             </tbody>
           </table>
@@ -1054,10 +901,7 @@ section[data-page].show { display: block; visibility: visible; }
                 <span style="font-weight: 800;">Long +2 @ $5,847.25</span>
                 <span class="badge success">+$89.50</span>
               </div>
-              <div style="display: flex; gap: 8px;">
-                <span class="muted" style="font-size: 12px;">Today, 9:18 AM</span>
-                <button class="btn xs" onclick="editTrade(1)">Edit</button>
-              </div>
+              <span class="muted" style="font-size: 12px;">Today, 9:18 AM</span>
             </div>
             <div class="trade-meta">
               <span>Strategy: ES Scalping</span>
@@ -1076,10 +920,7 @@ section[data-page].show { display: block; visibility: visible; }
                 <span style="font-weight: 800;">Long +1 @ $22,681.50</span>
                 <span class="badge danger">-$45.25</span>
               </div>
-              <div style="display: flex; gap: 8px;">
-                <span class="muted" style="font-size: 12px;">Yesterday, 2:15 PM</span>
-                <button class="btn xs" onclick="editTrade(2)">Edit</button>
-              </div>
+              <span class="muted" style="font-size: 12px;">Yesterday, 2:15 PM</span>
             </div>
             <div class="trade-meta">
               <span>Strategy: NQ Momentum</span>
@@ -1197,21 +1038,21 @@ section[data-page].show { display: block; visibility: visible; }
           <div style="margin-bottom: 16px;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
               <span style="font-size: 12px; color: var(--muted);">Connected Accounts</span>
-              <span style="font-size: 12px; font-weight: 600;">7 / 10</span>
+              <span style="font-size: 12px; font-weight: 600;">4 / 5</span>
             </div>
             <div style="height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
-              <div style="width: 70%; height: 100%; background: linear-gradient(90deg, var(--success), #10b981);"></div>
+              <div style="width: 80%; height: 100%; background: linear-gradient(90deg, var(--success), #10b981);"></div>
             </div>
           </div>
 
           <div style="display: grid; gap: 8px; font-size: 12px;">
             <div style="display: flex; justify-content: space-between;">
               <span>Copy trades executed</span>
-              <strong>234 this month</strong>
+              <strong>156 this month</strong>
             </div>
             <div style="display: flex; justify-content: space-between;">
               <span>Data storage used</span>
-              <strong>3.7 GB / 5 GB</strong>
+              <strong>2.3 GB / 5 GB</strong>
             </div>
             <div style="display: flex; justify-content: space-between;">
               <span>Plan renewal</span>
@@ -1274,64 +1115,6 @@ section[data-page].show { display: block; visibility: visible; }
   </div>
 </div>
 
-<!-- Search Leader Modal -->
-<div class="modal-backdrop" id="searchLeaderModalBackdrop"></div>
-<div class="modal" id="searchLeaderModal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <h3>Search & Follow Leaders</h3>
-      <button class="btn" onclick="closeModal('#searchLeaderModal')">Close</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label class="form-label">Search Leaders</label>
-        <input class="form-input" placeholder="Enter account ID or trader name..." id="leaderSearchInput">
-      </div>
-      <div>
-        <h4>Available Leaders</h4>
-        <div id="leaderSearchResults">
-          <div class="leader-search-item" onclick="selectLeaderToFollow('TV-LEADER-999888777')">
-            <div class="leader-search-info">
-              <div class="leader-search-name">TV-LEADER-999888777</div>
-              <div class="leader-search-stats">
-                <span>Win Rate: 82.4%</span>
-                <span>30d P&L: +$4,567</span>
-                <span>Followers: 12</span>
-              </div>
-            </div>
-            <button class="btn sm primary">Follow</button>
-          </div>
-          <div class="leader-search-item" onclick="selectLeaderToFollow('TV-LEADER-555444333')">
-            <div class="leader-search-info">
-              <div class="leader-search-name">TV-LEADER-555444333</div>
-              <div class="leader-search-stats">
-                <span>Win Rate: 75.1%</span>
-                <span>30d P&L: +$2,890</span>
-                <span>Followers: 8</span>
-              </div>
-            </div>
-            <button class="btn sm primary">Follow</button>
-          </div>
-          <div class="leader-search-item" onclick="selectLeaderToFollow('TV-LEADER-222111000')">
-            <div class="leader-search-info">
-              <div class="leader-search-name">TV-LEADER-222111000</div>
-              <div class="leader-search-stats">
-                <span>Win Rate: 71.8%</span>
-                <span>30d P&L: +$1,234</span>
-                <span>Followers: 5</span>
-              </div>
-            </div>
-            <button class="btn sm primary">Follow</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeModal('#searchLeaderModal')">Cancel</button>
-    </div>
-  </div>
-</div>
-
 <!-- Edit Follower Modal -->
 <div class="modal-backdrop" id="editFollowerModalBackdrop"></div>
 <div class="modal" id="editFollowerModal">
@@ -1345,7 +1128,6 @@ section[data-page].show { display: block; visibility: visible; }
         <label class="form-label">Follow Leader</label>
         <select class="form-input" id="editLeaderSelect">
           <option>TV-LEADER-203682037</option>
-          <option>TV-LEADER-445729394</option>
         </select>
       </div>
       <div class="form-group">
@@ -1399,7 +1181,6 @@ section[data-page].show { display: block; visibility: visible; }
         <label class="form-label">Follow Leader</label>
         <select class="form-input" id="leaderSelect">
           <option>TV-LEADER-203682037</option>
-          <option>TV-LEADER-445729394</option>
         </select>
       </div>
       <div class="form-group" id="ratioGroup" style="display: none;">
@@ -1414,41 +1195,12 @@ section[data-page].show { display: block; visibility: visible; }
   </div>
 </div>
 
-<!-- Add Strategy Modal -->
-<div class="modal-backdrop" id="addStrategyModalBackdrop"></div>
-<div class="modal" id="addStrategyModal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <h3>Add New Strategy</h3>
-      <button class="btn" onclick="closeModal('#addStrategyModal')">Close</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label class="form-label">Strategy Name</label>
-        <input class="form-input" id="strategyName" placeholder="Enter strategy name">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Description</label>
-        <textarea class="form-input" id="strategyDescription" style="min-height: 80px;" placeholder="Describe your strategy..."></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Primary Instruments</label>
-        <input class="form-input" id="strategyInstruments" placeholder="ES, NQ, CL">
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeModal('#addStrategyModal')">Cancel</button>
-      <button class="btn primary" onclick="saveStrategy()">Add Strategy</button>
-    </div>
-  </div>
-</div>
-
 <!-- Add Trade Note Modal -->
 <div class="modal-backdrop" id="addTradeModalBackdrop"></div>
 <div class="modal" id="addTradeModal">
   <div class="modal-card">
     <div class="modal-head">
-      <h3 id="tradeModalTitle">Add Trade Note</h3>
+      <h3>Add Trade Note</h3>
       <button class="btn" onclick="closeModal('#addTradeModal')">Close</button>
     </div>
     <div class="modal-body">
@@ -1511,35 +1263,27 @@ section[data-page].show { display: block; visibility: visible; }
   </div>
 </div>
 
+<!-- Quick Actions -->
+<div class="quick-actions">
+  <button class="quick-action" title="Emergency Stop" onclick="emergencyStopAll()">🚨</button>
+  <button class="quick-action" title="Add Position" onclick="addPosition()">➕</button>
+  <button class="quick-action" title="Export Data" onclick="exportData()">📊</button>
+</div>
+
 <script>
 (function(){
   const $ = q => document.querySelector(q);
-  const $ = q => Array.from(document.querySelectorAll(q));
+  const $$ = q => Array.from(document.querySelectorAll(q));
 
   // Global state
   let currentCalendarMonth = new Date();
   let selectedFollower = null;
-  let currentTradeId = null;
-  let accountStates = {
-    leaders: {
-      'TV-LEADER-203682037': { status: 'active', followers: ['TV-FOLLOW-203682034', 'TV-FOLLOW-203682035', 'TV-FOLLOW-203682036'] },
-      'TV-LEADER-445729394': { status: 'active', followers: ['TV-FOLLOW-887234921', 'TV-FOLLOW-334857293'] }
-    },
-    followers: {
-      'TV-FOLLOW-203682034': { status: 'active', leader: 'TV-LEADER-203682037' },
-      'TV-FOLLOW-203682035': { status: 'active', leader: 'TV-LEADER-203682037' },
-      'TV-FOLLOW-203682036': { status: 'active', leader: 'TV-LEADER-203682037' },
-      'TV-FOLLOW-887234921': { status: 'active', leader: 'TV-LEADER-445729394' },
-      'TV-FOLLOW-334857293': { status: 'paused', leader: 'TV-LEADER-445729394' }
-    }
-  };
 
   /* Utility functions */
   function fmt(n){ 
     const s=(typeof n==='number')?n:parseFloat(String(n||0)); 
     const sign=s<0?'-':''; 
-    return sign+'
-      +Math.abs(s).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); 
+    return sign+'$'+Math.abs(s).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); 
   }
   
   function showToast(message, type = 'info'){
@@ -1551,7 +1295,6 @@ section[data-page].show { display: block; visibility: visible; }
     `;
     if(type === 'success') toast.style.borderColor = 'var(--success)';
     if(type === 'danger') toast.style.borderColor = 'var(--danger)';
-    if(type === 'warning') toast.style.borderColor = 'var(--warning)';
     toast.textContent = message;
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 3000);
@@ -1584,7 +1327,7 @@ section[data-page].show { display: block; visibility: visible; }
     
     // Route handling
     function goto(route){
-      const pages = $('section[data-page]');
+      const pages = $$('section[data-page]');
       if(!pages.some(p => p.id === route)) route = 'overview';
       
       pages.forEach(p => {
@@ -1594,7 +1337,7 @@ section[data-page].show { display: block; visibility: visible; }
         p.style.visibility = show ? 'visible' : 'hidden';
       });
       
-      $('.navbtn').forEach(n => n.classList.toggle('active', n.dataset.route === route));
+      $$('.navbtn').forEach(n => n.classList.toggle('active', n.dataset.route === route));
       
       if(location.hash.slice(1) !== route) {
         try { history.replaceState(null, '', '#' + route); } 
@@ -1605,7 +1348,7 @@ section[data-page].show { display: block; visibility: visible; }
       closeNav();
     }
     
-    $('.navbtn').forEach(n => n.addEventListener('click', e => {
+    $$('.navbtn').forEach(n => n.addEventListener('click', e => {
       e.preventDefault();
       e.stopPropagation();
       goto(n.dataset.route);
@@ -1630,67 +1373,6 @@ section[data-page].show { display: block; visibility: visible; }
     if(modal) modal.classList.remove('open');
   }
 
-  /* Copy Trading State Management */
-  function updateAccountStatus(accountId, status) {
-    accountStates.followers[accountId] = accountStates.followers[accountId] || {};
-    accountStates.followers[accountId].status = status;
-    
-    const accountElement = document.getElementById(accountId.replace(/[^a-zA-Z0-9]/g, ''));
-    const dotElement = document.getElementById(accountId.replace(/[^a-zA-Z0-9]/g, '') + 'Dot');
-    const statusElement = document.getElementById(accountId.replace(/[^a-zA-Z0-9]/g, '') + 'Status');
-    
-    if(accountElement && dotElement && statusElement) {
-      accountElement.classList.remove('paused', 'orphaned');
-      dotElement.classList.remove('healthy', 'paused', 'failed');
-      
-      if(status === 'paused') {
-        accountElement.classList.add('paused');
-        dotElement.classList.add('paused');
-        statusElement.textContent = 'Paused';
-      } else if(status === 'active') {
-        dotElement.classList.add('healthy');
-        statusElement.textContent = 'Synced';
-      }
-    }
-  }
-
-  function updateLeaderStatus(leaderId, status) {
-    accountStates.leaders[leaderId] = accountStates.leaders[leaderId] || { followers: [] };
-    accountStates.leaders[leaderId].status = status;
-    
-    const followers = accountStates.leaders[leaderId].followers || [];
-    
-    if(status === 'paused') {
-      // Pause all followers when leader is paused
-      followers.forEach(followerId => {
-        updateAccountStatus(followerId, 'leader_paused');
-        const followerStatusElement = document.getElementById(followerId.replace(/[^a-zA-Z0-9]/g, '') + 'Status');
-        if(followerStatusElement) followerStatusElement.textContent = 'Leader Paused';
-      });
-      
-      // Update group status
-      const groupStatusElement = document.getElementById('group1Status');
-      if(groupStatusElement) {
-        groupStatusElement.textContent = 'Paused';
-        groupStatusElement.style.color = 'var(--warning)';
-      }
-    } else if(status === 'active') {
-      // Reactivate followers when leader is resumed
-      followers.forEach(followerId => {
-        if(accountStates.followers[followerId]?.status !== 'paused') {
-          updateAccountStatus(followerId, 'active');
-        }
-      });
-      
-      // Update group status
-      const groupStatusElement = document.getElementById('group1Status');
-      if(groupStatusElement) {
-        groupStatusElement.textContent = 'Active';
-        groupStatusElement.style.color = 'var(--success)';
-      }
-    }
-  }
-
   /* Copy Trading Functions */
   window.toggleLeaderGroup = function(groupId) {
     const group = document.getElementById(groupId);
@@ -1699,54 +1381,11 @@ section[data-page].show { display: block; visibility: visible; }
     }
   }
 
-  window.pauseLeader = function(leaderId) {
-    const currentStatus = accountStates.leaders[leaderId]?.status || 'active';
-    const newStatus = currentStatus === 'active' ? 'paused' : 'active';
-    const action = newStatus === 'paused' ? 'paused' : 'resumed';
-    
-    updateLeaderStatus(leaderId, newStatus);
-    showToast(`Leader ${leaderId} ${action}. All followers affected.`, 'warning');
-    
-    // Update button text
-    const leaderElement = document.querySelector(`[onclick="pauseLeader('${leaderId}')"]`);
-    if(leaderElement) {
-      leaderElement.textContent = newStatus === 'paused' ? 'Resume' : 'Pause';
-    }
-  }
-
-  window.pauseFollower = function(followerId) {
-    const currentStatus = accountStates.followers[followerId]?.status || 'active';
-    const newStatus = currentStatus === 'active' ? 'paused' : 'active';
-    const action = newStatus === 'paused' ? 'paused' : 'resumed';
-    
-    updateAccountStatus(followerId, newStatus);
-    showToast(`Follower ${followerId} ${action}`, 'info');
-    
-    // Update button text
-    const followerElement = document.querySelector(`[onclick="pauseFollower('${followerId}')"]`);
-    if(followerElement) {
-      followerElement.textContent = newStatus === 'paused' ? 'Resume' : 'Pause';
-    }
-  }
-
-  window.resumeFollower = function(followerId) {
-    updateAccountStatus(followerId, 'active');
-    showToast(`Follower ${followerId} resumed`, 'success');
-    
-    // Update button text
-    const followerElement = document.querySelector(`[onclick="resumeFollower('${followerId}')"]`);
-    if(followerElement) {
-      followerElement.onclick = () => pauseFollower(followerId);
-      followerElement.textContent = 'Pause';
-      followerElement.className = 'btn sm';
-    }
-  }
-
   window.editFollower = function(accountId) {
     selectedFollower = accountId;
     $('#editFollowerTitle').textContent = `Edit Follower: ${accountId}`;
     $('#editCopyRatio').value = '1.0';
-    $('#editStatus').value = accountStates.followers[accountId]?.status === 'paused' ? 'Paused' : 'Active';
+    $('#editStatus').value = 'Active';
     $('#editMaxPosition').value = '$50,000';
     $('#editDailyLimit').value = '$500';
     openModal('#editFollowerModal');
@@ -1754,39 +1393,20 @@ section[data-page].show { display: block; visibility: visible; }
 
   window.saveFollowerEdit = function() {
     if(selectedFollower) {
-      const newStatus = $('#editStatus').value.toLowerCase();
-      updateAccountStatus(selectedFollower, newStatus);
       showToast(`Follower ${selectedFollower} updated successfully`, 'success');
       closeModal('#editFollowerModal');
       selectedFollower = null;
     }
   }
 
-  window.removeAccount = function(accountId) {
-    if(confirm(`Are you sure you want to remove account ${accountId}?`)) {
-      // Handle removal logic here
-      showToast(`Account ${accountId} removed`, 'success');
-      
-      // In a real implementation, you'd remove the DOM elements and update state
-      const accountElement = document.getElementById(accountId.replace(/[^a-zA-Z0-9]/g, ''));
-      if(accountElement) {
-        accountElement.style.opacity = '0.3';
-        accountElement.querySelector('.account-name').textContent += ' (REMOVED)';
-      }
-    }
+  window.pauseAccount = function(accountId) {
+    showToast(`Account ${accountId} paused`, 'info');
   }
 
-  window.selectLeaderToFollow = function(leaderId) {
-    $('#leaderSelect').value = leaderId;
-    $('#editLeaderSelect').value = leaderId;
-    showToast(`Selected leader: ${leaderId}`, 'info');
-    closeModal('#searchLeaderModal');
-    
-    // Open add follower modal
-    $('#accountType').value = 'Follower Account';
-    toggleAccountFields();
-    $('#addAccountTitle').textContent = 'Add Follower Account';
-    openModal('#addAccountModal');
+  window.removeAccount = function(accountId) {
+    if(confirm(`Are you sure you want to remove account ${accountId}?`)) {
+      showToast(`Account ${accountId} removed`, 'success');
+    }
   }
 
   /* Account Management */
@@ -1816,79 +1436,23 @@ section[data-page].show { display: block; visibility: visible; }
   window.reducePosition = function(symbol) {
     showToast(`Reduced ${symbol} position by 1 lot`, 'success');
     closeModal('#correlationModal');
-    
-    // Update position display
-    const positionChip = document.querySelector(`[data-symbol="${symbol}"]`);
-    if(positionChip) {
-      const badge = positionChip.querySelector('.badge');
-      const currentQty = parseInt(badge.textContent.match(/[+-]?\d+/)[0]);
-      const newQty = currentQty > 0 ? currentQty - 1 : currentQty + 1;
-      badge.textContent = `${symbol} ${newQty > 0 ? '+' : ''}${newQty}`;
-      
-      if(newQty === 0) {
-        positionChip.remove();
-      }
-    }
   }
 
   window.closePosition = function(symbol) {
     showToast(`Closed ${symbol} position`, 'success');
     closeModal('#correlationModal');
-    
-    // Remove position chip
-    const positionChip = document.querySelector(`[data-symbol="${symbol}"]`);
-    if(positionChip) {
-      positionChip.remove();
-    }
   }
 
   /* Trading Journal Functions */
   window.addNewStrategy = function() {
-    openModal('#addStrategyModal');
-  }
-
-  window.saveStrategy = function() {
-    const name = $('#strategyName').value;
-    const description = $('#strategyDescription').value;
-    
-    if(!name) {
-      showToast('Please enter a strategy name', 'danger');
-      return;
+    const strategyName = prompt('Enter strategy name:');
+    if(strategyName) {
+      showToast(`Strategy "${strategyName}" added`, 'success');
     }
-    
-    showToast(`Strategy "${name}" added successfully`, 'success');
-    closeModal('#addStrategyModal');
-    
-    // Clear form
-    $('#strategyName').value = '';
-    $('#strategyDescription').value = '';
-    $('#strategyInstruments').value = '';
   }
 
   window.viewStrategyDetails = function(strategyName) {
     showToast(`Viewing details for ${strategyName}`, 'info');
-  }
-
-  window.editStrategy = function(strategyName) {
-    showToast(`Editing strategy: ${strategyName}`, 'info');
-  }
-
-  window.editTrade = function(tradeId) {
-    currentTradeId = tradeId;
-    $('#tradeModalTitle').textContent = 'Edit Trade Note';
-    
-    // Pre-fill with existing data (in real implementation, fetch from database)
-    if(tradeId === 1) {
-      $('#tradeSymbol').value = 'ESZ5';
-      $('#tradeSide').value = 'Long';
-      $('#tradeQty').value = '2';
-      $('#tradeEntry').value = '5847.25';
-      $('#tradePnL').value = '+89.50';
-      $('#tradeStrategy').value = 'ES Scalping';
-      $('#tradeReason').value = 'Breakout above key resistance at 5,845 with strong volume. RSI oversold bounce setup.';
-    }
-    
-    openModal('#addTradeModal');
   }
 
   window.saveTradeNote = function() {
@@ -1901,39 +1465,15 @@ section[data-page].show { display: block; visibility: visible; }
       return;
     }
     
-    const action = currentTradeId ? 'updated' : 'saved';
-    showToast(`Trade note ${action} for ${symbol}`, 'success');
+    showToast(`Trade note saved for ${symbol}`, 'success');
     closeModal('#addTradeModal');
     
-    // Clear form and reset
+    // Clear form
     $('#tradeSymbol').value = '';
     $('#tradeQty').value = '';
     $('#tradeEntry').value = '';
     $('#tradePnL').value = '';
     $('#tradeReason').value = '';
-    $('#tradeModalTitle').textContent = 'Add Trade Note';
-    currentTradeId = null;
-  }
-
-  /* Filter Functions */
-  window.toggleFilterPanel = function() {
-    const panel = $('#filterPanel');
-    const isVisible = panel.style.display !== 'none';
-    panel.style.display = isVisible ? 'none' : 'block';
-    
-    const button = $('#filterTrades');
-    if(button) {
-      button.textContent = isVisible ? 'Filter Trades' : 'Hide Filters';
-    }
-  }
-
-  window.applyFilters = function() {
-    showToast('Filters applied successfully', 'success');
-    toggleFilterPanel();
-  }
-
-  window.clearFilters = function() {
-    showToast('Filters cleared', 'info');
   }
 
   /* Calendar Functions */
@@ -1951,10 +1491,9 @@ section[data-page].show { display: block; visibility: visible; }
       if(date <= today) {
         // Generate random P&L for past days
         const pnl = (Math.random() - 0.3) * 400; // Slight positive bias
-        const trades = Math.floor(Math.random() * 5) + 1;
         calendarData[day] = {
           pnl: Math.round(pnl * 100) / 100,
-          trades: trades
+          trades: Math.floor(Math.random() * 5) + 1
         };
       }
     }
@@ -1992,7 +1531,6 @@ section[data-page].show { display: block; visibility: visible; }
       dayElement.innerHTML = `
         <div class="calendar-day-number">${day}</div>
         ${dayData ? `<div class="calendar-day-pnl">${fmt(dayData.pnl)}</div>` : ''}
-        ${dayData ? `<div class="calendar-day-trades">${dayData.trades} trades</div>` : ''}
       `;
       
       calendar.appendChild(dayElement);
@@ -2026,14 +1564,6 @@ section[data-page].show { display: block; visibility: visible; }
           <div style="font-size: 13px; line-height: 1.5;">
             ${data.pnl >= 0 ? 'Profitable trading day with consistent execution.' : 'Challenging day with some setbacks, but within risk parameters.'}
             Average trade size was moderate with good risk management.
-          </div>
-        </div>
-        <div>
-          <h4>Key Trades</h4>
-          <div style="font-size: 13px;">
-            • ES breakout trade: ${data.pnl >= 0 ? '+$89' : '-$45'}<br>
-            • NQ momentum play: ${data.pnl >= 0 ? '+$67' : '-$23'}<br>
-            • Oil scalp: ${data.pnl >= 0 ? '+$34' : '-$8'}
           </div>
         </div>
       </div>
@@ -2125,8 +1655,6 @@ section[data-page].show { display: block; visibility: visible; }
       openModal('#addAccountModal');
     });
     
-    $('#searchLeaderBtn')?.addEventListener('click', () => openModal('#searchLeaderModal'));
-    
     $('#exportDailyReport')?.addEventListener('click', () => showToast('Daily report exported successfully', 'success'));
     
     // Risk settings
@@ -2139,12 +1667,8 @@ section[data-page].show { display: block; visibility: visible; }
     });
     
     // Journal actions
-    $('#addTradeNote')?.addEventListener('click', () => {
-      currentTradeId = null;
-      $('#tradeModalTitle').textContent = 'Add Trade Note';
-      openModal('#addTradeModal');
-    });
-    $('#filterTrades')?.addEventListener('click', toggleFilterPanel);
+    $('#addTradeNote')?.addEventListener('click', () => openModal('#addTradeModal'));
+    $('#filterTrades')?.addEventListener('click', () => showToast('Trade filtering functionality', 'info'));
     $('#loadMoreTrades')?.addEventListener('click', () => showToast('Loading more trades...', 'info'));
     
     // Position close buttons
@@ -2164,6 +1688,19 @@ section[data-page].show { display: block; visibility: visible; }
         closeModal(modalId);
       });
     });
+  }
+
+  /* Quick Action Functions */
+  window.emergencyStopAll = function() {
+    showToast('EMERGENCY STOP: All trading systems halted', 'danger');
+  }
+
+  window.addPosition = function() {
+    showToast('Add position functionality', 'info');
+  }
+
+  window.exportData = function() {
+    showToast('Data export started', 'success');
   }
 
   /* Data updates */
@@ -2190,17 +1727,14 @@ section[data-page].show { display: block; visibility: visible; }
     setInterval(() => {
       $('.sync-dot').forEach(dot => {
         if(Math.random() > 0.95) { // Occasionally show delay
-          const wasHealthy = dot.classList.contains('healthy');
-          if(wasHealthy) {
-            dot.className = 'sync-dot delayed';
-            const textElement = dot.nextElementSibling;
-            if(textElement) {
-              textElement.textContent = 'Delayed ' + Math.floor(Math.random() * 5 + 1) + 's';
-              setTimeout(() => {
-                dot.className = 'sync-dot healthy';
-                textElement.textContent = 'Synced';
-              }, 3000);
-            }
+          dot.className = 'sync-dot delayed';
+          const textElement = dot.nextElementSibling;
+          if(textElement) {
+            textElement.textContent = 'Delayed ' + Math.floor(Math.random() * 5 + 1) + 's';
+            setTimeout(() => {
+              dot.className = 'sync-dot healthy';
+              textElement.textContent = 'Synced';
+            }, 3000);
           }
         }
       });
@@ -2209,27 +1743,20 @@ section[data-page].show { display: block; visibility: visible; }
 
   /* Initialize everything */
   function init() {
-    console.log('TraderDuo initializing...');
+    initNavigation();
+    initActionHandlers();
+    renderCalendar();
+    updateLossStatus();
+    updateRealTimeData();
     
-    try {
-      initNavigation();
-      initActionHandlers();
-      renderCalendar();
-      updateLossStatus();
-      updateRealTimeData();
-      
-      console.log('TraderDuo platform initialized successfully');
-    } catch(error) {
-      console.error('Initialization error:', error);
-    }
+    console.log('TraderDuo platform initialized successfully');
   }
 
-  // Ensure DOM is ready before initializing
+  // Start when DOM is ready
   if(document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
-    // DOM is already ready
-    setTimeout(init, 100);
+    init();
   }
 
 })();
