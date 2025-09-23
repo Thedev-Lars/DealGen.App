@@ -1,1765 +1,2113 @@
-<html lang="en" data-theme="dark"><head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>TraderDuo — Professional Copy Trading Platform</title>
-<style>
-:root{
-  /* Dark theme (default) */
-  --bg: #0a0b14;
-  --bg-secondary: #0f1017;
-  --panel: #12131c;
-  --panel-hover: #161823;
-  --muted: #a3a6cf;
-  --stroke: #1f2037;
-  --stroke-light: #2a2d47;
-  --prime: #8b5cf6;
-  --prime-light: #a78bfa;
-  --prime-dark: #6d28d9;
-  --ink: #f1f3ff;
-  --ink-secondary: #d1d5db;
-  --glass: rgba(255,255,255,.08);
-  --glass-strong: rgba(255,255,255,.12);
-  --success: #10b981;
-  --success-bg: rgba(16, 185, 129, 0.1);
-  --danger: #ef4444;
-  --danger-bg: rgba(239, 68, 68, 0.1);
-  --warning: #f59e0b;
-  --warning-bg: rgba(245, 158, 11, 0.1);
-  --info: #3b82f6;
-  --info-bg: rgba(59, 130, 246, 0.1);
-  --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-}
-/* Light theme */
-:root[data-theme="light"]{
-  --bg:#ffffff;
-  --bg-secondary:#f6f7fb;
-  --panel:#ffffff;
-  --panel-hover:#f5f5ff;
-  --muted:#6b7280;
-  --stroke:#e5e7eb;
-  --stroke-light:#d1d5db;
-  --prime:#8b5cf6;
-  --prime-light:#7c3aed;
-  --prime-dark:#6d28d9;
-  --ink:#0b0f1a;
-  --ink-secondary:#374151;
-  --glass: rgba(0,0,0,.04);
-  --glass-strong: rgba(0,0,0,.06);
-  --success:#059669;
-  --success-bg: rgba(5,150,105,.12);
-  --danger:#dc2626;
-  --danger-bg: rgba(220,38,38,.12);
-  --warning:#d97706;
-  --warning-bg: rgba(217,119,6,.12);
-  --info:#2563eb;
-  --info-bg: rgba(37,99,235,.12);
-}
-*,
-*::before,
-*::after { box-sizing: border-box; }
-html { color-scheme: dark light; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-html, body { height: 100%; max-width: 100%; overflow-x: hidden; }
-body {
-  margin: 0;
-  font: 14px/1.5 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: var(--ink);
-  background:
-    radial-gradient(600px 300px at -10% -10%, rgba(139,92,246,.15), transparent),
-    radial-gradient(800px 400px at 110% 0, rgba(168,85,247,.08), transparent),
-    radial-gradient(400px 400px at 50% 100%, rgba(59,130,246,.05), transparent),
-    var(--bg);
-  min-height: 100dvh;
-}
-.layout, .top, .main, aside, .grid, .table-container, svg, canvas { max-width: 100%; }
+<!DOCTYPE html>
 
-/* Header */
-.top {
-  position: sticky; top: 0; z-index: 100;
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 16px;
-  background: rgba(15, 16, 23, 0.8);
-  border-bottom: 1px solid var(--stroke);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+<html data-theme="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DealGen – Email That Scales</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+.brand-strip-outer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.brand-strip-wrapper {
+  width: 900px;
+  overflow: hidden;
+  position: relative;
+}
+
+.brand-strip {
+  display: flex;
+  gap: 3rem;
+  animation: scroll 40s linear infinite;
+  width: max-content;
+}
+
+.brand-strip img {
+  max-height: 32px;
+  object-fit: contain;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+
+/* TEST: Set width to 100px to visualize constraint */
+.brand-strip-container {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2rem 0;
+}
+
+.brand-strip-wrapper {
+  width: 100px; /* TEST width */
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+}
+
+.brand-strip {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  animation: scroll 40s linear infinite;
+  width: max-content;
+}
+
+.brand-strip img {
+  max-height: 32px;
+  object-fit: contain;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+/* Fixed-width centered brand scroller */
+.brand-strip-container {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2rem 0;
+}
+
+.brand-strip-wrapper {
+  width: 900px; /* Fixed width */
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+}
+
+.brand-strip {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  animation: scroll 40s linear infinite;
+  width: max-content;
+}
+
+.brand-strip img {
+  max-height: 32px;
+  object-fit: contain;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+/* Force-centered, constrained brand scroller */
+.brand-strip-container {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2rem 0;
+}
+
+.brand-strip-wrapper {
+  max-width: 900px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.brand-strip {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  animation: scroll 40s linear infinite;
+  width: max-content;
+}
+
+.brand-strip img {
+  max-height: 32px;
+  object-fit: contain;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+.brand-strip-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-strip {
+  display: flex;
+  gap: 3rem;
+  animation: scroll 40s linear infinite;
+  align-items: center;
+}
+
+.brand-strip img {
+  max-height: 32px;
+  object-fit: contain;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+.particles-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  will-change: transform;
+  transition: transform 0.1s ease-out;
+}
+
+.particles-back {
+  z-index: 0;
+  background: none;
+  background-size: 60px 60px;
+}
+
+.particles-mid {
+  z-index: 1;
+  background: none;
+  background-size: 80px 80px;
+}
+
+.particles-front {
+  z-index: 2;
+  background: none;
+  background-size: 120px 120px;
+}
+
+
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background: none;
+  mask-image: radial-gradient(circle at center, black 25%, transparent 65%);
+  -webkit-mask-image: radial-gradient(circle at center, black 25%, transparent 65%);
+  opacity: 0.8;
+  will-change: transform;
+  transition: transform 0.1s ease-out;
+}
+
+
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  animation: parallaxShift 40s linear infinite;
+  background: none;
+  mask-image: radial-gradient(circle at center, black 20%, transparent 50%);
+  -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 50%);
+  opacity: 0.8;
+}
+
+@keyframes parallaxShift {
+  0% {
+    transform: translateY(0px) translateX(0px);
+  }
+  100% {
+    transform: translateY(-1500px) translateX(-750px);
+  }
+}
+
+
+/* Ultra-dramatic parallax effect (100x), clustered around center */
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  animation: parallaxShift 60s linear infinite;
+  background: none;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+}
+
+@keyframes parallaxShift {
+  0% {
+    transform: translateY(0px) translateX(0px);
+  }
+  100% {
+    transform: translateY(-1000px) translateX(-500px);
+  }
+}
+
+
+/* Dramatic parallax effect */
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  transform: translateZ(0);
+  animation: parallaxShift 30s linear infinite;
+}
+
+@keyframes parallaxShift {
+  0% {
+    transform: translateY(0px) translateX(0px);
+  }
+  100% {
+    transform: translateY(-200px) translateX(-100px); /* 10x speed/distance */
+  }
+}
+
+
+header {
+  padding-left: 2rem;
+  padding-top: 0.8rem;
+
   transition: all 0.3s ease;
 }
-:root[data-theme="light"] .top{ background: rgba(255,255,255,.8); }
-.brand {
-  font-weight: 900; font-size: 18px; letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #fff 0%, var(--prime-light) 100%);
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-}
-.hamb {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 48px; height: 48px; border: 1px solid var(--stroke);
-  border-radius: 12px; background: var(--glass);
-  color: var(--ink-secondary); cursor: pointer; transition: all 0.2s ease;
-  font-size: 18px; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
-}
-.hamb:hover, .hamb:active {
-  background: var(--glass-strong); border-color: var(--stroke-light); transform: translateY(-1px);
-}
-.search { flex: 1; max-width: 520px; position: relative; }
-.search input {
-  width: 100%; padding: 14px 16px 14px 48px; border-radius: 12px;
-  border: 1px solid var(--stroke); background: var(--glass);
-  color: var(--ink); font-size: 16px; transition: all 0.2s ease; min-height: 48px;
-}
-.search::before {
-  content: '🔍'; position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
-  opacity: 0.6; pointer-events: none;
-}
-.status-indicator {
-  display: flex; align-items: center; gap: 6px; padding: 8px 12px;
-  border-radius: 8px; background: var(--success-bg);
-  border: 1px solid rgba(16, 185, 129, 0.2); font-size: 12px; font-weight: 600;
-}
-.status-indicator::before {
-  content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--success);
-  animation: pulse 2s infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+header.scrolled {
+  padding-left: 2rem;
+  margin-top: -2rem;
 
-/* Theme toggle */
-.theme-toggle{ border:1px solid var(--stroke); background:var(--glass); border-radius:10px; padding:10px 12px; font-weight:700; cursor:pointer; }
-
-/* Layout */
-.layout { display: flex; min-height: calc(100dvh - 66px); }
-aside {
-  position: fixed; inset: 70px auto 0 0; width: 280px; transform: translateX(-100%);
-  background: rgba(18, 19, 28, 0.9); border-right: 1px solid var(--stroke);
-  backdrop-filter: blur(20px) saturate(180%); transition: transform .3s cubic-bezier(.4,0,.2,1);
-  z-index: 50; padding: 20px; display: flex; flex-direction: column; gap: 12px;
-}
-:root[data-theme="light"] aside{ background: rgba(255,255,255,.9); }
-#nav:checked ~ .layout aside { transform: translateX(0); }
-.overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; z-index: 40; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-#nav:checked ~ .overlay { display: block; }
-.nav-section {
-  font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;
-  color: var(--muted); margin-bottom: 8px; margin-top: 16px;
-}
-.navbtn {
-  padding: 12px 14px; border-radius: 10px; color: var(--ink-secondary); text-decoration: none;
-  border: 1px solid transparent; display: flex; align-items: center; gap: 10px;
-  font-weight: 500; transition: all 0.2s ease; position: relative;
-}
-.navbtn::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); opacity: .6; transition: all .2s ease; }
-.navbtn.active, .navbtn:hover { background: var(--glass-strong); border-color: var(--stroke-light); color: var(--ink); transform: translateX(4px); }
-.navbtn.active::before { background: var(--prime); opacity: 1; box-shadow: 0 0 8px var(--prime); }
-.main { flex: 1; padding: 24px; transition: margin-left .3s ease; min-height: 100%; }
-@media(min-width: 1024px) { 
-  aside { position: sticky; top: 70px; transform: none; } 
-  .main { margin-left: 280px; padding: 32px; } 
-  .overlay { display: none !important; }
+  background: rgba(12, 12, 15, 0.85);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* Cards */
-.card {
-  background: linear-gradient(135deg, var(--panel) 0%, rgba(18, 19, 28, 0.8) 100%);
-  border: 1px solid var(--stroke); border-radius: 16px; padding: 20px;
-  box-shadow: var(--shadow); transition: all .3s ease; position: relative; overflow: hidden;
+
+.hero h1 {
+  margin-top: 8rem !important;
+  padding-top: 1rem;
 }
-:root[data-theme="light"] .card{ background: var(--panel); }
-.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); }
-.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--stroke-light); }
-.card.primary { background: linear-gradient(135deg, rgba(139,92,246,.1) 0%, rgba(109,40,217,.05) 100%); border-color: rgba(139,92,246,.2); }
-.card.total-pnl { background: linear-gradient(135deg, rgba(139,92,246,.15) 0%, rgba(109,40,217,.08) 100%); border-color: rgba(139,92,246,.3); }
-.card.danger-alert { background: linear-gradient(135deg, rgba(239,68,68,.1) 0%, rgba(220,38,38,.05) 100%); border-color: rgba(239,68,68,.2); }
-.card.warning-alert { background: linear-gradient(135deg, rgba(245,158,11,.1) 0%, rgba(217,119,6,.05) 100%); border-color: rgba(245,158,11,.2); }
-.card h3 { margin: 0 0 12px; font-size: 12px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
-
-/* KPIs */
-.kpi { font-size: 32px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink); transition: all .3s ease; }
-.kpi.large { font-size: 48px; }
-.kpi.positive { color: var(--success); }
-.kpi.negative { color: var(--danger); }
-.kpi-change { display:flex; align-items:center; gap:4px; font-size:13px; font-weight:600; }
-.kpi-change.positive { color: var(--success); }
-.kpi-change.negative { color: var(--danger); }
-.kpi-change::before { content: '↗'; font-size: 14px; }
-.kpi-change.negative::before { content: '↘'; }
-
-/* Grid */
-.grid { display: grid; gap: 16px; }
-.g-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.g-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.g-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.g-1-2 { grid-template-columns: 2fr 1fr; }
-@media(max-width: 1280px) { .g-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media(max-width: 768px)  { .g-4, .g-3, .g-2, .g-1-2 { grid-template-columns: 1fr; } }
-
-/* Buttons + badges */
-.btn {
-  padding: 10px 14px; border-radius: 10px; border: 1px solid var(--stroke);
-  background: var(--glass); color: var(--ink); cursor: pointer; font-weight: 700; font-size: 14px;
-  transition: all .2s ease; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; position: relative; overflow: hidden;
+@media (max-width: 768px) {
+  .hero h1 {
+    margin-top: 10rem !important;
+    padding-top: 1.5rem;
+  }
 }
-.btn:hover { background: var(--glass-strong); border-color: var(--stroke-light); transform: translateY(-1px); }
-.btn.primary { background: linear-gradient(135deg, var(--prime) 0%, var(--prime-dark) 100%); border-color: var(--prime-dark); color: #fff; box-shadow: 0 4px 14px rgba(139, 92, 246, .3); }
-.btn.primary:hover { background: linear-gradient(135deg, var(--prime-light) 0%, var(--prime) 100%); box-shadow: 0 6px 20px rgba(139, 92, 246, .4); }
-.btn.danger { background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%); border-color: #dc2626; color: #fff; box-shadow: 0 4px 14px rgba(239,68,68,.3); }
-.btn.danger:hover { background: linear-gradient(135deg, #f87171 0%, var(--danger) 100%); box-shadow: 0 6px 20px rgba(239,68,68,.4); }
-.btn.info { background: linear-gradient(135deg, var(--info) 0%, #2563eb 100%); border-color: #2563eb; color: #fff; box-shadow: 0 4px 14px rgba(59,130,246,.3); }
-.btn.info:hover { background: linear-gradient(135deg, #60a5fa 0%, var(--info) 100%); box-shadow: 0 6px 20px rgba(59,130,246,.4); }
-.btn.sm{ padding:8px 10px; font-size:12px; }
-.btn.xs{ padding:6px 8px; font-size:11px; }
 
-/* Badges */
-.badge { display:inline-flex; align-items:center; gap:4px; padding:6px 10px; border-radius: 12px; border:1px solid var(--stroke); background:var(--glass); font-size:11px; font-weight:700; color:var(--ink); }
-.badge.success { background: var(--success-bg); border-color: rgba(16,185,129,.2); color: var(--success); }
-.badge.danger  { background: var(--danger-bg);  border-color: rgba(239,68,68,.2); color: var(--danger); }
-.badge.warning { background: var(--warning-bg); border-color: rgba(245,158,11,.2); color: var(--warning); }
-.badge.info { background: var(--info-bg); border-color: rgba(59,130,246,.2); color: var(--info); }
 
-/* Tables */
-.table-container { overflow-x: auto; border-radius: 12px; border: 1px solid var(--stroke); background: var(--panel); }
-table { width: 100%; border-collapse: collapse; }
-th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--stroke); color: var(--ink); white-space: nowrap; }
-th { background: var(--glass); color: var(--muted); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; position: sticky; top: 0; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-tr:hover { background: var(--glass); }
-tr:last-child td { border-bottom: none; }
-
-/* Forms */
-.form-input { padding: 12px 14px; border-radius: 8px; border: 1px solid var(--stroke); background: var(--glass); color: var(--ink); font-size: 14px; transition: all .2s; width: 100%; }
-.form-input:focus { outline: none; border-color: var(--prime); background: var(--glass-strong); box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1); }
-.form-label { color: var(--ink-secondary); font-size: 12px; margin-bottom: 6px; display: block; font-weight: 600; }
-.form-group { margin-bottom: 16px; }
-
-/* Muted text */
-.muted { color: var(--muted); }
-
-/* Page visibility */
-section[data-page] { display: none; visibility: hidden; width: 100%; }
-section[data-page].show { display: block; visibility: visible; }
-
-/* Alert cards */
-.alert-card { padding: 16px; border-radius: 12px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s ease; }
-.alert-card:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
-.alert-card.danger { background: var(--danger-bg); border: 1px solid rgba(239,68,68,.2); }
-.alert-card.warning { background: var(--warning-bg); border: 1px solid rgba(245,158,11,.2); }
-.alert-card.info { background: var(--info-bg); border: 1px solid rgba(59,130,246,.2); }
-.alert-card .alert-icon { font-size: 18px; }
-.alert-card .alert-content { flex: 1; }
-.alert-card .alert-title { font-weight: 700; margin-bottom: 4px; }
-.alert-card .alert-message { font-size: 13px; opacity: 0.9; }
-
-/* Risk indicators */
-.risk-indicator { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; }
-.risk-indicator.low { background: var(--success-bg); color: var(--success); }
-.risk-indicator.medium { background: var(--warning-bg); color: var(--warning); }
-.risk-indicator.high { background: var(--danger-bg); color: var(--danger); }
-
-/* Daily Loss Status */
-.loss-status { padding: 16px; border-radius: 12px; margin-bottom: 16px; }
-.loss-status.profitable { background: var(--success-bg); border: 1px solid rgba(16,185,129,.2); }
-.loss-status.approaching { background: var(--warning-bg); border: 1px solid rgba(245,158,11,.2); }
-.loss-status.exceeded { background: var(--danger-bg); border: 1px solid rgba(239,68,68,.2); animation: pulse-danger 2s infinite; }
-@keyframes pulse-danger { 0%,100%{opacity:1} 50%{opacity:.7} }
-.loss-status-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.loss-status-title { font-weight: 800; font-size: 16px; }
-.loss-status-value { font-weight: 800; font-size: 18px; }
-.loss-progress { height: 12px; background: var(--bg-secondary); border-radius: 6px; overflow: hidden; position: relative; }
-.loss-progress-bar { height: 100%; border-radius: 6px; transition: all 0.3s ease; }
-.loss-progress-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 10px; font-weight: 700; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-
-/* Sync status */
-.sync-status { display: flex; align-items: center; gap: 6px; font-size: 12px; }
-.sync-dot { width: 8px; height: 8px; border-radius: 50%; }
-.sync-dot.healthy { background: var(--success); animation: pulse 2s infinite; }
-.sync-dot.delayed { background: var(--warning); }
-.sync-dot.failed { background: var(--danger); }
-
-/* Position management */
-.position-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--stroke); border-radius: 10px; margin: 4px; background: var(--glass); cursor: pointer; transition: all 0.2s ease; position: relative; }
-.position-chip:hover { background: var(--glass-strong); border-color: var(--stroke-light); }
-.position-chip .position-close { opacity: 0.6; font-size: 16px; margin-left: 8px; }
-.position-chip .position-close:hover { opacity: 1; color: var(--danger); }
-.position-chip .position-tooltip { position: absolute; top: -40px; left: 50%; transform: translateX(-50%); background: var(--panel); border: 1px solid var(--stroke); border-radius: 8px; padding: 8px 12px; font-size: 11px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 100; }
-.position-chip:hover .position-tooltip { opacity: 1; }
-
-/* Copy trading hierarchy */
-.leader-group { margin-bottom: 24px; }
-.leader-header { display: flex; align-items: center; gap: 12px; padding: 16px; background: var(--glass-strong); border: 1px solid var(--stroke-light); border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s ease; }
-.leader-header:hover { background: var(--glass); }
-.leader-header .group-icon { font-size: 16px; }
-.leader-header .group-title { flex: 1; font-weight: 700; }
-.leader-header .group-stats { display: flex; gap: 16px; font-size: 12px; color: var(--muted); }
-.leader-header .expand-icon { transition: transform 0.2s ease; }
-.leader-group.collapsed .expand-icon { transform: rotate(-90deg); }
-.leader-group.collapsed .follower-list { display: none; }
-
-.account-card { border: 1px solid var(--stroke); border-radius: 12px; background: var(--panel); margin-bottom: 8px; overflow: hidden; }
-.account-card.leader { background: linear-gradient(135deg, var(--glass-strong) 0%, var(--glass) 100%); }
-.account-card.follower { margin-left: 24px; position: relative; }
-.account-card.follower::before { content: ''; position: absolute; left: -12px; top: 0; bottom: 0; width: 2px; background: var(--stroke-light); }
-.account-card.follower::after { content: ''; position: absolute; left: -12px; top: 50%; width: 12px; height: 2px; background: var(--stroke-light); }
-
-.account-header { display: flex; align-items: center; justify-content: space-between; padding: 16px; }
-.account-info { flex: 1; }
-.account-name { font-weight: 700; margin-bottom: 4px; }
-.account-meta { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
-.account-stats { display: flex; gap: 16px; font-size: 12px; }
-.account-actions { display: flex; align-items: center; gap: 8px; }
-
-/* Trading Journal */
-.performance-metric { text-align: center; padding: 16px; border: 1px solid var(--stroke); border-radius: 10px; background: var(--glass); }
-.performance-metric .metric-value { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
-.performance-metric .metric-label { font-size: 11px; text-transform: uppercase; color: var(--muted); }
-
-.trade-entry { border: 1px solid var(--stroke); border-radius: 12px; padding: 16px; margin-bottom: 12px; background: var(--glass); }
-.trade-entry:hover { background: var(--glass-strong); }
-.trade-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.trade-meta { display: flex; gap: 12px; font-size: 12px; color: var(--muted); }
-
-/* Calendar */
-.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 16px; }
-.calendar-day { aspect-ratio: 1; border: 1px solid var(--stroke); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; transition: all 0.2s ease; background: var(--panel); }
-.calendar-day:hover { background: var(--glass-strong); transform: translateY(-1px); }
-.calendar-day.win { border-color: rgba(16,185,129,.4); background: var(--success-bg); }
-.calendar-day.loss { border-color: rgba(239,68,68,.4); background: var(--danger-bg); }
-.calendar-day.empty { border: none; background: transparent; cursor: default; }
-.calendar-day.empty:hover { background: transparent; transform: none; }
-.calendar-day-number { font-size: 11px; font-weight: 700; color: var(--muted); }
-.calendar-day-pnl { font-size: 12px; font-weight: 800; margin-top: 4px; }
-
-/* Chart containers */
-.chart-container { width: 100%; height: 120px; margin-top: 12px; }
-.chart-container.large { height: 200px; }
-
-/* Modal improvements */
-.modal-backdrop{ position: fixed; inset: 0; background: rgba(0,0,0,.6); display:none; z-index: 200; backdrop-filter: blur(4px); }
-.modal{ position: fixed; inset: 0; display:none; z-index: 210; align-items:center; justify-content:center; padding: 20px; }
-.modal.open,.modal-backdrop.open{display:flex;}
-.modal-card{ width: 100%; max-width: 600px; background: var(--panel); border:1px solid var(--stroke); border-radius:16px; box-shadow: var(--shadow-lg); padding:20px 24px; max-height: 80vh; overflow-y: auto; }
-.modal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;}
-.modal-body{display:grid; gap:16px;}
-.modal-footer{display:flex; justify-content:flex-end; gap:12px; margin-top:16px;}
-
-/* Correlation modal specific */
-.correlation-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 1px solid var(--stroke); border-radius: 8px; margin-bottom: 8px; background: var(--glass); }
-.correlation-value { font-weight: 700; }
-.correlation-value.high { color: var(--danger); }
-.correlation-value.medium { color: var(--warning); }
-.correlation-value.low { color: var(--success); }
-
-/* Quick actions */
-.quick-actions{ position: fixed; bottom: 16px; right: 16px; z-index: 80; display: flex; flex-direction: column; gap: 8px; }
-.quick-action{ width: 48px; height: 48px; border-radius: 12px; border: 1px solid var(--stroke); background: var(--glass); color: var(--ink); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
-.quick-action:hover { background: var(--glass-strong); transform: translateY(-2px); }
-
-/* SVG and Charts */
-.svg { width: 100%; height: 100%; display: block; }
-
-/* Desktop specific hiding for mobile elements */
-@media (min-width: 768px) { 
-  .mobile-only { display: none; }
+.hero h1 {
+  margin-top: 5rem;
 }
-@media (max-width: 767.98px) { 
-  .desktop-only { display: none; }
+@media (max-width: 768px) {
+  .hero h1 {
+    margin-top: 6rem;
+  }
+}
+
+
+.hero h1 {
+  margin-top: 2rem;
+}
+@media (max-width: 768px) {
+  .hero h1 {
+    margin-top: 3rem;
+  }
+}
+
+
+    /* ------- THEME & GLOBAL ------- */
+    :root{--bg:#ffffff;--bg-alt:#f7f8fa;--text:#121212;--text-muted:#62646e;--brand:#4d64ff;--accent:#00e0ff;--card-bg:#fff;--shadow:rgba(0,0,0,.07);--grad:linear-gradient(135deg,#4d64ff 0%,#00e0ff 100%)}
+    [data-theme="dark"]{--bg:#0c0c0f;--bg-alt:#1c1c22;--text:#f3f3f3;--text-muted:#8e92a4;--card-bg:#18181f;--shadow:rgba(0,0,0,.4);--grad:linear-gradient(135deg,#7c7bff 0%,#00d1ff 100%)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;transition:background .3s}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit;border:none;cursor:pointer}
+    .container{max-width:1220px;margin-inline:auto;padding-inline:1rem}
+    .btn{display:inline-block;padding:.75rem 1.8rem;border-radius:10px;font-weight:600;transition:transform .25s,box-shadow .25s}
+    .btn:hover{transform:translateY(-3px)}
+    .btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 24px rgba(77,100,255,.35)}
+    .btn-outline{border:2px solid var(--brand);color:var(--brand)}
+    .btn-outline:hover{background:var(--brand);color:#fff}
+
+    /* ------- HEADER ------- */
+    header{position:fixed;top:0;left:0;width:100%;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:rgba(12,12,15,.78);backdrop-filter:blur(14px);transition:padding .25s,box-shadow .25s}
+    header.scrolled{padding:.6rem 2rem;box-shadow:0 2px 12px rgba(0,0,0,.4)}
+    .logo{font-weight:700;font-size:1.25rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    nav{display:flex;gap:2rem}
+    nav a{font-weight:600;color:var(--text-muted);position:relative;transition:color .25s}
+    nav a:hover{color:var(--brand)}
+    nav a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--grad);transition:width .25s}
+    nav a:hover::after{width:100%}
+
+    /* ------- HERO ------- */
+    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 1rem;position:relative}
+    .badge{display:inline-block;padding:.35rem 1rem;border-radius:18px;background:var(--accent);color:#000;font-weight:600;font-size:.7rem;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+    .hero h1{font-size:clamp(2.5rem,6vw,4rem);font-weight:700;max-width:820px;line-height:1.18;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero p{max-width:630px;color:var(--text-muted);margin-top:1.1rem;font-size:1.1rem;line-height:1.75}
+    .cta-group{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem;justify-content:center}
+
+    /* ------- BRAND CAROUSEL ------- */
+    .brand-marquee{margin-top:3.5rem;width:100%;pointer-events:none}
+    .brand-wrapper{max-width:640px;margin-inline:auto;overflow:hidden;position:relative}
+    .brand-wrapper::before,.brand-wrapper::after{content:"";position:absolute;top:0;width:92px;height:100%;z-index:2;pointer-events:none}
+    .brand-wrapper::before{left:0;background:linear-gradient(90deg,var(--bg) 0%,transparent 100%)}
+    .brand-wrapper::after{right:0;background:linear-gradient(-90deg,var(--bg) 0%,transparent 100%)}
+    .brand-track{display:flex;gap:3.75rem;width:calc(200% + 3.75rem);animation:scrollBrands 22s linear infinite}
+    .brand-track img{height:28px;filter:grayscale(1) brightness(.8);opacity:.8;transition:opacity .25s}
+    .brand-track:hover img{opacity:1;filter:grayscale(0) brightness(1)}
+    @keyframes scrollBrands{0%{transform:translateX(0)}100%{transform:translateX(calc(-50% - 1.875rem))}}
+
+    /* ------- GLOBE ------- */
+    .globe-wrap{width:380px;height:380px;position:absolute;bottom:-85px;left:50%;transform:translateX(-50%);pointer-events:none}
+    .globe{width:100%;height:100%;border-radius:50%;background:url('https://framerusercontent.com/images/fUKnvbYsyFfyuseumvMsvqz4.png') center/contain no-repeat;animation:spin 36s linear infinite;filter:drop-shadow(0 0 26px rgba(77,100,255,.3))}
+    @keyframes spin{to{transform:rotateY(360deg)}}
+
+   /* ------- FEATURES ------- */
+    #features{padding:7.5rem 0}
+    .features-header{display:grid;grid-template-columns:1fr 2fr;gap:3rem;margin-top:4rem}
+    .features-header h2{font-size:2rem;font-weight:700;margin-bottom:1rem}
+    .features-header p{color:var(--text-muted);margin-top:.5rem;max-width:420px;font-size:1.05rem}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.7rem}
+    .feature-card{background:var(--card-bg);padding:2.2rem;border-radius:18px;box-shadow:0 8px 20px var(--shadow);transition:transform .35s,box-shadow .35s;border:1px solid transparent}
+    .feature-card:hover{transform:translateY(-8px);box-shadow:0 14px 32px var(--shadow);border-color:var(--brand)}
+    .feature-card h4{font-size:1.15rem;font-weight:600;margin-bottom:.5rem;color:var(--brand)}
+    .feature-card p{color:var(--text-muted);font-size:.95rem;line-height:1.55}
+
+    /* ------- SERVICES ------- */
+    #services{padding:7.5rem 0;background:var(--bg-alt)}
+    .services-header{text-align:center;margin-bottom:4rem}
+    .services-header h2{font-size:2.4rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem}
+    .services-header p{color:var(--text-muted);font-size:1.05rem}
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
+    .service-card{background:var(--card-bg);border-radius:22px;padding:2.8rem;box-shadow:0 10px 28px var(--shadow);position:relative;overflow:hidden;transition:transform .35s,box-shadow .35s;border:1px solid transparent}
+    .service-card:hover{transform:translateY(-10px);box-shadow:0 18px 46px var(--shadow);border-color:var(--brand)}
+    .service-card::before{content:"";position:absolute;top:0;left:0;width:100%;height:4px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+    .service-card:hover::before{transform:scaleX(1)}
+    .service-icon{width:58px;height:58px;border-radius:14px;background:var(--grad);display:flex;align-items:center;justify-content:center;margin-bottom:1.3rem;font-size:1.35rem;color:#fff}
+    .service-card h3{font-size:1.55rem;font-weight:700;margin-bottom:.8rem}
+    .service-card p{color:var(--text-muted);font-size:.97rem;line-height:1.65;margin-bottom:1.4rem}
+    .service-features{list-style:none;margin-bottom:1.8rem}
+    .service-features li{position:relative;padding-left:1.4rem;font-size:.9rem;color:var(--text-muted);margin:.3rem 0}
+    .service-features li::before{content:"✓";position:absolute;left:0;color:var(--brand);font-weight:bold}
+    .service-price{font-weight:700;color:var(--brand);margin-bottom:1.4rem;font-size:1.1rem}
+
+    /* ------- STATS ------- */
+    #stats{padding:7.5rem 0;background:var(--bg)}
+    .stats-header{text-align:center;margin-bottom:3.5rem}
+    .stats-header h2{font-size:2.4rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2rem}
+    .stat{background:var(--card-bg);border-radius:20px;padding:2.5rem;text-align:center;box-shadow:0 8px 22px var(--shadow);position:relative;overflow:hidden;border:1px solid transparent;transition:transform .35s,box-shadow .35s}
+    .stat:hover{transform:translateY(-8px);box-shadow:0 16px 40px var(--shadow);border-color:var(--brand)}
+    .stat::before{content:"";position:absolute;top:0;left:0;width:100%;height:4px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+    .stat:hover::before{transform:scaleX(1)}
+    .stat .num{font-size:3.2rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.4rem;display:block}
+    .stat p{color:var(--text-muted);font-size:.95rem}
+
+    /* ------- FAQ ------- */
+    #faq{padding:7.5rem 0;background:var(--bg-alt)}
+    .faq-wrapper{max-width:900px;margin-inline:auto}
+    .faq-item{border-bottom:1px solid rgba(255,255,255,.1);padding:1.1rem 0;cursor:pointer;transition:background .25s}
+    .faq-question{display:flex;justify-content:space-between;align-items:center;font-weight:600}
+    .faq-toggle{width:24px;height:24px;border-radius:6px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:transform .25s}
+    .faq-answer{max-height:0;overflow:hidden;color:var(--text-muted);transition:max-height .4s ease,opacity .4s ease;padding-right:.5rem}
+    .faq-answer p{padding-top:.85rem;line-height:1.6;font-size:.95rem}
+    .faq-item.open .faq-toggle{transform:rotate(45deg)}
+    .faq-item.open .faq-answer{max-height:240px;opacity:1}
+
+    /* ------- FOOTER (RESTORED) ------- */
+    footer{padding:4rem 0;background:var(--bg-alt);border-top:1px solid rgba(255,255,255,.1)}
+    .footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:3rem;margin-bottom:3rem}
+    .footer-section h4{font-size:1.2rem;font-weight:600;margin-bottom:1rem;color:var(--text)}
+    .footer-section p,.footer-section a{color:var(--text-muted);line-height:1.6;transition:color .3s ease}
+    .footer-section a:hover{color:var(--brand)}
+    .footer-cta{text-align:center;padding:3rem 0;border-top:1px solid rgba(255,255,255,.1)}
+    .footer-cta h3{font-size:1.8rem;font-weight:700;margin-bottom:1rem;color:var(--text)}
+    .footer-cta p{color:var(--text-muted);margin-bottom:2rem}
+    .footer-bottom{text-align:center;padding-top:2rem;border-top:1px solid rgba(255,255,255,.1);color:var(--text-muted)}
+
+    /* ------- RESPONSIVE ------- */
+    @media(max-width:768px){nav{display:none}.services-grid,.stats-grid{grid-template-columns:1fr}.brand-wrapper{max-width:90%}.hero h1{font-size:2.6rem}}
+  
+
+/* --- Custom Enhancements --- */
+.particles-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: none;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero > *:not(.particles-bg) {
+  position: relative;
+  z-index: 1;
+}
+.hero {
+  padding-bottom: 2rem;
+}
+#features {
+  padding-top: 5rem;
+}
+header.scrolled {
+  padding-left: 2rem;
+  margin-top: -2rem;
+
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  background: var(--card-bg);
+  width: fit-content;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 0.25s ease-in-out; opacity: 0.98;
+}
+header.scrolled .logo {
+  display: none;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* --- Additional Enhancements --- */
+html {
+  scroll-behavior: smooth;
+}
+* {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Morph nav links on scroll (optional tweak) */
+header.scrolled nav a {
+  font-size: 0.9rem;
+  padding: 0.2rem 0.6rem;
+}
+
+/* Optional scroll animations */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+[data-animate].visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Animated particles */
+@keyframes floaty {
+  0% { transform: translateY(0px) scale(1); opacity: 0.6; }
+  50% { transform: translateY(-20px) scale(1.1); opacity: 1; }
+  100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+}
+.particles-bg::before,
+.particles-bg::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.6;
+  animation: floaty 6s ease-in-out infinite;
+}
+.particles-bg::before {
+  top: 20%;
+  left: 30%;
+  animation-delay: 0s;
+}
+.particles-bg::after {
+  top: 60%;
+  left: 65%;
+  animation-delay: 3s;
+}
+
+header {
+  padding-left: 2rem;
+  padding-top: 0.8rem;
+
+  transition: all 0.5s ease-in-out;
+}
+nav a, .logo, .btn {
+  transition: all 0.3s ease-in-out;
+}
+
+
+/* Header alignment + bubble */
+header.scrolled {
+  padding-left: 2rem;
+  margin-top: -2rem;
+
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  border-radius: 30px;
+  background: var(--card-bg);
+  width: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90%;
+}
+header.scrolled nav {
+  justify-content: center;
+}
+header.scrolled .logo {
+  display: none;
+}
+
+/* Fix brand shading gradient ends */
+.brand-wrapper::before,
+.brand-wrapper::after {
+  width: 120px;
+}
+
+/* Shrink gap between hero and features */
+.hero {
+  padding-bottom: 1rem !important;
+}
+#features {
+  padding-top: 4rem !important;
+}
+
+/* Scroll animation fade-in fix */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+[data-animate].visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Enhanced Particles: more floating orbs */
+.particles-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.particles-bg span {
+  position: absolute;
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.35;
+  animation: floaty 6s ease-in-out infinite;
+}
+@keyframes floaty {
+  0% { transform: translateY(0px) scale(1); opacity: 0.4; }
+  50% { transform: translateY(-30px) scale(1.3); opacity: 1; }
+  100% { transform: translateY(0px) scale(1); opacity: 0.4; }
+}
+
+.brand-wrapper::before,
+.brand-wrapper::after {
+  width: 160px;
+}
+
+/* Fix header alignment */
+header {
+  padding-left: 2rem;
+  padding-top: 0.8rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+}
+nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.logo {
+  margin-right: auto;
+}
+
+/* Bubble header tweak */
+header.scrolled {
+  padding-left: 2rem;
+  margin-top: -2rem;
+
+  padding: 1.1rem 2rem;
+  max-width: 100%;
+  margin-top: 1.5rem;
+}
+
+/* Final spacing fix */
+.hero {
+  padding-bottom: 0rem !important;
+}
+#features {
+  padding-top: 3rem !important;
+}
+
+
+/* Massive particle boost + parallax */
+.particles-bg span {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.25;
+  animation: floatyParallax linear infinite;
+  mix-blend-mode: screen;
+}
+@keyframes floatyParallax {
+  0% { transform: translateY(0) scale(1); opacity: 0.5; }
+  50% { transform: translateY(-40px) scale(1.15); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 0.5; }
+}
+
+/* Shrink spacing even more before features */
+#features {
+  padding-top: 2rem !important;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+}
+.hero p {
+  font-size: 1.3rem;
+  max-width: 740px;
+}
+
+/* Stronger brand fade gradient fix */
+.brand-wrapper::before {
+  background: linear-gradient(to right, var(--bg), rgba(12,12,15,0));
+}
+.brand-wrapper::after {
+  background: linear-gradient(to left, var(--bg), rgba(12,12,15,0));
+}
+
+.hero h1 {
+  font-size: clamp(3.5rem, 8vw, 6rem);
+}
+.hero p {
+  font-size: 1.35rem;
+  max-width: 760px;
+}
+
+.brand-wrapper::before {
+  background: linear-gradient(to right, var(--bg), rgba(12,12,15,0));
+}
+.brand-wrapper::after {
+  background: linear-gradient(to left, var(--bg), rgba(12,12,15,0));
+}
+
+.brand-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-wrapper::before,
+.brand-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  backdrop-filter: blur(4px);
+}
+
+.brand-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, #0c0c0f, rgba(12, 12, 15, 0));
+}
+
+.brand-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, #0c0c0f, rgba(12, 12, 15, 0));
+}
+
+
+.brand-scroller {
+  --mask-width: 80px;
+  -webkit-mask-image: linear-gradient(to right,
+    transparent 0,
+    black var(--mask-width),
+    black calc(100% - var(--mask-width)),
+    transparent 100%);
+  mask-image: linear-gradient(to right,
+    transparent 0,
+    black var(--mask-width),
+    black calc(100% - var(--mask-width)),
+    transparent 100%);
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+}
+
+.brand-strip-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-strip {
+  display: flex;
+  gap: 3rem;
+  animation: scroll 40s linear infinite;
+  align-items: center;
+}
+
+.brand-strip img {
+  max-height: 32px;
+  object-fit: contain;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.brand-section::before,
+.brand-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.brand-section::before {
+  left: 0;
+  background: linear-gradient(to right, #0a0a0a, transparent);
+}
+
+.brand-section::after {
+  right: 0;
+  background: linear-gradient(to left, #0a0a0a, transparent);
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 1rem;
+    background: var(--bg-alt);
+    position: absolute;
+    top: 100%;
+    right: 0;
+    padding: 1rem;
+    display: none;
+  }
+  .cta-group {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .features-header {
+  padding-left: 2rem;
+  padding-top: 0.8rem;
+
+    grid-template-columns: 1fr !important;
+    text-align: center;
+  }
+  .features-grid {
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .hero h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  .hero p {
+    font-size: 1rem;
+    padding: 0 0.5rem;
+  }
+  .brand-logo {
+    height: 24px;
+  }
+  .brand-scroll {
+    gap: 2rem;
+  }
+}
+
+/* Brand scroll fixes */
+.brand-scroll-wrapper {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+  flex-shrink: 0;
+  min-width: 200%;
+}
+body {
+  overflow-x: hidden;
+}
+
+
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 2rem 0;
+}
+  display: flex;
+  gap: 3rem;
+  animation: scrollBrands 30s linear infinite;
+  align-items: center;
+}
+.brand-logo {
+  height: 40px;
+  width: auto;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+.brand-logo:hover {
+  opacity: 1;
+}
+@keyframes scrollBrands {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.brand-scroll-gradient-left,
+.brand-scroll-gradient-right {
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+.brand-scroll-gradient-left {
+  left: 0;
+  background: linear-gradient(to right, #0a0a0a, transparent);
+}
+  right: 0;
+  background: linear-gradient(to left, #0a0a0a, transparent);
+}
+/* Final responsive fix */
+.brand-scroll-wrapper {
+  max-width: 100%;
+  padding: 1.5rem 1rem;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+.brand-scroll {
+  display: flex;
+  gap: 2rem;
+  animation: scrollBrands 30s linear infinite;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+    padding: 0 1rem;
+  }
+  .hero p {
+    font-size: 1rem;
+    padding: 0 1.5rem;
+  }
+  .brand-scroll {
+    gap: 1.2rem;
+    flex-wrap: nowrap;
+  }
+  .footer-content {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+  }
+}
+@media (orientation: landscape) and (max-width: 812px) {
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .hero p {
+    font-size: 0.95rem;
+  }
+}
+
+header, footer {
+  background-color: var(--card);
+  color: var(--text);
+  padding: 2rem;
+}
+footer {
+  border-top: 1px solid var(--accent);
+}
+
+header {
+  padding-left: 2rem;
+  padding-top: 0.8rem;
+
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+header nav {
+  display: flex;
+  gap: 1rem;
+}
+header button
+.toggle-theme {
+  display: inline-block;
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-weight: 600;
+  vertical-align: middle;
+  background: transparent;
+  border: 1px solid var(--text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  line-height: 1;
+}
+.toggle-theme:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+.toggle-theme svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin: auto;
+}
+[data-theme="light"] .toggle-theme svg {
+  stroke: #121212;
+}
+[data-theme="dark"] .toggle-theme svg {
+  stroke: #ffffff;
+}
+
+
+
+
+.toggle-theme {
+  display: inline-block;
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-weight: 600;
+  vertical-align: middle;
+  background: transparent;
+  border: 1px solid var(--text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  line-height: 1;
+}
+.toggle-theme:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+.toggle-theme svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin: auto;
+}
+[data-theme="light"] .toggle-theme svg {
+  stroke: #121212;
+}
+[data-theme="dark"] .toggle-theme svg {
+  stroke: #ffffff;
+}
+
+
+
+.animated-brand-row {
+  overflow: hidden;
+  width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  justify-content: center;
+  background: var(--bg);
+}
+.brand-bounce-track {
+  display: flex;
+  gap: 3rem;
+  animation: bounceScroll 16s ease-in-out infinite alternate;
+  align-items: center;
+}
+.brand-bounce-track img {
+  height: 30px;
+  filter: grayscale(1) brightness(0.85);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+.brand-bounce-track img:hover {
+  filter: grayscale(0) brightness(1);
+  opacity: 1;
+}
+@keyframes bounceScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+.brand-bounce-section {
+  padding: 2rem 0;
+  background: var(--bg);
+}
+.brand-bounce-wrapper {
+  overflow: hidden;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+}
+.brand-bounce-track {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: max-content;
+  animation: scrollLoop 20s linear infinite;
+}
+@keyframes scrollLoop {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+  100% {
+    transform: translateX(-50%);
+  }
+}
+  100% {
+    transform: translateX(-100%);
+  }
+}
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+        .stat .num {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 0.5rem;
+            white-space: nowrap;
+        }
+        
+.stats-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.5rem;
+  flex-direction: row;
+}
+.stat-card .stat-value {
+  white-space: nowrap;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #4d64ff;
+  text-align: center;
+}
+
+@media(min-width: 768px) {
+  .stats-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+}
+.stat-card .stat-value {
+  white-space: nowrap;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #4d64ff;
+  text-align: center;
+}
+
+.price-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #4d64ff 0%, #00e0ff 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1aa3ff;
+  white-space: nowrap;
 }
 </style>
+<style>
+.brand-scroll-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 2rem 0;
+}
+.brand-scroll {
+  display: flex;
+  gap: 3rem;
+  animation: scrollBrands 30s linear infinite;
+  align-items: center;
+}
+.brand-logo {
+  height: 40px;
+  width: auto;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+.brand-logo:hover {
+  opacity: 1;
+}
+@keyframes scrollBrands {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.brand-scroll-gradient-left,
+.brand-scroll-gradient-right {
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+.brand-scroll-gradient-left {
+  left: 0;
+  background: linear-gradient(to right, #0a0a0a, transparent);
+}
+.brand-scroll-gradient-right {
+  right: 0;
+  background: linear-gradient(to left, #0a0a0a, transparent);
+}
+
+[data-theme="light"] .toggle-theme svg {
+  stroke: #121212;
+}
+[data-theme="dark"] .toggle-theme svg {
+  stroke: #ffffff;
+}
+
+
+.price-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #4d64ff 0%, #00e0ff 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1aa3ff;
+  white-space: nowrap;
+}
+</style>
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --accent: #4d64ff;
+  --card: #f2f2f2;
+}
+[data-theme="dark"] {
+  --bg: #0c0c0f;
+  --text: #ffffff;
+  --accent: #00e0ff;
+  --card: #1c1c22;
+}
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+header, footer, .card, .section {
+  background-color: var(--card);
+  color: var(--text);
+}
+.toggle-theme {
+  height: 42px;
+  width: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  box-sizing: border-box;
+
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+[data-theme="light"] .toggle-theme svg {
+  stroke: #121212;
+}
+[data-theme="dark"] .toggle-theme svg {
+  stroke: #ffffff;
+}
+
+
+.price-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #4d64ff 0%, #00e0ff 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1aa3ff;
+  white-space: nowrap;
+}
+</style>
+<style>
+.theme-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+    display: inline-flex;
+    align-items: center;
+    margin-left: 1rem;
+    position: relative;
+}
+.toggle-theme {
+  height: 42px;
+  width: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  box-sizing: border-box;
+
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+}
+.toggle-theme svg {
+  display: block;
+  margin: auto;
+  vertical-align: middle;
+
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin: 0;
+
+    stroke: #fff;
+    width: 20px;
+    height: 20px;
+}
+.theme-tooltip {
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #00e0ff;
+    color: #000;
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    display: none;
+    z-index: 10;
+}
+
+[data-theme="light"] .toggle-theme svg {
+  stroke: #121212;
+}
+[data-theme="dark"] .toggle-theme svg {
+  stroke: #ffffff;
+}
+
+
+.price-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #4d64ff 0%, #00e0ff 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1aa3ff;
+  white-space: nowrap;
+}
+</style>
+<script>
+function showTooltip() {
+  document.getElementById("theme-tooltip").style.display = "block";
+}
+function hideTooltip() {
+  document.getElementById("theme-tooltip").style.display = "none";
+}
+</script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/><style>
+@keyframes drift {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+.float-drift {
+  animation: drift 6s ease-in-out infinite;
+}
+
+.price-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #4d64ff 0%, #00e0ff 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1aa3ff;
+  white-space: nowrap;
+}
+</style>
+<style>
+@keyframes float-bounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+.float-container {
+  animation: float-bounce 8s ease-in-out infinite;
+}
+
+
+@keyframes hero-vibe {
+  0% { transform: translateY(0) scale(1) rotate(0deg); }
+  20% { transform: translateY(-18px) scale(1.04) rotate(0.5deg); }
+  40% { transform: translateY(12px) scale(1.03) rotate(-0.3deg); }
+  60% { transform: translateY(-12px) scale(1.02) rotate(0.3deg); }
+  80% { transform: translateY(6px) scale(1.01) rotate(-0.2deg); }
+  100% { transform: translateY(0) scale(1) rotate(0deg); }
+}
+
+.float-container {
+  animation: hero-vibe 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.price-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #4d64ff 0%, #00e0ff 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1aa3ff;
+  white-space: nowrap;
+}
+</style>
+<style>
+.tier-bubble {
+    display: inline-block;
+    background: linear-gradient(135deg, #4d64ff, #00e0ff);
+    color: white;
+    font-weight: 600;
+    font-size: 0.65rem;
+    padding: 4px 10px;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90px;
+    text-align: center;
+}
+.stats-card .stat-number {
+    white-space: nowrap;
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #2898ff;
+}
+.stats-section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 2rem 0;
+}
+
+.price-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #4d64ff 0%, #00e0ff 100%);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1aa3ff;
+  white-space: nowrap;
+}
+</style>
+<style>
+.price-bubble {
+  display: inline-block;
+  background: linear-gradient(135deg, #4d64ff, #00e0ff);
+  color: white;
+  font-weight: bold;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+}
+
+.stats-metric span {
+  display: inline-block;
+  white-space: nowrap;
+}
+</style><style>
+.price-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #4d64ff 0%, #00e0ff 100%);
+  color: white;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+</style><style>
+/* Ensure price badge is clean and standalone */
+.price-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #4d64ff 0%, #00e0ff 100%);
+  color: white;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: none !important;
+}
+</style>
+<style>
+/* ---------- MOBILE OVERRIDES ---------- */
+@media (max-width: 768px) {
+  /* Header */
+  header {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.8rem;
+  }
+  header nav {
+    display: none; /* Optional: implement a toggle menu later */
+  }
+
+  /* Hero Section */
+  .hero h1 {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    padding: 0 1rem;
+  }
+  .hero p {
+    font-size: 1rem;
+    padding: 0 1.25rem;
+  }
+  .cta-group {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  /* Brand Strip */
+  .brand-scroll, .brand-bounce-track {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+  .brand-logo, .brand-strip img {
+    height: 28px;
+    max-width: 100px;
+  }
+  .brand-scroll-wrapper,
+  .brand-bounce-wrapper {
+    overflow-x: auto;
+    padding: 1rem 0;
+  }
+
+  /* Pricing Bubble Fix */
+  .price-badge,
+  .price-bubble,
+  .tier-bubble {
+    font-size: 13px;
+    padding: 4px 10px;
+    white-space: nowrap;
+  }
+
+  /* Stats */
+  .stats-grid {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .stat .num,
+  .stat-value,
+  .stat-card .stat-value {
+    font-size: 1.6rem;
+    white-space: nowrap;
+  }
+
+  /* Features */
+  .features-header {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+    padding: 0 1rem;
+  }
+  .features-grid {
+    gap: 1rem;
+  }
+
+  /* Footer */
+  .footer-content {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+  }
+
+  /* Globe */
+  .globe-wrap {
+    transform: scale(0.85);
+    bottom: -50px;
+  }
+}
+</style>
+<style>
+/* ---------- MOBILE HEADER FIXES ---------- */
+@media (max-width: 768px) {
+  body {
+    padding: 0 1.25rem;
+  }
+
+  .section,
+  .features-header,
+  .hero,
+  .footer-content {
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+
+  .mobile-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: var(--bg-alt);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    z-index: 9999;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .mobile-logo {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--text);
+  }
+
+  .mobile-menu-toggle {
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    background: var(--bg);
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    gap: 1rem;
+    z-index: 9998;
+  }
+
+  .mobile-nav a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--bg-alt);
+  }
+
+  .mobile-nav.show {
+    display: flex;
+  }
+}
+</style>
+<style>
+.web-stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.web-stats-grid .stat-block {
+  flex: 1 1 220px;
+  max-width: 300px;
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+  text-align: center;
+}
+.web-stats-grid .stat-block h3 {
+  color: var(--brand);
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+.web-stats-grid .stat-block p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+</style>
+
 </head>
 <body>
-<input id="nav" hidden="" type="checkbox">
-
-<div class="top">
-  <label class="hamb" for="nav">☰</label>
-  <div class="brand">Trader<span style="color:var(--prime)">Duo</span></div>
-  <div class="search"><input placeholder="Search accounts, positions, orders..."></div>
-  <button id="themeBtn" class="theme-toggle" title="Toggle light/dark">🌗 Theme</button>
-  <div class="status-indicator"><span>Live</span></div>
+<div class="mobile-header">
+<div class="mobile-logo">DealGen</div>
+<div class="mobile-menu-toggle" onclick="toggleMenu()">☰</div>
 </div>
-
-<div class="overlay"></div>
-
-<div class="layout">
-  <aside>
-    <div class="nav-section">Dashboard</div>
-    <a class="navbtn active" data-route="overview" href="#overview"><span>Overview</span></a>
-    <a class="navbtn" data-route="copy" href="#copy"><span>Copy Trading</span></a>
-    <a class="navbtn" data-route="journal" href="#journal"><span>Trading Journal</span></a>
-
-    <div class="nav-section">Management</div>
-    <a class="navbtn" data-route="settings" href="#settings"><span>Settings</span></a>
-
-    <div style="margin-top: auto; display: grid; gap: 10px;">
-      <button class="btn danger" id="emergencyStop">🚨 Emergency Stop</button>
-      <button class="btn" id="closeAllPositions">Close All Positions</button>
-      <button class="btn" id="cancelAllOrders">Cancel All Orders</button>
-    </div>
-  </aside>
-
-  <main class="main">
-    <!-- Overview -->
-    <section id="overview" data-page="overview" class="show" style="display: block; visibility: visible;">
-      <!-- Alert Cards -->
-      <div id="alertContainer">
-        <div class="alert-card warning" id="correlationAlert">
-          <div class="alert-icon">⚠️</div>
-          <div class="alert-content">
-            <div class="alert-title">High Position Correlation Detected</div>
-            <div class="alert-message">ESZ5 and NQZ5 positions are 89% correlated - consider reducing exposure</div>
-          </div>
-          <button class="btn xs" id="reviewCorrelation">Review</button>
-        </div>
-      </div>
-
-      <!-- Daily Loss Status -->
-      <div class="loss-status profitable" id="lossStatus">
-        <div class="loss-status-header">
-          <div class="loss-status-title">Daily P&amp;L Status</div>
-          <div class="loss-status-value positive">PROFITABLE: +$581.06</div>
-        </div>
-        <div class="loss-progress">
-          <div class="loss-progress-bar" style="width: 0%; background: linear-gradient(90deg, var(--success), #10b981);"></div>
-          <div class="loss-progress-text">Above Daily Limit - All Good!</div>
-        </div>
-        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px;">
-          <span>Peak Drawdown: <strong style="color: var(--danger);">-$240</strong></span>
-          <span>Time Remaining: <strong>6h 23m</strong></span>
-          <span>Daily Limit: <strong>$1,500</strong></span>
-        </div>
-      </div>
-
-      <!-- Total P&L - Main Card -->
-      <div class="card total-pnl" style="margin-bottom: 20px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div>
-            <h3 style="margin: 0; color: white;">Total P&amp;L</h3>
-            <div class="muted" style="font-size: 12px;">Realized + Unrealized</div>
-          </div>
-          <div style="display: flex; align-items: center; gap: 20px;">
-            <div style="text-align: center;">
-              <div id="totalPnL" class="kpi large" style="margin: 0; color: white;">$581.06</div>
-              <div class="kpi-change positive" id="totalChange">+8.7% today</div>
-            </div>
-            <div style="text-align: right;">
-              <div class="risk-indicator low">Low Risk</div>
-              <div class="muted" style="font-size: 11px; margin-top: 4px;">Risk Score: <span id="riskScore">92/100</span></div>
-            </div>
-          </div>
-        </div>
-        <div style="margin-top: 16px; display: flex; gap: 16px;">
-          <div style="flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
-            <div style="font-size: 11px; color: var(--muted); margin-bottom: 4px;">REALIZED TODAY</div>
-            <div style="font-size: 20px; font-weight: 800; color: var(--danger);">-$76.05</div>
-          </div>
-          <div style="flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 10px;">
-            <div style="font-size: 11px; color: var(--muted); margin-bottom: 4px;">UNREALIZED</div>
-            <div style="font-size: 20px; font-weight: 800; color: var(--success);">$657.11</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Key Metrics Grid -->
-      <div class="grid g-4">
-        <div class="card">
-          <h3>Risk Monitoring</h3>
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-            <span style="font-size: 14px; font-weight: 600;">Margin Usage</span>
-            <span style="font-size: 16px; font-weight: 800;">24.3%</span>
-          </div>
-          <div style="height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
-            <div style="width: 24.3%; height: 100%; background: linear-gradient(90deg, var(--success), var(--warning)); border-radius: 4px;"></div>
-          </div>
-          <div class="muted" style="font-size: 11px; margin-top: 8px;">Buying Power: $156,420 available</div>
-        </div>
-
-        <div class="card">
-          <h3>Position Exposure</h3>
-          <div id="kpiExposure" class="kpi" style="font-size: 24px;">5 Positions</div>
-          <div style="display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap;">
-            <div class="position-chip" data-symbol="ESZ5" data-qty="2" data-notional="142000">
-              <span class="badge success">ESZ5 +2</span>
-              <span class="position-close">×</span>
-              <div class="position-tooltip">$142k notional (52% of portfolio)</div>
-            </div>
-            <div class="position-chip" data-symbol="NQZ5" data-qty="1" data-notional="98500">
-              <span class="badge success">NQZ5 +1</span>
-              <span class="position-close">×</span>
-              <div class="position-tooltip">$98.5k notional (36% of portfolio)</div>
-            </div>
-            <div class="position-chip" data-symbol="CLX5" data-qty="-3" data-notional="32700">
-              <span class="badge danger">CLX5 -3</span>
-              <span class="position-close">×</span>
-              <div class="position-tooltip">$32.7k notional (12% of portfolio)</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Copy Trading Status</h3>
-          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-            <div id="kpiCopy" class="kpi" style="font-size: 24px; color: var(--success); margin: 0;">ACTIVE</div>
-            <div class="sync-status">
-              <div class="sync-dot healthy"></div>
-              <span>All synced</span>
-            </div>
-          </div>
-          <div style="display: flex; justify-content: space-between; font-size: 12px;">
-            <span class="muted">Leaders: <strong>1</strong></span>
-            <span class="muted">Followers: <strong>3</strong></span>
-            <span class="muted">Latency: <strong>18ms</strong></span>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Account Health</h3>
-          <div style="display: grid; gap: 8px;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-size: 12px;">Total Balance</span>
-              <span style="font-weight: 800;">$207,850</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-size: 12px;">Open P&amp;L</span>
-              <span style="font-weight: 800; color: var(--success);">+$657.11</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-size: 12px;">Day P&amp;L</span>
-              <span style="font-weight: 800; color: var(--danger);">-$76.05</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Action Controls -->
-      <div class="grid g-1-2" style="margin-top: 20px;">
-        <div class="card">
-          <h3>Risk Management Controls</h3>
-          <div class="grid g-3" style="margin-top: 8px;">
-            <div class="form-group">
-              <label class="form-label">Daily Max Loss</label>
-              <input id="rcLoss" class="form-input" value="$1,500">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Max Daily Trades</label>
-              <input id="rcTrades" class="form-input" value="40">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Position Limit</label>
-              <input id="rcPos" class="form-input" value="12">
-            </div>
-          </div>
-          <div style="margin-top: 16px; display:flex; gap:12px;">
-            <button id="saveRiskSettings" class="btn primary">Save Settings</button>
-            <button id="resetRiskSettings" class="btn">Reset</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Quick Actions</h3>
-          <div style="display: grid; gap: 12px; margin-top: 8px;">
-            <div style="display: grid; gap: 8px;">
-              <div style="font-size: 12px; font-weight: 600; color: var(--muted);">EMERGENCY CONTROLS</div>
-              <button id="emergencyStopAll" class="btn danger">🚨 Emergency Stop All</button>
-              <button id="closeAllPos" class="btn danger">Close All Positions</button>
-            </div>
-            
-            <div style="display: grid; gap: 8px;">
-              <div style="font-size: 12px; font-weight: 600; color: var(--muted);">COPY TRADING</div>
-              <button id="pauseCopyTrading" class="btn">Pause Copy Trading</button>
-              <button id="syncHealthCheck" class="btn info">Run Sync Health Check</button>
-            </div>
-
-            <div style="display: grid; gap: 8px;">
-              <div style="font-size: 12px; font-weight: 600; color: var(--muted);">MANAGEMENT</div>
-              <button id="addFollower" class="btn primary">Add New Follower</button>
-              <button id="exportDailyReport" class="btn">Export Daily Report</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Copy Trading -->
-    <section id="copy" data-page="copy" style="display: none; visibility: hidden;">
-      <!-- Leader Group 1 -->
-      <div class="leader-group" id="leaderGroup1">
-        <div class="leader-header" onclick="toggleLeaderGroup('leaderGroup1')">
-          <div class="group-icon">👑</div>
-          <div class="group-title">Leader Group 1</div>
-          <div class="group-stats">
-            <span>4 accounts</span>
-            <span>Total P&amp;L: <strong style="color: var(--danger);">-$76.05</strong></span>
-            <span>Status: <strong style="color: var(--success);">Active</strong></span>
-          </div>
-          <div class="expand-icon">▼</div>
-        </div>
-        
-        <div class="follower-list">
-          <!-- Leader Account -->
-          <div class="account-card leader">
-            <div class="account-header">
-              <div class="account-info">
-                <div class="account-name">TV-LEADER-203682037</div>
-                <div class="account-meta">Leader Account • Connected via Tradovate API</div>
-                <div class="account-stats">
-                  <span>Balance: <strong>$52,377</strong></span>
-                  <span>Day P&amp;L: <strong style="color: var(--danger);">-$19.34</strong></span>
-                  <span>Open P&amp;L: <strong style="color: var(--success);">$167.11</strong></span>
-                </div>
-              </div>
-              <div class="account-actions">
-                <div class="sync-status">
-                  <div class="sync-dot healthy"></div>
-                  <span>Active</span>
-                </div>
-                <button class="btn sm" onclick="pauseAccount('TV-LEADER-203682037')">Pause</button>
-                <button class="btn sm danger" onclick="removeAccount('TV-LEADER-203682037')">Remove</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Follower Accounts -->
-          <div class="account-card follower">
-            <div class="account-header">
-              <div class="account-info">
-                <div class="account-name">TV-FOLLOW-203682034</div>
-                <div class="account-meta">Following: TV-LEADER-203682037 • Ratio: 1:1</div>
-                <div class="account-stats">
-                  <span>Balance: <strong>$50,307</strong></span>
-                  <span>Day P&amp;L: <strong style="color: var(--danger);">-$18.77</strong></span>
-                  <span>Open P&amp;L: <strong style="color: var(--success);">$162.14</strong></span>
-                </div>
-              </div>
-              <div class="account-actions">
-                <div class="sync-status">
-                  <div class="sync-dot healthy"></div>
-                  <span>Synced</span>
-                </div>
-                <button class="btn sm" onclick="editFollower('TV-FOLLOW-203682034')">Edit</button>
-                <button class="btn sm" onclick="pauseAccount('TV-FOLLOW-203682034')">Pause</button>
-                <button class="btn sm danger" onclick="removeAccount('TV-FOLLOW-203682034')">Remove</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="account-card follower">
-            <div class="account-header">
-              <div class="account-info">
-                <div class="account-name">TV-FOLLOW-203682035</div>
-                <div class="account-meta">Following: TV-LEADER-203682037 • Ratio: 1:1</div>
-                <div class="account-stats">
-                  <span>Balance: <strong>$51,823</strong></span>
-                  <span>Day P&amp;L: <strong style="color: var(--danger);">-$18.89</strong></span>
-                  <span>Open P&amp;L: <strong style="color: var(--success);">$163.25</strong></span>
-                </div>
-              </div>
-              <div class="account-actions">
-                <div class="sync-status">
-                  <div class="sync-dot healthy"></div>
-                  <span>Synced</span>
-                </div>
-                <button class="btn sm" onclick="editFollower('TV-FOLLOW-203682035')">Edit</button>
-                <button class="btn sm" onclick="pauseAccount('TV-FOLLOW-203682035')">Pause</button>
-                <button class="btn sm danger" onclick="removeAccount('TV-FOLLOW-203682035')">Remove</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="account-card follower">
-            <div class="account-header">
-              <div class="account-info">
-                <div class="account-name">TV-FOLLOW-203682036</div>
-                <div class="account-meta">Following: TV-LEADER-203682037 • Ratio: 1:1</div>
-                <div class="account-stats">
-                  <span>Balance: <strong>$53,342</strong></span>
-                  <span>Day P&amp;L: <strong style="color: var(--danger);">-$19.05</strong></span>
-                  <span>Open P&amp;L: <strong style="color: var(--success);">$164.61</strong></span>
-                </div>
-              </div>
-              <div class="account-actions">
-                <div class="sync-status">
-                  <div class="sync-dot delayed"></div>
-                  <span>Delayed 2s</span>
-                </div>
-                <button class="btn sm" onclick="editFollower('TV-FOLLOW-203682036')">Edit</button>
-                <button class="btn sm" onclick="pauseAccount('TV-FOLLOW-203682036')">Pause</button>
-                <button class="btn sm danger" onclick="removeAccount('TV-FOLLOW-203682036')">Remove</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Add Account Actions -->
-      <div style="display: flex; gap: 12px; margin-bottom: 24px;">
-        <button class="btn primary" id="addLeaderBtn">Add Leader Account</button>
-        <button class="btn primary" id="addFollowerBtn">Add Follower Account</button>
-      </div>
-
-      <!-- Recent Orders -->
-      <div class="card">
-        <div style="display:flex;align-items:center;justify-content:space-between; margin-bottom: 16px;">
-          <h3 style="margin: 0;">Recent Copy Orders</h3>
-          <div style="display: flex; gap: 8px;">
-            <button class="btn sm">Filter Orders</button>
-            <button class="btn sm">Export CSV</button>
-          </div>
-        </div>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Time</th>
-                <th>Leader</th>
-                <th>Followers</th>
-                <th>Symbol</th>
-                <th>Side</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>09:18:11</td>
-                <td><code style="font-size:11px;">TV-LEADER-203682037</code></td>
-                <td><span class="badge success">3 Copied</span></td>
-                <td><span class="badge">ESZ5</span></td>
-                <td><span class="badge success">Buy</span></td>
-                <td>1</td>
-                <td>$5,847.25</td>
-                <td><span class="badge success">All Filled</span></td>
-              </tr>
-              <tr>
-                <td>08:45:33</td>
-                <td><code style="font-size:11px;">TV-LEADER-203682037</code></td>
-                <td><span class="badge success">3 Copied</span></td>
-                <td><span class="badge">NQZ5</span></td>
-                <td><span class="badge success">Buy</span></td>
-                <td>1</td>
-                <td>$22,681.50</td>
-                <td><span class="badge success">All Filled</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- Trading Journal -->
-    <section id="journal" data-page="journal" style="display: none; visibility: hidden;">
-      <!-- Performance Overview -->
-      <div class="grid g-4" style="margin-bottom: 20px;">
-        <div class="performance-metric">
-          <div class="metric-value positive">$2,847</div>
-          <div class="metric-label">Total P&amp;L (30d)</div>
-        </div>
-        <div class="performance-metric">
-          <div class="metric-value">73.3%</div>
-          <div class="metric-label">Win Rate</div>
-        </div>
-        <div class="performance-metric">
-          <div class="metric-value">2.41</div>
-          <div class="metric-label">Profit Factor</div>
-        </div>
-        <div class="performance-metric">
-          <div class="metric-value">1.68</div>
-          <div class="metric-label">Sharpe Ratio</div>
-        </div>
-      </div>
-
-      <!-- P&L Charts -->
-      <div class="grid g-3" style="margin-bottom: 20px;">
-        <div class="card">
-          <h3>Weekly P&amp;L (Last 8)</h3>
-          <div id="weeklyPnL" class="kpi" style="font-size: 20px; color: var(--success);">$1,414</div>
-          <div class="chart-container">
-            <svg id="weeklyChart" class="svg" viewBox="0 0 100 40">
-              <line x1="8" y1="20" x2="92" y2="20" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"></line>
-              <rect x="8" y="10" width="10" height="10" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="20" y="5" width="10" height="15" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="32" y="22" width="10" height="3" rx="2" fill="#ef4444" opacity="0.6"></rect>
-              <rect x="44" y="7" width="10" height="13" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="56" y="12" width="10" height="8" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="68" y="8" width="10" height="12" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="80" y="4" width="10" height="16" rx="2" fill="#10b981" opacity="0.8"></rect>
-            </svg>
-          </div>
-        </div>
-        
-        <div class="card">
-          <h3>Monthly P&amp;L (YTD)</h3>
-          <div id="monthlyPnL" class="kpi" style="font-size: 20px; color: var(--success);">$18,456</div>
-          <div class="chart-container">
-            <svg id="monthlyChart" class="svg" viewBox="0 0 100 40">
-              <line x1="8" y1="20" x2="92" y2="20" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"></line>
-              <rect x="8" y="15" width="7" height="5" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="17" y="12" width="7" height="8" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="26" y="8" width="7" height="12" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="35" y="10" width="7" height="10" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="44" y="6" width="7" height="14" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="53" y="4" width="7" height="16" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="62" y="7" width="7" height="13" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="71" y="5" width="7" height="15" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="80" y="3" width="7" height="17" rx="2" fill="#10b981" opacity="0.8"></rect>
-            </svg>
-          </div>
-        </div>
-        
-        <div class="card">
-          <h3>Yearly P&amp;L</h3>
-          <div id="yearlyPnL" class="kpi" style="font-size: 20px; color: var(--success);">$47,892</div>
-          <div class="chart-container">
-            <svg id="yearlyChart" class="svg" viewBox="0 0 100 40">
-              <line x1="8" y1="20" x2="92" y2="20" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"></line>
-              <rect x="20" y="12" width="15" height="8" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="40" y="6" width="15" height="14" rx="2" fill="#10b981" opacity="0.8"></rect>
-              <rect x="60" y="4" width="15" height="16" rx="2" fill="#10b981" opacity="0.8"></rect>
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <!-- Performance Calendar -->
-      <div class="card" style="margin-bottom: 20px;">
-        <div style="display:flex;align-items:center;justify-content:space-between; margin-bottom: 16px;">
-          <h3 style="margin: 0;">Performance Calendar</h3>
-          <div style="display: flex; gap: 8px; align-items: center;">
-            <span id="calendarMonth" class="muted">September 2025</span>
-            <button class="btn xs" onclick="changeCalendarMonth(-1)">◀</button>
-            <button class="btn xs" onclick="changeCalendarMonth(1)">▶</button>
-          </div>
-        </div>
-        <div class="calendar-grid" id="performanceCalendar">
-          <!-- Calendar days will be populated by JavaScript -->
-        </div>
-      </div>
-
-      <!-- Strategy Performance -->
-      <div class="card" style="margin-bottom: 20px;">
-        <div style="display:flex;align-items:center;justify-content:space-between; margin-bottom: 16px;">
-          <h3 style="margin: 0;">Strategy Performance</h3>
-          <button class="btn sm primary" id="addNewStrategy">Add New Strategy</button>
-        </div>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>Strategy</th>
-                <th>Trades</th>
-                <th>Win Rate</th>
-                <th>Profit Factor</th>
-                <th>Total P&amp;L</th>
-                <th>Max DD</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>ES Scalping</strong></td>
-                <td>87</td>
-                <td><span style="color: var(--success);">76.4%</span></td>
-                <td>2.89</td>
-                <td><span style="color: var(--success);">$1,847</span></td>
-                <td><span style="color: var(--danger);">-$156</span></td>
-                <td><button class="btn xs" onclick="viewStrategyDetails('ES Scalping')">View Details</button></td>
-              </tr>
-              <tr>
-                <td><strong>NQ Momentum</strong></td>
-                <td>34</td>
-                <td><span style="color: var(--success);">71.2%</span></td>
-                <td>1.94</td>
-                <td><span style="color: var(--success);">$743</span></td>
-                <td><span style="color: var(--danger);">-$234</span></td>
-                <td><button class="btn xs" onclick="viewStrategyDetails('NQ Momentum')">View Details</button></td>
-              </tr>
-              <tr>
-                <td><strong>Oil Swing</strong></td>
-                <td>12</td>
-                <td><span style="color: var(--success);">66.7%</span></td>
-                <td>1.42</td>
-                <td><span style="color: var(--success);">$257</span></td>
-                <td><span style="color: var(--danger);">-$89</span></td>
-                <td><button class="btn xs" onclick="viewStrategyDetails('Oil Swing')">View Details</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Trade Journal -->
-      <div class="card">
-        <div style="display:flex;align-items:center;justify-content:space-between; margin-bottom: 16px;">
-          <h3 style="margin: 0;">Trade Journal</h3>
-          <div style="display: flex; gap: 8px;">
-            <button class="btn sm primary" id="addTradeNote">Add Trade Note</button>
-            <button class="btn sm" id="filterTrades">Filter Trades</button>
-          </div>
-        </div>
-
-        <div id="tradeEntries">
-          <div class="trade-entry">
-            <div class="trade-header">
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <span class="badge success">ESZ5</span>
-                <span style="font-weight: 800;">Long +2 @ $5,847.25</span>
-                <span class="badge success">+$89.50</span>
-              </div>
-              <span class="muted" style="font-size: 12px;">Today, 9:18 AM</span>
-            </div>
-            <div class="trade-meta">
-              <span>Strategy: ES Scalping</span>
-              <span>Duration: 1h 23m</span>
-              <span>R/R: 1:2.4</span>
-            </div>
-            <div style="margin-top: 8px; padding: 8px; background: var(--glass); border-radius: 6px; font-size: 13px;">
-              <strong>Entry Reason:</strong> Breakout above key resistance at 5,845 with strong volume. RSI oversold bounce setup.
-            </div>
-          </div>
-
-          <div class="trade-entry">
-            <div class="trade-header">
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <span class="badge">NQZ5</span>
-                <span style="font-weight: 800;">Long +1 @ $22,681.50</span>
-                <span class="badge danger">-$45.25</span>
-              </div>
-              <span class="muted" style="font-size: 12px;">Yesterday, 2:15 PM</span>
-            </div>
-            <div class="trade-meta">
-              <span>Strategy: NQ Momentum</span>
-              <span>Duration: 45m</span>
-              <span>R/R: 1:1.8</span>
-            </div>
-            <div style="margin-top: 8px; padding: 8px; background: var(--glass); border-radius: 6px; font-size: 13px;">
-              <strong>Exit Reason:</strong> Stop loss hit. Market showed signs of weakness after initial momentum failed.
-            </div>
-          </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 16px;">
-          <button class="btn" id="loadMoreTrades">Load More Trades</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Settings -->
-    <section id="settings" data-page="settings" style="display: none; visibility: hidden;">
-      <div class="grid g-2" style="gap: 24px;">
-        <!-- Account Settings -->
-        <div class="card">
-          <h3>Account Settings</h3>
-          <div class="form-group">
-            <label class="form-label">Email Address</label>
-            <input class="form-input" value="trader@example.com" type="email">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Subscription Plan</label>
-            <select class="form-input">
-              <option>Professional ($99/mo)</option>
-              <option>Starter ($29/mo)</option>
-              <option>Enterprise ($199/mo)</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Time Zone</label>
-            <select class="form-input">
-              <option>Eastern Time (ET)</option>
-              <option>Central Time (CT)</option>
-              <option>Mountain Time (MT)</option>
-              <option>Pacific Time (PT)</option>
-            </select>
-          </div>
-          <div style="display:flex; gap:12px; margin-top: 16px;">
-            <button class="btn primary">Save Account Settings</button>
-            <button class="btn">Cancel</button>
-          </div>
-        </div>
-
-        <!-- API Configuration -->
-        <div class="card">
-          <h3>API Configuration</h3>
-          <div class="form-group">
-            <label class="form-label">Tradovate Client ID</label>
-            <input class="form-input" placeholder="Enter your Tradovate Client ID">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Tradovate Client Secret</label>
-            <input class="form-input" placeholder="Enter your Client Secret" type="password">
-          </div>
-          <div class="form-group">
-            <label class="form-label">API Environment</label>
-            <select class="form-input">
-              <option>Live Trading</option>
-              <option>Demo/Paper Trading</option>
-            </select>
-          </div>
-          <div style="display:flex; gap:12px; margin-top: 16px;">
-            <button class="btn primary">Test Connection</button>
-            <button class="btn">Save API Settings</button>
-          </div>
-        </div>
-
-        <!-- Notification Settings -->
-        <div class="card">
-          <h3>Notification Settings</h3>
-          <div style="display: grid; gap: 12px;">
-            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
-              <input type="checkbox" checked="">
-              <span>Email alerts for copy trade executions</span>
-            </label>
-            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
-              <input type="checkbox" checked="">
-              <span>SMS alerts for risk limit breaches</span>
-            </label>
-            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
-              <input type="checkbox">
-              <span>Push notifications for sync failures</span>
-            </label>
-            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
-              <input type="checkbox" checked="">
-              <span>Daily performance summary emails</span>
-            </label>
-          </div>
-          <div style="margin-top: 16px;">
-            <button class="btn primary">Save Notification Settings</button>
-          </div>
-        </div>
-
-        <!-- Usage Overview -->
-        <div class="card">
-          <h3>Usage Overview</h3>
-          <div style="margin-bottom: 16px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <span style="font-size: 12px; color: var(--muted);">API Calls This Month</span>
-              <span style="font-size: 12px; font-weight: 600;">1,247 / 2,000</span>
-            </div>
-            <div style="height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
-              <div style="width: 62%; height: 100%; background: linear-gradient(90deg, var(--prime), var(--prime-light));"></div>
-            </div>
-          </div>
-          
-          <div style="margin-bottom: 16px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-              <span style="font-size: 12px; color: var(--muted);">Connected Accounts</span>
-              <span style="font-size: 12px; font-weight: 600;">4 / 5</span>
-            </div>
-            <div style="height: 8px; background: var(--bg-secondary); border-radius: 4px; overflow: hidden;">
-              <div style="width: 80%; height: 100%; background: linear-gradient(90deg, var(--success), #10b981);"></div>
-            </div>
-          </div>
-
-          <div style="display: grid; gap: 8px; font-size: 12px;">
-            <div style="display: flex; justify-content: space-between;">
-              <span>Copy trades executed</span>
-              <strong>156 this month</strong>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <span>Data storage used</span>
-              <strong>2.3 GB / 5 GB</strong>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <span>Plan renewal</span>
-              <strong>December 15, 2025</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+<nav class="mobile-nav" id="mobileMenu">
+<a href="#features">Features</a>
+<a href="#services">Services</a>
+<a href="#results">Results</a>
+<a href="#faq">FAQ</a>
+<a href="https://calendly.com/lars-dealgen/new-meeting" rel="noopener noreferrer" target="_blank">Book a Call</a>
+</nav>
+<div class="particles-layer particles-back"></div>
+<div class="particles-layer particles-mid"></div>
+<div class="particles-layer particles-front"></div>
+<!-- HEADER -->
+<header>
+<div class="logo">DealGen</div>
+<nav>
+<a href="#features">Features</a>
+<a href="#services">Services</a>
+<a href="#stats">Results</a>
+<a href="#faq">FAQ</a>
+<div class="nav-actions" style="display: flex; align-items: center; gap: 0.75rem;">
+<div class="nav-actions" style="display: flex; align-items: center; gap: 1rem;">
+<div class="nav-actions" style="display: flex; align-items: center; gap: 1rem;">
+<a class="btn btn-primary" href="https://calendly.com/lars-dealgen/new-meeting" rel="noopener noreferrer" target="_blank">Book a Strategy Call</a>
+<div class="theme-wrapper" style="margin-left: 1.25rem; display: flex; align-items: center; justify-content: center;">
+<button aria-label="Toggle theme" class="toggle-theme" onmouseout="hideTooltip()" onmouseover="showTooltip()">
+<svg fill="none" height="20" id="theme-icon" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="5"></circle>
+<line x1="12" x2="12" y1="1" y2="3"></line>
+<line x1="12" x2="12" y1="21" y2="23"></line>
+<line x1="4.22" x2="5.64" y1="4.22" y2="5.64"></line>
+<line x1="18.36" x2="19.78" y1="18.36" y2="19.78"></line>
+<line x1="1" x2="3" y1="12" y2="12"></line>
+<line x1="21" x2="23" y1="12" y2="12"></line>
+<line x1="4.22" x2="5.64" y1="19.78" y2="18.36"></line>
+<line x1="18.36" x2="19.78" y1="5.64" y2="4.22"></line>
+</svg>
+</button>
+<div class="theme-tooltip" id="theme-tooltip" style="display: none;"></div>
 </div>
-
-<!-- Modals -->
-
-<!-- Correlation Review Modal -->
-<div class="modal-backdrop" id="correlationModalBackdrop"></div>
-<div class="modal" id="correlationModal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <h3>Position Correlation Analysis</h3>
-      <button class="btn" onclick="closeModal('#correlationModal')">Close</button>
-    </div>
-    <div class="modal-body">
-      <div>
-        <h4>Pairwise Correlations (Last 24hr)</h4>
-        <div class="correlation-item">
-          <div>
-            <div style="font-weight: 600;">ESZ5 ↔ NQZ5</div>
-            <div style="font-size: 12px; color: var(--muted);">High correlation detected</div>
-          </div>
-          <div class="correlation-value high">89%</div>
-        </div>
-        <div class="correlation-item">
-          <div>
-            <div style="font-weight: 600;">ESZ5 ↔ CLX5</div>
-            <div style="font-size: 12px; color: var(--muted);">Low correlation</div>
-          </div>
-          <div class="correlation-value low">-12%</div>
-        </div>
-      </div>
-      <div>
-        <h4>Portfolio Risk Metrics</h4>
-        <div style="display: grid; gap: 8px; padding: 12px; background: var(--glass); border-radius: 8px;">
-          <div style="display: flex; justify-content: space-between;">
-            <span>Position Concentration</span>
-            <strong>73%</strong>
-          </div>
-          <div style="display: flex; justify-content: space-between;">
-            <span>Correlation-Adjusted Exposure</span>
-            <strong>$198k</strong>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" onclick="reducePosition('ESZ5')">Reduce ESZ5 by 1</button>
-      <button class="btn danger" onclick="closePosition('NQZ5')">Close NQZ5</button>
-      <button class="btn info">Set Correlation Limit</button>
-    </div>
-  </div>
 </div>
-
-<!-- Edit Follower Modal -->
-<div class="modal-backdrop" id="editFollowerModalBackdrop"></div>
-<div class="modal" id="editFollowerModal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <h3 id="editFollowerTitle">Edit Follower Account</h3>
-      <button class="btn" onclick="closeModal('#editFollowerModal')">Close</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label class="form-label">Follow Leader</label>
-        <select class="form-input" id="editLeaderSelect">
-          <option>TV-LEADER-203682037</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Copy Ratio</label>
-        <input class="form-input" id="editCopyRatio" placeholder="1.0">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Status</label>
-        <select class="form-input" id="editStatus">
-          <option>Active</option>
-          <option>Paused</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Max Position Size</label>
-        <input class="form-input" id="editMaxPosition" placeholder="$50,000">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Daily Loss Limit</label>
-        <input class="form-input" id="editDailyLimit" placeholder="$500">
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeModal('#editFollowerModal')">Cancel</button>
-      <button class="btn primary" onclick="saveFollowerEdit()">Save Changes</button>
-    </div>
-  </div>
+</div></div></nav>
+</header>
+<!-- HERO -->
+<section class="hero" id="home" style="padding-bottom: 0;"><div class="particles-bg"><span style="top:0%; left:0%; width:6px; height:6px; animation-delay:0.0s; animation-duration:6s; z-index:0;"></span><span style="top:10%; left:16%; width:9px; height:9px; animation-delay:0.4s; animation-duration:8s; z-index:-1;"></span><span style="top:20%; left:32%; width:12px; height:12px; animation-delay:0.8s; animation-duration:10s; z-index:0;"></span><span style="top:30%; left:33%; width:15px; height:15px; animation-delay:1.2s; animation-duration:6s; z-index:-1;"></span><span style="top:40%; left:49%; width:6px; height:6px; animation-delay:1.6s; animation-duration:8s; z-index:0;"></span><span style="top:35%; left:65%; width:9px; height:9px; animation-delay:2.0s; animation-duration:10s; z-index:-1;"></span><span style="top:45%; left:66%; width:12px; height:12px; animation-delay:0.0s; animation-duration:6s; z-index:0;"></span><span style="top:55%; left:82%; width:15px; height:15px; animation-delay:0.4s; animation-duration:8s; z-index:-1;"></span><span style="top:65%; left:98%; width:6px; height:6px; animation-delay:0.8s; animation-duration:10s; z-index:0;"></span><span style="top:75%; left:99%; width:9px; height:9px; animation-delay:1.2s; animation-duration:6s; z-index:-1;"></span><span style="top:70%; left:15%; width:12px; height:12px; animation-delay:1.6s; animation-duration:8s; z-index:0;"></span><span style="top:80%; left:31%; width:15px; height:15px; animation-delay:2.0s; animation-duration:10s; z-index:-1;"></span><span style="top:90%; left:32%; width:6px; height:6px; animation-delay:0.0s; animation-duration:6s; z-index:0;"></span><span style="top:0%; left:48%; width:9px; height:9px; animation-delay:0.4s; animation-duration:8s; z-index:-1;"></span><span style="top:10%; left:64%; width:12px; height:12px; animation-delay:0.8s; animation-duration:10s; z-index:0;"></span><span style="top:5%; left:65%; width:15px; height:15px; animation-delay:1.2s; animation-duration:6s; z-index:-1;"></span><span style="top:15%; left:81%; width:6px; height:6px; animation-delay:1.6s; animation-duration:8s; z-index:0;"></span><span style="top:25%; left:97%; width:9px; height:9px; animation-delay:2.0s; animation-duration:10s; z-index:-1;"></span><span style="top:35%; left:98%; width:12px; height:12px; animation-delay:0.0s; animation-duration:6s; z-index:0;"></span><span style="top:45%; left:14%; width:15px; height:15px; animation-delay:0.4s; animation-duration:8s; z-index:-1;"></span><span style="top:40%; left:30%; width:6px; height:6px; animation-delay:0.8s; animation-duration:10s; z-index:0;"></span><span style="top:50%; left:31%; width:9px; height:9px; animation-delay:1.2s; animation-duration:6s; z-index:-1;"></span><span style="top:60%; left:47%; width:12px; height:12px; animation-delay:1.6s; animation-duration:8s; z-index:0;"></span><span style="top:70%; left:63%; width:15px; height:15px; animation-delay:2.0s; animation-duration:10s; z-index:-1;"></span><span style="top:80%; left:64%; width:6px; height:6px; animation-delay:0.0s; animation-duration:6s; z-index:0;"></span><span style="top:75%; left:80%; width:9px; height:9px; animation-delay:0.4s; animation-duration:8s; z-index:-1;"></span><span style="top:85%; left:96%; width:12px; height:12px; animation-delay:0.8s; animation-duration:10s; z-index:0;"></span><span style="top:95%; left:97%; width:15px; height:15px; animation-delay:1.2s; animation-duration:6s; z-index:-1;"></span><span style="top:5%; left:13%; width:6px; height:6px; animation-delay:1.6s; animation-duration:8s; z-index:0;"></span><span style="top:15%; left:29%; width:9px; height:9px; animation-delay:2.0s; animation-duration:10s; z-index:-1;"></span><span style="top:10%; left:30%; width:12px; height:12px; animation-delay:0.0s; animation-duration:6s; z-index:0;"></span><span style="top:20%; left:46%; width:15px; height:15px; animation-delay:0.4s; animation-duration:8s; z-index:-1;"></span><span style="top:30%; left:62%; width:6px; height:6px; animation-delay:0.8s; animation-duration:10s; z-index:0;"></span><span style="top:40%; left:63%; width:9px; height:9px; animation-delay:1.2s; animation-duration:6s; z-index:-1;"></span><span style="top:50%; left:79%; width:12px; height:12px; animation-delay:1.6s; animation-duration:8s; z-index:0;"></span><span style="top:45%; left:95%; width:15px; height:15px; animation-delay:2.0s; animation-duration:10s; z-index:-1;"></span><span style="top:55%; left:96%; width:6px; height:6px; animation-delay:0.0s; animation-duration:6s; z-index:0;"></span><span style="top:65%; left:12%; width:9px; height:9px; animation-delay:0.4s; animation-duration:8s; z-index:-1;"></span><span style="top:75%; left:28%; width:12px; height:12px; animation-delay:0.8s; animation-duration:10s; z-index:0;"></span><span style="top:85%; left:29%; width:15px; height:15px; animation-delay:1.2s; animation-duration:6s; z-index:-1;"></span><span class="particle" data-speed="0.02" style="top:0%; left:0%; animation-delay:0.0s;width:6px; height:6px;"></span><span class="particle" data-speed="0.03" style="top:2%; left:37%; animation-delay:0.3s;width:7px; height:7px;"></span><span class="particle" data-speed="0.04" style="top:4%; left:74%; animation-delay:0.6s;width:8px; height:8px;"></span><span class="particle" data-speed="0.02" style="top:6%; left:11%; animation-delay:0.8999999999999999s;width:9px; height:9px;"></span><span class="particle" data-speed="0.03" style="top:8%; left:48%; animation-delay:1.2s;width:10px; height:10px;"></span><span class="particle" data-speed="0.04" style="top:10%; left:85%; animation-delay:0.0s;width:6px; height:6px;"></span><span class="particle" data-speed="0.02" style="top:12%; left:22%; animation-delay:0.3s;width:7px; height:7px;"></span><span class="particle" data-speed="0.03" style="top:14%; left:59%; animation-delay:0.6s;width:8px; height:8px;"></span><span class="particle" data-speed="0.04" style="top:16%; left:96%; animation-delay:0.8999999999999999s;width:9px; height:9px;"></span><span class="particle" data-speed="0.02" style="top:18%; left:33%; animation-delay:1.2s;width:10px; height:10px;"></span><span class="particle" data-speed="0.03" style="top:20%; left:70%; animation-delay:0.0s;width:6px; height:6px;"></span><span class="particle" data-speed="0.04" style="top:22%; left:7%; animation-delay:0.3s;width:7px; height:7px;"></span><span class="particle" data-speed="0.02" style="top:24%; left:44%; animation-delay:0.6s;width:8px; height:8px;"></span><span class="particle" data-speed="0.03" style="top:26%; left:81%; animation-delay:0.8999999999999999s;width:9px; height:9px;"></span><span class="particle" data-speed="0.04" style="top:28%; left:18%; animation-delay:1.2s;width:10px; height:10px;"></span><span class="particle" data-speed="0.02" style="top:30%; left:55%; animation-delay:0.0s;width:6px; height:6px;"></span><span class="particle" data-speed="0.03" style="top:32%; left:92%; animation-delay:0.3s;width:7px; height:7px;"></span><span class="particle" data-speed="0.04" style="top:34%; left:29%; animation-delay:0.6s;width:8px; height:8px;"></span><span class="particle" data-speed="0.02" style="top:36%; left:66%; animation-delay:0.8999999999999999s;width:9px; height:9px;"></span><span class="particle" data-speed="0.03" style="top:38%; left:3%; animation-delay:1.2s;width:10px; height:10px;"></span><span class="particle" data-speed="0.04" style="top:40%; left:40%; animation-delay:0.0s;width:6px; height:6px;"></span><span class="particle" data-speed="0.02" style="top:42%; left:77%; animation-delay:0.3s;width:7px; height:7px;"></span><span class="particle" data-speed="0.03" style="top:44%; left:14%; animation-delay:0.6s;width:8px; height:8px;"></span><span class="particle" data-speed="0.04" style="top:46%; left:51%; animation-delay:0.8999999999999999s;width:9px; height:9px;"></span><span class="particle" data-speed="0.02" style="top:48%; left:88%; animation-delay:1.2s;width:10px; height:10px;"></span><span class="particle" data-speed="0.03" style="top:50%; left:25%; animation-delay:0.0s;width:6px; height:6px;"></span><span class="particle" data-speed="0.04" style="top:52%; left:62%; animation-delay:0.3s;width:7px; height:7px;"></span><span class="particle" data-speed="0.02" style="top:54%; left:99%; animation-delay:0.6s;width:8px; height:8px;"></span><span class="particle" data-speed="0.03" style="top:56%; left:36%; animation-delay:0.8999999999999999s;width:9px; height:9px;"></span><span class="particle" data-speed="0.04" style="top:58%; left:73%; animation-delay:1.2s;width:10px; height:10px;"></span><span class="particle" data-speed="0.02" style="top:60%; left:10%; animation-delay:0.0s;width:6px; height:6px;"></span><span class="particle" data-speed="0.03" style="top:62%; left:47%; animation-delay:0.3s;width:7px; height:7px;"></span><span class="particle" data-speed="0.04" style="top:64%; left:84%; animation-delay:0.6s;width:8px; height:8px;"></span><span class="particle" data-speed="0.02" style="top:66%; left:21%; animation-delay:0.8999999999999999s;width:9px; height:9px;"></span><span class="particle" data-speed="0.03" style="top:68%; left:58%; animation-delay:1.2s;width:10px; height:10px;"></span><span class="particle" data-speed="0.04" style="top:70%; left:95%; animation-delay:0.0s;width:6px; height:6px;"></span><span class="particle" data-speed="0.02" style="top:72%; left:32%; animation-delay:0.3s;width:7px; height:7px;"></span><span class="particle" data-speed="0.03" style="top:74%; left:69%; animation-delay:0.6s;width:8px; height:8px;"></span><span class="particle" data-speed="0.04" style="top:76%; left:6%; animation-delay:0.8999999999999999s;width:9px; height:9px;"></span><span class="particle" data-speed="0.02" style="top:78%; left:43%; animation-delay:1.2s;width:10px; height:10px;"></span><span class="particle" data-speed="0.03" style="top:80%; left:80%; animation-delay:0.0s;width:6px; height:6px;"></span><span class="particle" data-speed="0.04" style="top:82%; left:17%; animation-delay:0.3s;width:7px; height:7px;"></span><span class="particle" data-speed="0.02" style="top:84%; left:54%; animation-delay:0.6s;width:8px; height:8px;"></span><span class="particle" data-speed="0.03" style="top:86%; left:91%; animation-delay:0.8999999999999999s;width:9px; height:9px;"></span><span class="particle" data-speed="0.04" style="top:88%; left:28%; animation-delay:1.2s;width:10px; height:10px;"></span><span class="particle" data-speed="0.02" style="top:90%; left:65%; animation-delay:0.0s;width:6px; height:6px;"></span><span class="particle" data-speed="0.03" style="top:92%; left:2%; animation-delay:0.3s;width:7px; height:7px;"></span><span class="particle" data-speed="0.04" style="top:94%; left:39%; animation-delay:0.6s;width:8px; height:8px;"></span><span class="particle" data-speed="0.02" style="top:96%; left:76%; animation-delay:0.8999999999999999s;width:9px; height:9px;"></span><span class="particle" data-speed="0.03" style="top:98%; left:13%; animation-delay:1.2s;width:10px; height:10px;"></span></div>
+<h1 class="float-drift">Launch a Sales‑Ready Site + 500 Targeted Emails in 30 Days.</h1>
+<p>We build a 3‑page, AI‑designed website in one week, then run done‑for‑you cold outreach at $139 per inbox. You handle the replies and close the deals.</p>
+<div class="cta-group">
+<a class="btn btn-primary" href="#features">Explore Features</a>
+<a class="btn btn-outline" href="#stats">See Results</a>
 </div>
-
-<!-- Add Account Modal -->
-<div class="modal-backdrop" id="addAccountModalBackdrop"></div>
-<div class="modal" id="addAccountModal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <h3 id="addAccountTitle">Add Trading Account</h3>
-      <button class="btn" onclick="closeModal('#addAccountModal')">Close</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label class="form-label">Account Type</label>
-        <select class="form-input" id="accountType" onchange="toggleAccountFields()">
-          <option>Leader Account</option>
-          <option>Follower Account</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Account ID</label>
-        <input class="form-input" placeholder="Enter Tradovate Account ID" id="accountId">
-      </div>
-      <div class="form-group" id="leaderSelectGroup" style="display: none;">
-        <label class="form-label">Follow Leader</label>
-        <select class="form-input" id="leaderSelect">
-          <option>TV-LEADER-203682037</option>
-        </select>
-      </div>
-      <div class="form-group" id="ratioGroup" style="display: none;">
-        <label class="form-label">Copy Ratio</label>
-        <input class="form-input" placeholder="1.0" id="copyRatio">
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeModal('#addAccountModal')">Cancel</button>
-      <button class="btn primary" onclick="saveAccount()">Add Account</button>
-    </div>
-  </div>
+<!-- Brand logos -->
+<div class="brand-scroll-gradient-right"></div>
+<!-- Animated Brand Row -->
+<section class="brand-bounce-section">
+<div class="brand-bounce-wrapper">
+<div class="brand-bounce-track">
+<img alt="Apollo" src="apollo.png"/>
+<img alt="Clay" src="clay.png"/>
+<img alt="Instantly" src="instantly.png"/>
+<img alt="Smartlead" src="smartlead.png"/>
+<img alt="LeadMagic" src="leadmagic.png"/>
+<img alt="Apollo" src="apollo.png"/>
+<img alt="Clay" src="clay.png"/>
+<img alt="Instantly" src="instantly.png"/>
+<img alt="Smartlead" src="smartlead.png"/>
+<img alt="LeadMagic" src="leadmagic.png"/>
 </div>
-
-<!-- Add Trade Note Modal -->
-<div class="modal-backdrop" id="addTradeModalBackdrop"></div>
-<div class="modal" id="addTradeModal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <h3>Add Trade Note</h3>
-      <button class="btn" onclick="closeModal('#addTradeModal')">Close</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group">
-        <label class="form-label">Symbol</label>
-        <input class="form-input" id="tradeSymbol" placeholder="ESZ5">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Side &amp; Quantity</label>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-          <select class="form-input" id="tradeSide">
-            <option>Long</option>
-            <option>Short</option>
-          </select>
-          <input class="form-input" id="tradeQty" placeholder="Quantity">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Entry Price</label>
-        <input class="form-input" id="tradeEntry" placeholder="5847.25">
-      </div>
-      <div class="form-group">
-        <label class="form-label">P&amp;L</label>
-        <input class="form-input" id="tradePnL" placeholder="+89.50">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Strategy</label>
-        <select class="form-input" id="tradeStrategy">
-          <option>ES Scalping</option>
-          <option>NQ Momentum</option>
-          <option>Oil Swing</option>
-          <option>Manual Trade</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Entry Reason</label>
-        <textarea class="form-input" id="tradeReason" style="min-height: 80px;" placeholder="Describe your entry reasoning..."></textarea>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeModal('#addTradeModal')">Cancel</button>
-      <button class="btn primary" onclick="saveTradeNote()">Save Trade Note</button>
-    </div>
-  </div>
 </div>
-
-<!-- Calendar Day Detail Modal -->
-<div class="modal-backdrop" id="calendarDayModalBackdrop"></div>
-<div class="modal" id="calendarDayModal">
-  <div class="modal-card">
-    <div class="modal-head">
-      <h3 id="calendarDayTitle">September 15, 2025</h3>
-      <button class="btn" onclick="closeModal('#calendarDayModal')">Close</button>
-    </div>
-    <div class="modal-body">
-      <div id="calendarDayContent">
-        <!-- Content will be populated by JavaScript -->
-      </div>
-    </div>
-  </div>
+</section>
+<div class="globe-wrap"><div class="globe"></div></div>
+</section>
+<!-- FEATURES -->
+<section class="container" id="features">
+<div class="features-header">
+<div>
+<span class="badge" style="background:var(--card-bg);color:var(--text)">Advanced Features</span>
+<h2>What’s Included In Your Engine</h2>
+<p>We use 15–25 inboxes to send up to 12,500 targeted emails per month. You just handle the replies.</p>
+<button class="btn btn-outline" style="margin-top:1.1rem">View Full Feature List</button>
 </div>
-
-<!-- Quick Actions -->
-<div class="quick-actions">
-  <button class="quick-action" title="Emergency Stop" onclick="emergencyStopAll()">🚨</button>
-  <button class="quick-action" title="Add Position" onclick="addPosition()">➕</button>
-  <button class="quick-action" title="Export Data" onclick="exportData()">📊</button>
+<div class="features-grid"></div>
 </div>
-
+<div class="features-grid">
+<div class="feature-card">
+<h3>Infrastructure Built For Scale</h3>
+<p class="text-muted">25 inboxes warmed, secured, and monitored for 93%+ inbox placement. Includes SPF, DKIM, DMARC, and bounce logic — already handled.</p>
+</div>
+<div class="feature-card">
+<h3>Laser‑Targeted Lists</h3>
+<p class="text-muted">Every contact is hand‑picked and enriched via Clay + Apollo — filtered by role, tech stack, or industry. Built for reply rate, not just volume.</p>
+</div>
+<div class="feature-card">
+<h3>Campaigns That Convert</h3>
+<p class="text-muted">40–60% open rates across live accounts. We write the sequences, test variants, and optimize for replies — no input required from you.</p>
+</div>
+<div class="feature-card">
+<h3>Dashboard + Slack Sync</h3>
+<p class="text-muted">Track opens, replies, meetings, and route them directly to your CRM or Slack. You reply — we handle the engine underneath.</p>
+</div>
+</div>
+</section>
+<section class="container" id="stats" style="text-align:center; padding: 80px 20px;">
+<h2>Performance That Compounds</h2>
+<div class="stats-grid" style="display:flex; flex-wrap:wrap; justify-content:center; gap:40px; margin-top:40px;">
+<div class="stat-block">
+<h3 style="color:var(--brand); font-size:2rem;">93%+</h3>
+<p class="text-muted">Inbox Placement</p>
+</div>
+<div class="stat-block">
+<h3 style="color:var(--brand); font-size:2rem;">40–60%</h3>
+<p class="text-muted">Open Rates</p>
+</div>
+<div class="stat-block">
+<h3 style="color:var(--brand); font-size:2rem;">5–15%</h3>
+<p class="text-muted">Positive Reply Rate</p>
+</div>
+<div class="stat-block">
+<h3 style="color:var(--brand); font-size:2rem;">3–4 weeks</h3>
+<p class="text-muted">Time to Launch</p>
+</div>
+<div class="stat-block">
+<h3 style="color:var(--brand); font-size:2rem;">12,500+</h3>
+<p class="text-muted">Monthly Emails Sent</p>
+</div>
+</div>
+</section>
+<!-- SERVICES -->
+<section id="services">
+<div class="container">
+<div class="services-header">
+<h2>One System. Three Levels of Firepower.</h2>
+<p></p>
+</div>
+<div class="services-grid">
+<div class="service-card" data-animate="" style="background:var(--card-bg);padding:30px;border-radius:12px;text-align:left;box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+<span class="price-badge">Cold Email DFY</span>
+<h3>Done‑For‑You Cold Email</h3>
+<p class="text-muted">We'll warm domains, build lists, write campaigns, and push 500 personalized emails per inbox, every month.</p>
+<ul class="service-features">
+<li><strong>$139 / inbox / mo</strong> – includes full warm-up + monitoring</li>
+<li>3-inbox minimum to ensure proper send volume</li>
+<li>We build the list, write the copy, monitor deliverability</li>
+<li>You handle replies, book calls, and close deals</li>
+</ul>
+<a class="btn btn-primary" href="#footer">Start Outreach</a>
+</div>
+<div class="service-card" data-animate="">
+<span class="price-badge">AI Website Build</span>
+<h3>$1,300 one‑time</h3>
+<p>3 pages, 2 revision rounds, delivered in 7 days.</p>
+<ul class="service-features">
+<li>Mobile‑first, lightning fast</li>
+<li>Conversion‑driven copy (written for you)</li>
+<li>Hosted &amp; handed over—no code needed</li>
+<li>Optional Care Plan $99/mo (edits + uptime)</li>
+</ul>
+<a class="btn btn-primary" href="#footer">Book Build Week</a>
+</div>
+<div class="service-card" data-animate="">
+<span class="price-badge">Custom</span>
+<h3>Multi-Brand Campaign Engine</h3>
+<p>Perfect for agencies and in-house teams running multiple verticals.</p>
+<ul class="service-features"><li>5+ inboxes and dedicated domains</li><li>Full Clay + Apollo integration</li><li>Custom AI logic flows</li><li>Slack access to strategist</li></ul>
+<div class="service-price">Custom Pricing</div>
+<a class="btn btn-primary" href="#footer">Get Started</a>
+</div>
+</div>
+</div>
+</section>
+<section class="web-stats container container" style="background: var(--bg-alt); padding: 60px 20px;">
+<h2 style="font-size:2rem;margin-bottom:30px;">Why a Better Website Converts</h2>
+<div class="stat-block" style="flex:1;min-width:200px;background:var(--card-bg);padding:24px;border-radius:12px;box-shadow:0 1px 5px rgba(0,0,0,0.05);text-align:center;"><div class="stat-block" style="flex:1;min-width:200px;background:var(--card-bg);padding:24px;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,0.04);text-align:center;">
+</div><div class="stat-block" style="flex:1;min-width:200px;background:var(--card-bg);padding:24px;border-radius:12px;box-shadow:0 1px 5px rgba(0,0,0,0.05);text-align:center;">
+<h3 style="color:var(--brand);font-size:2rem;margin-bottom:8px;">50%</h3>
+<p style="color:var(--text-muted);font-size:1rem;">of all website traffic comes from mobile – we build fully responsive sites</p>
+</div><div class="stat-block" style="flex:1;min-width:200px;background:var(--card-bg);padding:24px;border-radius:12px;box-shadow:0 1px 5px rgba(0,0,0,0.05);text-align:center;">
+<h3 style="color:var(--brand);font-size:2rem;margin-bottom:8px;">0.05s</h3>
+<p style="color:var(--text-muted);font-size:1rem;">is how fast visitors judge your site’s design – first impressions matter</p>
+</div><div class="stat-block" style="flex:1;min-width:200px;background:var(--card-bg);padding:24px;border-radius:12px;box-shadow:0 1px 5px rgba(0,0,0,0.05);text-align:center;">
+<h3 style="color:var(--brand);font-size:2rem;margin-bottom:8px;">89%</h3>
+<p style="color:var(--text-muted);font-size:1rem;">of users shop with a competitor after a bad site experience</p>
+</div></div></section>
+<!-- STATS -->
+<!-- FAQ -->
+<section id="faq">
+<div class="faq-wrapper">
+<h2 style="text-align:center;font-size:2.2rem;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:2.5rem">Quick Answers</h2>
+<div class="faq-item"><div class="faq-question">How fast do campaigns launch?<span class="faq-toggle">+</span></div><div class="faq-answer"><p>Setup takes 3–5 days. Campaigns go live ~3–4 weeks after kickoff (due to warmup + testing).</p></div></div>
+<div class="faq-item"><div class="faq-question">Do I need to manage anything?<span class="faq-toggle">+</span></div><div class="faq-answer"><p>Nope. We build, write, and send — unless you want access to your dashboard.</p></div></div>
+<div class="faq-item"><div class="faq-question">What do I get access to?<span class="faq-toggle">+</span></div><div class="faq-answer"><p>Your own CRM-integrated inbox feed, performance stats, and a reply dashboard.</p></div></div>
+<div class="faq-item"><div class="faq-question">Can I bring my own lists or data?<span class="faq-toggle">+</span></div><div class="faq-answer"><p>Yes, and we’ll clean, enrich, and rework them using our system.</p></div></div>
+</div>
+</section>
+<!-- FOOTER -->
 <script>
-(function(){
-  const $ = q => document.querySelector(q);
-  const $$ = q => Array.from(document.querySelectorAll(q));
-
-  // Global state
-  let currentCalendarMonth = new Date();
-  let selectedFollower = null;
-
-  /* Utility functions */
-  function fmt(n){ 
-    const s=(typeof n==='number')?n:parseFloat(String(n||0)); 
-    const sign=s<0?'-':''; 
-    return sign+'$'+Math.abs(s).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); 
-  }
-  
-  function showToast(message, type = 'info'){
-    const toast = document.createElement('div');
-    toast.style.cssText = `
-      position:fixed;top:84px;right:20px;background:var(--panel);border:1px solid var(--stroke);
-      border-radius:12px;padding:12px 16px;color:var(--ink);box-shadow:var(--shadow);z-index:1000;
-      max-width:300px;
-    `;
-    if(type === 'success') toast.style.borderColor = 'var(--success)';
-    if(type === 'danger') toast.style.borderColor = 'var(--danger)';
-    toast.textContent = message;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-  }
-
-  /* Theme management */
-  const THEME_KEY = 'td_theme';
-  function setTheme(mode){ 
-    document.documentElement.setAttribute('data-theme', mode); 
-    localStorage.setItem(THEME_KEY, mode); 
-  }
-  function toggleTheme(){ 
-    const cur = document.documentElement.getAttribute('data-theme') || 'dark'; 
-    setTheme(cur === 'dark' ? 'light' : 'dark'); 
-  }
-  const savedTheme = localStorage.getItem(THEME_KEY) || 'dark';
-  setTheme(savedTheme);
-  $('#themeBtn').addEventListener('click', toggleTheme);
-
-  /* Navigation */
-  function initNavigation(){
-    const navCheckbox = $('#nav');
-    const overlay = $('.overlay');
-    const main = document.querySelector('main');
-    
-    // Auto-close navigation
-    const closeNav = () => { if(navCheckbox) navCheckbox.checked = false; };
-    if(overlay) overlay.addEventListener('click', closeNav);
-    if(main) main.addEventListener('click', closeNav);
-    
-    // Route handling
-    function goto(route){
-      const pages = $$('section[data-page]');
-      if(!pages.some(p => p.id === route)) route = 'overview';
-      
-      pages.forEach(p => {
-        const show = (p.id === route);
-        p.classList.toggle('show', show);
-        p.style.display = show ? 'block' : 'none';
-        p.style.visibility = show ? 'visible' : 'hidden';
-      });
-      
-      $$('.navbtn').forEach(n => n.classList.toggle('active', n.dataset.route === route));
-      
-      if(location.hash.slice(1) !== route) {
-        try { history.replaceState(null, '', '#' + route); } 
-        catch(e) { location.hash = '#' + route; }
-      }
-      
-      window.scrollTo({top: 0, left: 0, behavior: 'instant'});
-      closeNav();
-    }
-    
-    $$('.navbtn').forEach(n => n.addEventListener('click', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      goto(n.dataset.route);
-    }));
-    
-    window.addEventListener('hashchange', () => goto(location.hash.slice(1)));
-    goto(location.hash.slice(1) || 'overview');
-  }
-
-  /* Modal management */
-  window.openModal = function(modalId) {
-    const backdrop = document.querySelector(modalId + 'Backdrop');
-    const modal = document.querySelector(modalId);
-    if(backdrop) backdrop.classList.add('open');
-    if(modal) modal.classList.add('open');
-  }
-  
-  window.closeModal = function(modalId) {
-    const backdrop = document.querySelector(modalId + 'Backdrop');
-    const modal = document.querySelector(modalId);
-    if(backdrop) backdrop.classList.remove('open');
-    if(modal) modal.classList.remove('open');
-  }
-
-  /* Copy Trading Functions */
-  window.toggleLeaderGroup = function(groupId) {
-    const group = document.getElementById(groupId);
-    if(group) {
-      group.classList.toggle('collapsed');
-    }
-  }
-
-  window.editFollower = function(accountId) {
-    selectedFollower = accountId;
-    $('#editFollowerTitle').textContent = `Edit Follower: ${accountId}`;
-    $('#editCopyRatio').value = '1.0';
-    $('#editStatus').value = 'Active';
-    $('#editMaxPosition').value = '$50,000';
-    $('#editDailyLimit').value = '$500';
-    openModal('#editFollowerModal');
-  }
-
-  window.saveFollowerEdit = function() {
-    if(selectedFollower) {
-      showToast(`Follower ${selectedFollower} updated successfully`, 'success');
-      closeModal('#editFollowerModal');
-      selectedFollower = null;
-    }
-  }
-
-  window.pauseAccount = function(accountId) {
-    showToast(`Account ${accountId} paused`, 'info');
-  }
-
-  window.removeAccount = function(accountId) {
-    if(confirm(`Are you sure you want to remove account ${accountId}?`)) {
-      showToast(`Account ${accountId} removed`, 'success');
-    }
-  }
-
-  /* Account Management */
-  window.toggleAccountFields = function() {
-    const accountType = $('#accountType');
-    const leaderSelectGroup = $('#leaderSelectGroup');
-    const ratioGroup = $('#ratioGroup');
-    
-    const isFollower = accountType.value === 'Follower Account';
-    leaderSelectGroup.style.display = isFollower ? 'block' : 'none';
-    ratioGroup.style.display = isFollower ? 'block' : 'none';
-  }
-
-  window.saveAccount = function() {
-    const type = $('#accountType').value;
-    const id = $('#accountId').value;
-    if(!id) {
-      showToast('Please enter an account ID', 'danger');
-      return;
-    }
-    showToast(`${type} added successfully: ${id}`, 'success');
-    closeModal('#addAccountModal');
-    $('#accountId').value = '';
-  }
-
-  /* Position Management */
-  window.reducePosition = function(symbol) {
-    showToast(`Reduced ${symbol} position by 1 lot`, 'success');
-    closeModal('#correlationModal');
-  }
-
-  window.closePosition = function(symbol) {
-    showToast(`Closed ${symbol} position`, 'success');
-    closeModal('#correlationModal');
-  }
-
-  /* Trading Journal Functions */
-  window.addNewStrategy = function() {
-    const strategyName = prompt('Enter strategy name:');
-    if(strategyName) {
-      showToast(`Strategy "${strategyName}" added`, 'success');
-    }
-  }
-
-  window.viewStrategyDetails = function(strategyName) {
-    showToast(`Viewing details for ${strategyName}`, 'info');
-  }
-
-  window.saveTradeNote = function() {
-    const symbol = $('#tradeSymbol').value;
-    const side = $('#tradeSide').value;
-    const qty = $('#tradeQty').value;
-    
-    if(!symbol || !qty) {
-      showToast('Please fill in symbol and quantity', 'danger');
-      return;
-    }
-    
-    showToast(`Trade note saved for ${symbol}`, 'success');
-    closeModal('#addTradeModal');
-    
-    // Clear form
-    $('#tradeSymbol').value = '';
-    $('#tradeQty').value = '';
-    $('#tradeEntry').value = '';
-    $('#tradePnL').value = '';
-    $('#tradeReason').value = '';
-  }
-
-  /* Calendar Functions */
-  function generateCalendarData() {
-    const calendarData = {};
-    const today = new Date();
-    
-    // Generate sample P&L data for the current month
-    const year = currentCalendarMonth.getFullYear();
-    const month = currentCalendarMonth.getMonth();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    
-    for(let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(year, month, day);
-      if(date <= today) {
-        // Generate random P&L for past days
-        const pnl = (Math.random() - 0.3) * 400; // Slight positive bias
-        calendarData[day] = {
-          pnl: Math.round(pnl * 100) / 100,
-          trades: Math.floor(Math.random() * 5) + 1
-        };
-      }
-    }
-    
-    return calendarData;
-  }
-
-  function renderCalendar() {
-    const calendar = $('#performanceCalendar');
-    const data = generateCalendarData();
-    
-    const year = currentCalendarMonth.getFullYear();
-    const month = currentCalendarMonth.getMonth();
-    const firstDay = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    
-    $('#calendarMonth').textContent = currentCalendarMonth.toLocaleString('default', { month: 'long', year: 'numeric' });
-    
-    calendar.innerHTML = '';
-    
-    // Add empty cells for days before the first day of the month
-    for(let i = 0; i < firstDay; i++) {
-      const emptyDay = document.createElement('div');
-      emptyDay.className = 'calendar-day empty';
-      calendar.appendChild(emptyDay);
-    }
-    
-    // Add days of the month
-    for(let day = 1; day <= daysInMonth; day++) {
-      const dayData = data[day];
-      const dayElement = document.createElement('div');
-      dayElement.className = `calendar-day ${dayData ? (dayData.pnl >= 0 ? 'win' : 'loss') : ''}`;
-      dayElement.onclick = () => showCalendarDay(day, dayData);
-      
-      dayElement.innerHTML = `
-        <div class="calendar-day-number">${day}</div>
-        ${dayData ? `<div class="calendar-day-pnl">${fmt(dayData.pnl)}</div>` : ''}
-      `;
-      
-      calendar.appendChild(dayElement);
-    }
-  }
-
-  window.changeCalendarMonth = function(direction) {
-    currentCalendarMonth.setMonth(currentCalendarMonth.getMonth() + direction);
-    renderCalendar();
-  }
-
-  window.showCalendarDay = function(day, data) {
-    if(!data) return;
-    
-    const monthName = currentCalendarMonth.toLocaleString('default', { month: 'long' });
-    const year = currentCalendarMonth.getFullYear();
-    
-    $('#calendarDayTitle').textContent = `${monthName} ${day}, ${year}`;
-    $('#calendarDayContent').innerHTML = `
-      <div style="display: grid; gap: 16px;">
-        <div style="text-align: center; padding: 16px; background: var(--glass); border-radius: 8px;">
-          <div style="font-size: 24px; font-weight: 800; color: ${data.pnl >= 0 ? 'var(--success)' : 'var(--danger)'};">
-            ${fmt(data.pnl)}
-          </div>
-          <div style="font-size: 12px; color: var(--muted); margin-top: 4px;">
-            ${data.trades} trades executed
-          </div>
-        </div>
-        <div>
-          <h4>Day Summary</h4>
-          <div style="font-size: 13px; line-height: 1.5;">
-            ${data.pnl >= 0 ? 'Profitable trading day with consistent execution.' : 'Challenging day with some setbacks, but within risk parameters.'}
-            Average trade size was moderate with good risk management.
-          </div>
-        </div>
-      </div>
-    `;
-    
-    openModal('#calendarDayModal');
-  }
-
-  /* Loss Status Updates */
-  function updateLossStatus() {
-    const totalPnL = 581.06; // Current total P&L
-    const dailyLimit = 1500;
-    const lossStatus = $('#lossStatus');
-    const lossProgressBar = $('.loss-progress-bar');
-    const lossProgressText = $('.loss-progress-text');
-    const lossStatusValue = $('.loss-status-value');
-    
-    if(totalPnL >= 0) {
-      // Profitable day
-      lossStatus.className = 'loss-status profitable';
-      lossStatusValue.innerHTML = `PROFITABLE: <span class="positive">${fmt(totalPnL)}</span>`;
-      lossProgressBar.style.width = '0%';
-      lossProgressBar.style.background = 'linear-gradient(90deg, var(--success), #10b981)';
-      lossProgressText.textContent = 'Above Daily Limit - All Good!';
-    } else {
-      const lossAmount = Math.abs(totalPnL);
-      const percentage = Math.min((lossAmount / dailyLimit) * 100, 100);
-      
-      if(percentage < 75) {
-        lossStatus.className = 'loss-status profitable';
-        lossStatusValue.innerHTML = `WITHIN LIMITS: <span class="negative">${fmt(totalPnL)}</span>`;
-        lossProgressBar.style.background = 'linear-gradient(90deg, var(--success), var(--warning))';
-      } else if(percentage < 100) {
-        lossStatus.className = 'loss-status approaching';
-        lossStatusValue.innerHTML = `APPROACHING LIMIT: <span class="negative">${fmt(totalPnL)}</span>`;
-        lossProgressBar.style.background = 'linear-gradient(90deg, var(--warning), var(--danger))';
-      } else {
-        lossStatus.className = 'loss-status exceeded';
-        lossStatusValue.innerHTML = `LIMIT EXCEEDED: <span class="negative">${fmt(totalPnL)}</span>`;
-        lossProgressBar.style.background = 'linear-gradient(90deg, var(--danger), #dc2626)';
-      }
-      
-      lossProgressBar.style.width = percentage + '%';
-      lossProgressText.textContent = `${percentage.toFixed(1)}% of daily limit used`;
-    }
-  }
-
-  /* Action handlers */
-  function initActionHandlers() {
-    // Correlation alert handler
-    $('#reviewCorrelation')?.addEventListener('click', () => openModal('#correlationModal'));
-    
-    // Emergency controls
-    $('[id*="emergencyStop"], [id*="Emergency"]').forEach(btn => {
-      btn.addEventListener('click', () => showToast('EMERGENCY STOP activated - All trading halted', 'danger'));
-    });
-    
-    $('[id*="closeAll"], [id*="Close"]').forEach(btn => {
-      btn.addEventListener('click', () => showToast('All positions closed successfully', 'success'));
-    });
-    
-    $('[id*="cancelAll"], [id*="Cancel"]').forEach(btn => {
-      btn.addEventListener('click', () => showToast('All pending orders cancelled', 'success'));
-    });
-    
-    // Copy trading controls
-    $('#pauseCopyTrading')?.addEventListener('click', () => showToast('Copy trading paused', 'info'));
-    $('#syncHealthCheck')?.addEventListener('click', () => showToast('Sync health check completed - All connections healthy', 'success'));
-    
-    // Management actions
-    $('#addFollower')?.addEventListener('click', () => {
-      $('#accountType').value = 'Follower Account';
-      toggleAccountFields();
-      $('#addAccountTitle').textContent = 'Add Follower Account';
-      openModal('#addAccountModal');
-    });
-    
-    $('#addLeaderBtn')?.addEventListener('click', () => {
-      $('#accountType').value = 'Leader Account';
-      toggleAccountFields();
-      $('#addAccountTitle').textContent = 'Add Leader Account';
-      openModal('#addAccountModal');
-    });
-    
-    $('#addFollowerBtn')?.addEventListener('click', () => {
-      $('#accountType').value = 'Follower Account';
-      toggleAccountFields();
-      $('#addAccountTitle').textContent = 'Add Follower Account';
-      openModal('#addAccountModal');
-    });
-    
-    $('#exportDailyReport')?.addEventListener('click', () => showToast('Daily report exported successfully', 'success'));
-    
-    // Risk settings
-    $('#saveRiskSettings')?.addEventListener('click', () => showToast('Risk settings saved successfully', 'success'));
-    $('#resetRiskSettings')?.addEventListener('click', () => {
-      $('#rcLoss').value = '$1,500';
-      $('#rcTrades').value = '40';
-      $('#rcPos').value = '12';
-      showToast('Risk settings reset to defaults', 'info');
-    });
-    
-    // Journal actions
-    $('#addTradeNote')?.addEventListener('click', () => openModal('#addTradeModal'));
-    $('#filterTrades')?.addEventListener('click', () => showToast('Trade filtering functionality', 'info'));
-    $('#loadMoreTrades')?.addEventListener('click', () => showToast('Loading more trades...', 'info'));
-    
-    // Position close buttons
-    $('.position-close').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const symbol = btn.closest('.position-chip').querySelector('.badge').textContent.split(' ')[0];
-        showToast(`Position ${symbol} closed successfully`, 'success');
-        btn.closest('.position-chip').remove();
-      });
-    });
-    
-    // Modal backdrop handlers
-    $('.modal-backdrop').forEach(backdrop => {
-      backdrop.addEventListener('click', () => {
-        const modalId = '#' + backdrop.id.replace('Backdrop', '');
-        closeModal(modalId);
-      });
-    });
-  }
-
-  /* Quick Action Functions */
-  window.emergencyStopAll = function() {
-    showToast('EMERGENCY STOP: All trading systems halted', 'danger');
-  }
-
-  window.addPosition = function() {
-    showToast('Add position functionality', 'info');
-  }
-
-  window.exportData = function() {
-    showToast('Data export started', 'success');
-  }
-
-  /* Data updates */
-  function updateRealTimeData() {
-    // Update loss status
-    updateLossStatus();
-    
-    // Simulate real-time P&L updates
-    setInterval(() => {
-      const totalPnL = $('#totalPnL');
-      if(totalPnL) {
-        const current = parseFloat(totalPnL.textContent.replace(/[^0-9.-]/g, ''));
-        const change = (Math.random() - 0.5) * 10;
-        const newValue = current + change;
-        totalPnL.textContent = fmt(newValue);
-        totalPnL.className = `kpi large ${newValue >= 0 ? 'positive' : 'negative'}`;
-        
-        // Update loss status with new value
-        updateLossStatus();
-      }
-    }, 8000);
-    
-    // Update sync status
-    setInterval(() => {
-      $('.sync-dot').forEach(dot => {
-        if(Math.random() > 0.95) { // Occasionally show delay
-          dot.className = 'sync-dot delayed';
-          const textElement = dot.nextElementSibling;
-          if(textElement) {
-            textElement.textContent = 'Delayed ' + Math.floor(Math.random() * 5 + 1) + 's';
-            setTimeout(() => {
-              dot.className = 'sync-dot healthy';
-              textElement.textContent = 'Synced';
-            }, 3000);
-          }
-        }
-      });
-    }, 12000);
-  }
-
-  /* Initialize everything */
-  function init() {
-    initNavigation();
-    initActionHandlers();
-    renderCalendar();
-    updateLossStatus();
-    updateRealTimeData();
-    
-    console.log('TraderDuo platform initialized successfully');
-  }
-
-  // Start when DOM is ready
-  if(document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-
-})();
+const root = document.documentElement;
+const storedTheme = localStorage.getItem("theme");
+if (storedTheme) {
+  root.setAttribute("data-theme", storedTheme);
+} else {
+  const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  root.setAttribute("data-theme", systemDark ? "dark" : "light");
+}
+document.querySelector(".toggle-theme").addEventListener("click", () => {
+  const current = root.getAttribute("data-theme");
+  const next = current === "dark" ? "light" : "dark";
+  root.setAttribute("data-theme", next);
+  localStorage.setItem("theme", next);
+});
 </script>
+<script>
+// animate on scroll
+const animatedEls = document.querySelectorAll('[data-animate]');
+const animateObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      animateObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.25 });
 
+animatedEls.forEach(el => animateObserver.observe(el));
+</script><script>
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  document.querySelectorAll('.particles-bg .particle').forEach(p => {
+    const speed = parseFloat(p.dataset.speed);
+    p.style.transform = `translateY(${scrollY * speed}px)`;
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const header = document.querySelector("header");
+  const featuresSection = document.querySelector("#features") || document.querySelector(".features");
 
+  function handleScroll() {
+    if (!featuresSection) return;
+    const featuresTop = featuresSection.getBoundingClientRect().top;
+    if (featuresTop <= window.innerHeight * 0.3) {  // LOWER trigger (was 0.8)
+      header.classList.add("scrolled");
+    } else {
+      header.classList.remove("scrolled");
+    }
+  }
 
-</body></html>
+  window.addEventListener("scroll", handleScroll);
+  handleScroll(); // run on load
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const particles = document.querySelector(".particles");
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+    if (particles) {
+      particles.style.transform = `translateY(${scrollY * 0.4}px)`;
+    }
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const back = document.querySelector(".particles-back");
+  const mid = document.querySelector(".particles-mid");
+  const front = document.querySelector(".particles-front");
+
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+    if (back) back.style.transform = `translateY(${scrollY * 0.1}px)`;
+    if (mid) mid.style.transform = `translateY(${scrollY * 0.3}px)`;
+    if (front) front.style.transform = `translateY(${scrollY * 0.6}px)`;
+  });
+});
+</script>
+<footer class="footer-themed" style="background-color: var(--bg); color: var(--text); border-top: 1px solid var(--accent); padding: 3rem 1rem 2rem 1rem; font-size: 0.95rem;">
+<div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+<h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem; color: var(--text);">Ready to Fill Your Pipeline?</h2>
+<p style="font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--text-muted);">Schedule a 15‑min call to lock in your build week or inbox slots.</p>
+<a href="#" style="display: inline-block; padding: 1rem 2rem; font-size: 1rem; background: linear-gradient(to right, #4d64ff, #00e0ff); color: var(--text); border-radius: 8px; text-decoration: none; font-weight: 600;">
+      Book Strategy Call
+    </a>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; max-width: 1200px; margin: 2rem auto 0; font-size: 0.85rem;">
+<div style="flex: 1; min-width: 200px;">
+<strong style="display: block; margin-bottom: 0.5rem;">Connect</strong>
+<a href="https://www.linkedin.com/company/dealgen-app?trk=public_profile_topcard-current-company" style="color: var(--text-muted); text-decoration: none; margin-right: 1rem;">LinkedIn</a>
+</div>
+<div style="flex: 1; min-width: 200px; text-align: right;">
+<a href="mailto:hello@leadhype.com" style="color: var(--text-muted); text-decoration: none;">Lars@dealgen.app</a><br/>
+<a href="tel:+15550123456" style="color: var(--text-muted); text-decoration: none;">+1 (732) 962‑2036</a><br/>
+<small style="display: block; margin-top: 0.5rem;">© 2025 DealGen. All rights reserved.</small>
+<script>
+  const toggle = document.createElement("button");
+  toggle.innerText = "";
+  toggle.className = "toggle-theme";
+  toggle.onclick = () => {
+    document.documentElement.setAttribute("data-theme",
+      document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark"
+    );
+  };
+  document.body.appendChild(toggle);
+
+  const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  document.documentElement.setAttribute("data-theme", systemDark ? "dark" : "light");
+</script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script><script>AOS.init();</script><script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const faqItems = document.querySelectorAll(".faq-item");
+
+      faqItems.forEach(item => {
+        item.addEventListener("click", () => {
+          item.classList.toggle("open");
+        });
+      });
+    });
+    </script><script>
+function toggleMenu() {
+  const menu = document.getElementById("mobileMenu");
+  menu.classList.toggle("show");
+}
+</script></div></div></footer></body>
+</html>
